@@ -1,6 +1,8 @@
 ﻿Scouts Honour
 =============
 
+Coming soon...
+
 This is a cub badge & attendance tracking web app for Cubs New Zealand.
 
 

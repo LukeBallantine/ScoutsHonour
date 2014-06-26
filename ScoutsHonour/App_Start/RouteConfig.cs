@@ -14,6 +14,11 @@ namespace ScoutsHonour
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Organisation",
+                url: "organisation/{name}",
+                defaults: new { controller = "Organisation", action = "Search", name = "" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

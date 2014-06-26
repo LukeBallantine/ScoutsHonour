@@ -36,22 +36,22 @@ using System.Linq;
         public int GroupId { get; set; }
     }
 
-    public class Group
-    {
-        public int GroupId { get; set; }
-        public string Title { get; set; }
-        public string GroupCode { get; set; }
-        public int OrganisationId { get; set; }
-        public List<User> Users;
-    }
+    //public class Group
+    //{
+    //    public int GroupId { get; set; }
+    //    public string Title { get; set; }
+    //    public string GroupCode { get; set; }
+    //    public int OrganisationId { get; set; }
+    //    public List<User> Users;
+    //}
 
-    public class Organisation
-    {
-        public int OrganisationId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public List<Group> Groups;
-    }
+    //public class Organisation
+    //{
+    //    public int OrganisationId { get; set; }
+    //    public string Title { get; set; }
+    //    public string Description { get; set; }
+    //    public List<Group> Groups;
+    //}
 
     public class Goal
     {

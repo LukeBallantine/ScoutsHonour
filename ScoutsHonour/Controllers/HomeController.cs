@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScoutsHonour.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,13 @@ namespace ScoutsHonour.Controllers
 {
     public class HomeController : Controller
     {
+        ScoutsHonourDb _db = new ScoutsHonourDb();
+
         public ActionResult Index()
         {
-            return View();
+            var model = _db.Groups.ToList();
+
+            return View(model);
         }
 
         public ActionResult About()

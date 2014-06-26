@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoutsHonour", "ScoutsHonour\ScoutsHonour.csproj", "{06BF843F-BF3F-42F1-8431-FDE9EE62256C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoutsHonour.Tests", "..\..\..\users\luke\documents\visual studio 2013\Projects\ScoutsHonour\ScoutsHonour.Tests\ScoutsHonour.Tests.csproj", "{488DB16E-6C75-4C66-9B05-E963A39DA1A2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{61F4C988-E517-46FA-BD1A-59263EB25614}"
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
@@ -21,6 +19,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{03F6084C-A9C8-4FCF-93CE-1AE4381578FA}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoutsHonour.Tests", "ScoutsHonour.Tests\ScoutsHonour.Tests.csproj", "{488DB16E-6C75-4C66-9B05-E963A39DA1A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED76E68C-C209-4036-A3F7-FB0B29354C5B}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Global
