@@ -5,11 +5,13 @@ using System.Web;
 
 namespace ScoutsHonour.Models
 {
-    public class Organisation
+    public class Event
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<Group> Groups { get; set; }
+        public DateTime EventDate { get; set; }
+        public ICollection<User> Users;
+        public ICollection<Goal> Goals;
     }
 }
