@@ -14,7 +14,7 @@ namespace ScoutsHonour.Models
         public int UserTypeId { get; set; }
         public string SixColour { get; set; }
         public int RankId { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public ICollection<Event> Events { get; set; }
         public ICollection<Goal> Goals { get; set; }
     }

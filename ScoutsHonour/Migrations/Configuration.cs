@@ -31,14 +31,37 @@ namespace ScoutsHonour.Migrations
                                     FirstName = "Ellis",
                                     LastName = "Ballantine",
                                     Email = "lukesinbox@gmail.com",
-                                    SixColour = "White"
+                                    SixColour = "White",
+                                    UserTypeId = 1
+                                },
+                                new User {
+                                    FirstName = "Cameron",
+                                    LastName = "Adams",
+                                    Email = "gregadams22@gmail.com",
+                                    SixColour = "Yellow",
+                                    UserTypeId = 1
+                                },
+                                new User {
+                                    FirstName = "Micah",
+                                    LastName = "Fitton-Higgins",
+                                    Email = "clivehiggins@gmail.com",
+                                    SixColour = "Gray",
+                                    UserTypeId = 1
                                 },
                                 new User {
                                     FirstName = "Fraser",
                                     LastName = "Lynch",
                                     Email = "gerrylynch@mars.co.nz",
-                                    SixColour = "White"
-                                }
+                                    SixColour = "White",
+                                    UserTypeId = 1
+                                },
+                                new User {
+                                    FirstName = "Luke",
+                                    LastName = "Ballantine",
+                                    Email = "lukesinbox@gmail.com",
+                                    SixColour = null,
+                                    UserTypeId = 2
+                                },
                             }
                         },
                         new Group { Title = "Glendowie Cubs Tuesday Night", GroupCode = "GLENCUBTUE" }

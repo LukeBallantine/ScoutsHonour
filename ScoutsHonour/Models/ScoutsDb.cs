@@ -16,5 +16,20 @@ namespace ScoutsHonour.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Goal> Goals { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Group>()
+                .HasMany(x => x.Users)
+                .WithMany()
+                .Map(x =>
+                {
+                    x.MapLeftKey("GroupId");
+                    x.MapRightKey("UserId");
+                    x.ToTable("GroupUserMapping");
+                });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
