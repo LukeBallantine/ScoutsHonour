@@ -19,11 +19,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Total Cubs")
+            @Html.DisplayName("Cubs")
         </dt>
 
         <dd>
             @Model.Users.Select(u => u.UserTypeId == 1).Count()
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Leaders")
+        </dt>
+
+        <dd>
+            @Model.Users.Select(u => u.UserTypeId == 2).Count()
         </dd>
     </dl>
 </div>

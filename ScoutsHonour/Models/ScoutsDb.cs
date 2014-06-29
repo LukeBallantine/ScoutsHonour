@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ScoutsHonour.Models
 {
@@ -19,17 +21,23 @@ namespace ScoutsHonour.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>()
-                .HasMany(x => x.Users)
-                .WithMany()
-                .Map(x =>
-                {
-                    x.MapLeftKey("GroupId");
-                    x.MapRightKey("UserId");
-                    x.ToTable("GroupUserMapping");
-                });
-
             base.OnModelCreating(modelBuilder);
+            
+            // Sample code to changing mapping table names and fields
+            //modelBuilder.Entity<Group>()
+            //    .HasMany(x => x.Users)
+            //    .WithMany();
+                //.Map(x =>
+                //{
+                //    x.MapLeftKey("GroupId");
+                //    x.MapRightKey("UserId");
+                //    x.ToTable("GroupUserMapping");
+                //});
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+
         }
     }
 }

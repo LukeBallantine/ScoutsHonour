@@ -11,7 +11,7 @@ namespace ScoutsHonour.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime EventDate { get; set; }
-        public ICollection<User> Users;
-        public ICollection<Goal> Goals;
+        public ICollection<User> Users { get; set; }
+        public ICollection<Goal> Goals { get; set; }
     }
 }

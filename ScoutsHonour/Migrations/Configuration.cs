@@ -54,14 +54,7 @@ namespace ScoutsHonour.Migrations
                                     Email = "gerrylynch@mars.co.nz",
                                     SixColour = "White",
                                     UserTypeId = 1
-                                },
-                                new User {
-                                    FirstName = "Luke",
-                                    LastName = "Ballantine",
-                                    Email = "lukesinbox@gmail.com",
-                                    SixColour = null,
-                                    UserTypeId = 2
-                                },
+                                }
                             }
                         },
                         new Group { Title = "Glendowie Cubs Tuesday Night", GroupCode = "GLENCUBTUE" }
@@ -71,39 +64,47 @@ namespace ScoutsHonour.Migrations
             context.Goals.AddOrUpdate(r => r.Title,
                 new Goal
                 {
+                    //ParentGoalId = null,
                     Title = "Bronze Cornerstone",
                     Level = 0,
                     Goals = new List<Goal> {
                         new Goal {
+                            //ParentGoalId = 1,
                             Title = "My Community: Part 1", 
                             Level = 1,
                             ChildRequirementCount = 2,
                             Goals = new List<Goal> {
                                 new Goal {
+                                    //ParentGoalId = 2,
                                     Title = "Visit a marae", 
                                     Level = 3
                                     },
                                 new Goal {
+                                    //ParentGoalId = 2,
                                     Title = "Attend an Anzac day ceremony", 
                                     Level = 3
                                     }
                             }
                         },
                         new Goal {
+                            //ParentGoalId = 1,
                             Title = "My Community: Part 2", 
                             Level = 1,
                             ChildRequirementCount = 2,
                             Goals = new List<Goal> {
                                 new Goal {
+                                    //ParentGoalId = 5,
                                     Title = "Visit a police station", 
                                     Level = 3
                                     },
                                 new Goal {
+                                    //ParentGoalId = 5,
                                     Title = "Draw a map",
                                     Description = "Draw a map of the route from your home to your school.",
                                     Level = 3
                                     },
                                 new Goal {
+                                    //ParentGoalId = 5,
                                     Title = "Paint a mural",
                                     Level = 3
                                 }
