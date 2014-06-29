@@ -8,12 +8,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ScoutsHonour.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ScoutsHonour.Controllers
 {
-    public class GroupsController : Controller
+    public class GroupsController : BaseController<ApplicationUser, IdentityRole, IdentityDbContext<ApplicationUser>>
     {
-        private ScoutsHonourDb db = new ScoutsHonourDb();
+        private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Groups
         public async Task<ActionResult> Index()

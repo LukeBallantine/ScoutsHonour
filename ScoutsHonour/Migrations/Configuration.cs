@@ -7,14 +7,14 @@ namespace ScoutsHonour.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ScoutsHonour.Models.ScoutsHonourDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<ScoutsHonour.Models.ScoutsHonourDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ScoutsHonour.Models.ScoutsHonourDb context)
+        protected override void Seed(ScoutsHonour.Models.ScoutsHonourDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -64,47 +64,39 @@ namespace ScoutsHonour.Migrations
             context.Goals.AddOrUpdate(r => r.Title,
                 new Goal
                 {
-                    //ParentGoalId = null,
                     Title = "Bronze Cornerstone",
                     Level = 0,
                     Goals = new List<Goal> {
                         new Goal {
-                            //ParentGoalId = 1,
                             Title = "My Community: Part 1", 
                             Level = 1,
                             ChildRequirementCount = 2,
                             Goals = new List<Goal> {
                                 new Goal {
-                                    //ParentGoalId = 2,
                                     Title = "Visit a marae", 
                                     Level = 3
                                     },
                                 new Goal {
-                                    //ParentGoalId = 2,
                                     Title = "Attend an Anzac day ceremony", 
                                     Level = 3
                                     }
                             }
                         },
                         new Goal {
-                            //ParentGoalId = 1,
                             Title = "My Community: Part 2", 
                             Level = 1,
                             ChildRequirementCount = 2,
                             Goals = new List<Goal> {
                                 new Goal {
-                                    //ParentGoalId = 5,
                                     Title = "Visit a police station", 
                                     Level = 3
                                     },
                                 new Goal {
-                                    //ParentGoalId = 5,
                                     Title = "Draw a map",
                                     Description = "Draw a map of the route from your home to your school.",
                                     Level = 3
                                     },
                                 new Goal {
-                                    //ParentGoalId = 5,
                                     Title = "Paint a mural",
                                     Level = 3
                                 }

@@ -9,7 +9,7 @@ namespace ScoutsHonour.Controllers
 {
     public class HomeController : Controller
     {
-        ScoutsHonourDb _db = new ScoutsHonourDb();
+        ScoutsHonourDbContext _db = new ScoutsHonourDbContext();
 
         public ActionResult Index()
         {

@@ -15,7 +15,7 @@ using ScoutsHonour.Models;
 namespace ScoutsHonour.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
         private ApplicationUserManager _userManager;
 
