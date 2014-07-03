@@ -10,7 +10,7 @@ namespace ScoutsHonour.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string GroupCode { get; set; }
-        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
-        public ICollection<User> Users { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

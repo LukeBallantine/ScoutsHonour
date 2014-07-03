@@ -12,8 +12,8 @@ namespace ScoutsHonour.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int? ChildRequirementCount { get; set; }
-        public ICollection<Goal> Goals { get; set; }
-        public ICollection<User> Users { get; set; }
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Goal> Goals { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

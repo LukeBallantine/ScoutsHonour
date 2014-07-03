@@ -20,22 +20,24 @@ namespace ScoutsHonour.Models
 
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Member> Members { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Goal> Goals { get; set; }
+
+        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.Entity<ApplicationUser>()
-                .HasMany(x => x.Users)
+                .HasMany(x => x.Members)
                 .WithMany()
                 .Map(x =>
                 {
-                    x.ToTable("AspNetUserUsers");
+                    x.ToTable("AspNetUserMembers");
                     x.MapLeftKey("AspNetUser_Id");
-                    x.MapRightKey("User_Id");
+                    x.MapRightKey("Member_Id");
                 });
 
             modelBuilder.Entity<Group>()
@@ -44,8 +46,8 @@ namespace ScoutsHonour.Models
                 .Map(x =>
                 {
                     x.ToTable("GroupAspNetUsers");
-                    x.MapRightKey("Group_Id"); 
-                    x.MapLeftKey("AspNetUser_Id");
+                    x.MapLeftKey("Group_Id"); 
+                    x.MapRightKey("AspNetUser_Id");
                 });
 
             #region Unused Remapping

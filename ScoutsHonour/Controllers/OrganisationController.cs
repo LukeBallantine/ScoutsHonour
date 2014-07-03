@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ScoutsHonour.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ScoutsHonour.Controllers
 {
-    public class OrganisationController : Controller
+    public class OrganisationController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
         // GET: Organisation
         public ActionResult Search(string name)
@@ -16,6 +18,8 @@ namespace ScoutsHonour.Controllers
             //return RedirectToRoute()
             //return File(Server.MapPath("~/Content/Site.css"), "text/css"));
             //return Json(new { Message = "You entered: " + name, Name = "Luke" }, JsonRequestBehavior.AllowGet);
+
+
 
             return View();
         }

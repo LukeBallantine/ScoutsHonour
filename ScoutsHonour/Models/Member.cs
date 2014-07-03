@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ScoutsHonour.Models
 {
-    public class User
+    public class Member
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -16,8 +16,8 @@ namespace ScoutsHonour.Models
         public string Rank { get; set; }
         public DateTime? DOB { get; set; }
         public DateTime? DateJoined { get; set; }
-        public ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
-        public ICollection<Event> Events { get; set; }
-        public ICollection<Goal> Goals { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
+        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<Goal> Goals { get; set; }
     }
 }

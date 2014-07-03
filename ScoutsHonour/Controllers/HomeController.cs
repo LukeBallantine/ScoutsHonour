@@ -1,4 +1,5 @@
-﻿using ScoutsHonour.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ScoutsHonour.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Web.Mvc;
 
 namespace ScoutsHonour.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
-        ScoutsHonourDbContext _db = new ScoutsHonourDbContext();
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var model = _db.Groups.ToList();
-
+            var model = Context.Groups.ToList();
+            
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,6 +27,7 @@ namespace ScoutsHonour.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using ScoutsHonour.Models;
+using ScoutsHonour.Enums;
+using System.Data.Entity;
 
 namespace ScoutsHonour.Controllers
 {
@@ -90,6 +92,21 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
+                // find relevant group for user
+                Group group = Context.Groups.Single(g => g.GroupCode == model.RegistrationCode);
+                if (group == null)
+                {
+                    ModelState.AddModelError("", "Registration Code not recognised");
+                    return View(model);
+                }
+
+                Member member = Context.Members.Single(m => m.FirstName == "Ellis");
+
+                Goal goal = Context.Goals.Single(g => g.Id == 1);
+
+
+                Context.SaveChanges();
+
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -101,6 +118,21 @@ namespace ScoutsHonour.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    AssignUserRoles(user, model.RegistrationCode);
+                    //Context.Users.Attach(user);
+
+                    Context.SaveChanges();
+
+                    // link user to group given by registration code
+                    //group.ApplicationUsers.Add(user); // need to use user.Groups.Add instead, since this seems to be interpretted as adding a new user!!
+                    //Context.ApplicationUsers.Attach(user);
+                    //Context.Groups.Attach(group);
+                    user.Groups.Add(group);
+                    //Context.Users.Attach(user);
+                    //Context.Entry<ApplicationUser>(user).State = EntityState.Modified;
+
+                    Context.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -467,6 +499,22 @@ namespace ScoutsHonour.Controllers
         }
 
         #region Helpers
+
+        private bool AssignUserRoles(ApplicationUser user, string registrationCode)
+        {
+            IdentityResult result;
+            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(Context));
+
+            if (user.Email == "lukesinbox@gmail.com")
+                result = um.AddToRole(user.Id, Role.Admin.ToString());
+            else if (registrationCode.ToLower() == "leader")
+                result = um.AddToRole(user.Id, Role.Leader.ToString());
+            else 
+                result = um.AddToRole(user.Id, Role.Parent.ToString());
+
+            return result.Succeeded;
+        }
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

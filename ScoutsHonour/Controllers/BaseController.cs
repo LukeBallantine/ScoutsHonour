@@ -17,6 +17,7 @@ namespace ScoutsHonour.Controllers
         public UserManager<TApplicationUser> UserManager { get; set; }
         public RoleManager<TIdentityRole> RoleManager { get; set; }
         public TIdentityDbContext Context { get; set; }
+        
         protected BaseController()
         {
             Context = new TIdentityDbContext();
@@ -24,6 +25,7 @@ namespace ScoutsHonour.Controllers
             UserManager.UserValidator = new UserValidator<TApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
             RoleManager = new RoleManager<TIdentityRole>(new RoleStore<TIdentityRole>(Context));
         }
+
         protected override void Dispose(bool disposing)
         {
             if (RoleManager != null) RoleManager.Dispose();

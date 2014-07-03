@@ -10,6 +10,6 @@ namespace ScoutsHonour.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

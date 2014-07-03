@@ -54,6 +54,12 @@ namespace ScoutsHonour.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(30)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Registration Code")]
+        public string RegistrationCode { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
