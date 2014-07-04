@@ -16,6 +16,7 @@ namespace ScoutsHonour.Models
         public string Rank { get; set; }
         public DateTime? DOB { get; set; }
         public DateTime? DateJoined { get; set; }
+        public virtual Group Group { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<Goal> Goals { get; set; }

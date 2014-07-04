@@ -104,14 +104,11 @@ namespace ScoutsHonour.Controllers
 
                 Goal goal = Context.Goals.Single(g => g.Id == 1);
 
-
-                Context.SaveChanges();
-
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                user.Groups.Add(group);
+                IdentityResult result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInAsync(user, isPersistent: true);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -122,17 +119,17 @@ namespace ScoutsHonour.Controllers
                     AssignUserRoles(user, model.RegistrationCode);
                     //Context.Users.Attach(user);
 
-                    Context.SaveChanges();
-
                     // link user to group given by registration code
                     //group.ApplicationUsers.Add(user); // need to use user.Groups.Add instead, since this seems to be interpretted as adding a new user!!
                     //Context.ApplicationUsers.Attach(user);
                     //Context.Groups.Attach(group);
-                    user.Groups.Add(group);
+                    //user.Groups.Add(group);
                     //Context.Users.Attach(user);
                     //Context.Entry<ApplicationUser>(user).State = EntityState.Modified;
 
                     Context.SaveChanges();
+
+                    await SignInAsync(user, isPersistent: true);
 
                     return RedirectToAction("Index", "Home");
                 }

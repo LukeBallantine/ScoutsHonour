@@ -29,26 +29,34 @@ namespace ScoutsHonour.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(x => x.Members)
-                .WithMany()
-                .Map(x =>
-                {
-                    x.ToTable("AspNetUserMembers");
-                    x.MapLeftKey("AspNetUser_Id");
-                    x.MapRightKey("Member_Id");
-                });
 
-            modelBuilder.Entity<Group>()
-                .HasMany(x => x.ApplicationUsers)
-                .WithMany()
-                .Map(x =>
-                {
-                    x.ToTable("GroupAspNetUsers");
-                    x.MapLeftKey("Group_Id"); 
-                    x.MapRightKey("AspNetUser_Id");
-                });
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(x => x.Members)
+            //    .WithMany();
+
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(x => x.Groups)
+            //    .WithMany();
+
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(x => x.Members)
+            //    .WithMany()
+            //    .Map(x =>
+            //    {
+            //        x.ToTable("AspNetUserMembers");
+            //        x.MapLeftKey("AspNetUser_Id");
+            //        x.MapRightKey("Member_Id");
+            //    });
+
+            //modelBuilder.Entity<Group>()
+            //    .HasMany(x => x.ApplicationUsers)
+            //    .WithMany()
+            //    .Map(x =>
+            //    {
+            //        x.ToTable("GroupAspNetUsers");
+            //        x.MapLeftKey("Group_Id"); 
+            //        x.MapRightKey("AspNetUser_Id");
+            //    });
 
             #region Unused Remapping
 
