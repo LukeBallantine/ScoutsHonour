@@ -25,6 +25,8 @@ namespace ScoutsHonour.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
+            throw new Exception("hey");
+
             return View();
         }
 
