@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ScoutsHonour.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace ScoutsHonour.Models
 {
@@ -74,6 +75,12 @@ namespace ScoutsHonour.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class RegisterSuccessViewModel
+    {
+        public string GroupTitle { get; set; }
+        public Role Role { get; set; }
     }
 
     public class ResetPasswordViewModel

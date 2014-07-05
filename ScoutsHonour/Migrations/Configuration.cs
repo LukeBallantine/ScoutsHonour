@@ -58,7 +58,8 @@ namespace ScoutsHonour.Migrations
                     Groups = new List<Group> {
                                 new Group { 
                                     Title = "Glendowie Cubs Wednesday Night", 
-                                    GroupCode = "GLENCUBWED",
+                                    GroupCodeParent = "GLENCUBWED",
+                                    GroupCodeLeader = "GLENCUBWEDL",
                                     Members = new List<Member> {
                                         new Member {
                                             FirstName = "Ellis",
@@ -90,7 +91,11 @@ namespace ScoutsHonour.Migrations
                                         }
                                     }
                                 },
-                                new Group { Title = "Glendowie Cubs Tuesday Night", GroupCode = "GLENCUBTUE" }
+                                new Group {
+                                    Title = "Glendowie Cubs Tuesday Night", 
+                                    GroupCodeParent = "GLENCUBTUE",
+                                    GroupCodeLeader = "GLENCUBTUEL"
+                                }
                             }
                 });
 

@@ -12,7 +12,10 @@ using Microsoft.Owin.Security;
 using Owin;
 using ScoutsHonour.Models;
 using ScoutsHonour.Enums;
+using ScoutsHonour.Extensions;
 using System.Data.Entity;
+using System.Web.Security;
+using System.Dynamic;
 
 namespace ScoutsHonour.Controllers
 {
@@ -92,23 +95,28 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
-                // find relevant group for user
-                Group group = Context.Groups.Single(g => g.GroupCode == model.RegistrationCode);
+                // find relevant group for registering user
+                Group group = Context.Groups.Single(g => g.GroupCodeParent == model.RegistrationCode 
+                                                      || g.GroupCodeLeader == model.RegistrationCode);
                 if (group == null)
                 {
                     ModelState.AddModelError("", "Registration Code not recognised");
                     return View(model);
                 }
 
-                Member member = Context.Members.Single(m => m.FirstName == "Ellis");
+                Role codeType = Role.Parent;
+                if (model.RegistrationCode.ToLower() == group.GroupCodeLeader.ToLower())
+                    codeType = Role.Leader;
+                else if (model.RegistrationCode.ToLower() == group.GroupCodeParent.ToLower())
+                    codeType = Role.Parent;
 
-                Goal goal = Context.Goals.Single(g => g.Id == 1);
-
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-                user.Groups.Add(group);
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RegistrationCode = model.RegistrationCode };
+                //user.Groups.Add(group);
                 IdentityResult result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    await SignInAsync(user, isPersistent: true);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -116,22 +124,8 @@ namespace ScoutsHonour.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    AssignUserRoles(user, model.RegistrationCode);
-                    //Context.Users.Attach(user);
-
-                    // link user to group given by registration code
-                    //group.ApplicationUsers.Add(user); // need to use user.Groups.Add instead, since this seems to be interpretted as adding a new user!!
-                    //Context.ApplicationUsers.Attach(user);
-                    //Context.Groups.Attach(group);
-                    //user.Groups.Add(group);
-                    //Context.Users.Attach(user);
-                    //Context.Entry<ApplicationUser>(user).State = EntityState.Modified;
-
-                    Context.SaveChanges();
-
-                    await SignInAsync(user, isPersistent: true);
-
-                    return RedirectToAction("Index", "Home");
+                    AssignUserRoles(user, codeType);
+                    return RedirectToAction("RegisterSuccess", "Groups", new { role = codeType });
                 }
                 else
                 {
@@ -142,6 +136,10 @@ namespace ScoutsHonour.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        // TODO: This action was moved to GroupsController, since linking user & group doesn't work here. Context issue..?
+        //public async Task<ActionResult> RegisterSuccess(Role role)
+        //{ }
 
         //
         // GET: /Account/ConfirmEmail
@@ -495,22 +493,22 @@ namespace ScoutsHonour.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
+        #region Scout Helpers
 
-        private bool AssignUserRoles(ApplicationUser user, string registrationCode)
+        private bool AssignUserRoles(ApplicationUser user, Role registrationCodeType)
         {
             IdentityResult result;
             var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(Context));
 
-            if (user.Email == "lukesinbox@gmail.com")
-                result = um.AddToRole(user.Id, Role.Admin.ToString());
-            else if (registrationCode.ToLower() == "leader")
-                result = um.AddToRole(user.Id, Role.Leader.ToString());
-            else 
-                result = um.AddToRole(user.Id, Role.Parent.ToString());
+            result = um.AddToRole(user.Id, registrationCodeType.ToString());
 
             return result.Succeeded;
         }
+
+        #endregion
+
+
+        #region Helpers
 
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

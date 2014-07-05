@@ -8,18 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ScoutsHonour.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ScoutsHonour.Enums;
 
 namespace ScoutsHonour.Controllers
 {
-    public class GroupsController : BaseController<ApplicationUser, IdentityRole, IdentityDbContext<ApplicationUser>>
+    public class GroupsController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
-        private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
+        //private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Groups
         public async Task<ActionResult> Index()
         {
-            return View(await db.Groups.ToListAsync());
+            return View(await Context.Groups.ToListAsync());
         }
 
         // GET: Groups/Details/5
@@ -29,7 +31,7 @@ namespace ScoutsHonour.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = await db.Groups.FindAsync(id);
+            Group group = await Context.Groups.FindAsync(id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -59,8 +61,8 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(group);
-                await db.SaveChangesAsync();
+                Context.Groups.Add(group);
+                await Context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -74,7 +76,7 @@ namespace ScoutsHonour.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = await db.Groups.FindAsync(id);
+            Group group = await Context.Groups.FindAsync(id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -91,8 +93,8 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(group).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                Context.Entry(group).State = EntityState.Modified;
+                await Context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(group);
@@ -105,7 +107,7 @@ namespace ScoutsHonour.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = await db.Groups.FindAsync(id);
+            Group group = await Context.Groups.FindAsync(id);
             if (group == null)
             {
                 return HttpNotFound();
@@ -118,17 +120,46 @@ namespace ScoutsHonour.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Group group = await db.Groups.FindAsync(id);
-            db.Groups.Remove(group);
-            await db.SaveChangesAsync();
+            Group group = await Context.Groups.FindAsync(id);
+            Context.Groups.Remove(group);
+            await Context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> RegisterSuccess(Role role)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    // finish registration process
+                    Group group = await Context.Groups.SingleAsync(g => g.GroupCodeParent == user.RegistrationCode
+                                                        || g.GroupCodeLeader == user.RegistrationCode);
+                    if (group != null)
+                    {
+                        user.Groups.Add(group);
+                        Context.SaveChanges();
+
+                        var result = new RegisterSuccessViewModel
+                        {
+                            GroupTitle = group.Title,
+                            Role = role
+                        };
+
+                        return View(result);
+
+                    }
+                }
+            }
+            return View("Error: Group not found.");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                Context.Dispose();
             }
             base.Dispose(disposing);
         }

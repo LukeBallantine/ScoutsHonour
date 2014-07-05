@@ -9,7 +9,8 @@ namespace ScoutsHonour.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string GroupCode { get; set; }
+        public string GroupCodeParent { get; set; }
+        public string GroupCodeLeader { get; set; }
         public virtual Organisation Organisation { get; set; }
 
         private ICollection<ApplicationUser> _users;
