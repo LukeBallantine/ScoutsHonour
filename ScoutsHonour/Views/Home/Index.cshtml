@@ -1,6 +1,8 @@
-﻿@model IEnumerable<ScoutsHonour.Models.Group>
+﻿@model IEnumerable<ScoutsHonour.Models.Organisation>
 @{
-    ViewBag.Title = "Home Page";
+    if (string.IsNullOrWhiteSpace(ViewBag.Title)) {
+        ViewBag.Title = "Home Page";
+    }
 }
 
 <div class="jumbotron">
@@ -16,6 +18,10 @@
         <h2>Attendance Tracking</h2>
         <p>
             Keep track of cubs attendance.
+            @foreach (var org in Model)
+            {
+                <text>@org.Title</text>
+            }
         </p>
         <p><a class="btn btn-default" href="/">Learn more &raquo;</a></p>
     </div>

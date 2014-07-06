@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ScoutsHonour.Enums;
 using ScoutsHonour.Models;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,17 @@ namespace ScoutsHonour.Controllers
             UserManager = new UserManager<TApplicationUser>(new UserStore<TApplicationUser>(Context));
             UserManager.UserValidator = new UserValidator<TApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
             RoleManager = new RoleManager<TIdentityRole>(new RoleStore<TIdentityRole>(Context));
+        }
+
+        protected int? GetSessionIntValue(SessionIntKeys key)
+        {
+            int? intVal = System.Web.HttpContext.Current.Session[key.ToString()] as int?;
+            return intVal;
+        }
+
+        protected void SetSessionIntValue(SessionIntKeys key, int? value)
+        {
+            System.Web.HttpContext.Current.Session.Add(key.ToString(), value);
         }
 
         protected override void Dispose(bool disposing)

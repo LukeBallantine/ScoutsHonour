@@ -96,8 +96,8 @@ namespace ScoutsHonour.Controllers
             if (ModelState.IsValid)
             {
                 // find relevant group for registering user
-                Group group = Context.Groups.Single(g => g.GroupCodeParent == model.RegistrationCode 
-                                                      || g.GroupCodeLeader == model.RegistrationCode);
+                Group group = Context.Groups.FirstOrDefault(g => g.GroupCodeParent == model.RegistrationCode 
+                                                            || g.GroupCodeLeader == model.RegistrationCode);
                 if (group == null)
                 {
                     ModelState.AddModelError("", "Registration Code not recognised");

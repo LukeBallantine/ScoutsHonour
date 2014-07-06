@@ -13,6 +13,8 @@ namespace ScoutsHonour.Models
     public class ApplicationUser : IdentityUser
     {
         public string RegistrationCode { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
 
         private ICollection<Group> _groups;
         public virtual ICollection<Group> Groups

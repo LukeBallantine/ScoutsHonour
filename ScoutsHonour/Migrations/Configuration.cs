@@ -20,11 +20,14 @@ namespace ScoutsHonour.Migrations
         protected override void Seed(ScoutsHonour.Models.ScoutsHonourDbContext context)
         {
             //  This method will be called after migrating to the latest version.
+            SeedDb(context);
+        }
 
-            AddRoles(context); 
+        public void SeedDb(ScoutsHonour.Models.ScoutsHonourDbContext context)
+        {
+            AddRoles(context);
             AddCubsOrgAndGroups(context);
-            AddCubGoals(context);
-
+            AddCubGoals(context);      
         }
 
         void AddRoles(ScoutsHonour.Models.ScoutsHonourDbContext context)
@@ -66,28 +69,37 @@ namespace ScoutsHonour.Migrations
                                             LastName = "Ballantine",
                                             Email = "lukesinbox@gmail.com",
                                             SixColour = "White",
-                                            UserTypeId = 1
+                                            Type = MemberType.Cub,
+                                            Status = MemberStatus.Inducted,
+                                            Rank = "Seconder",
+                                            DOB = DateTime.Parse("21-Feb-2005")                                            
                                         },
                                         new Member {
                                             FirstName = "Cameron",
                                             LastName = "Adams",
                                             Email = "gregadams22@gmail.com",
                                             SixColour = "Yellow",
-                                            UserTypeId = 1
+                                            Type = MemberType.Cub,
+                                            Status = MemberStatus.Inducted,
+                                            Rank = "Sixer"
                                         },
                                         new Member {
                                             FirstName = "Micah",
                                             LastName = "Fitton-Higgins",
                                             Email = "clivehiggins@gmail.com",
                                             SixColour = "Gray",
-                                            UserTypeId = 1
+                                            Type = MemberType.Cub,
+                                            Status = MemberStatus.Inducted,
+                                            Rank = "Seconder"
                                         },
                                         new Member {
                                             FirstName = "Fraser",
                                             LastName = "Lynch",
                                             Email = "gerrylynch@mars.co.nz",
                                             SixColour = "White",
-                                            UserTypeId = 1
+                                            Type = MemberType.Cub,
+                                            Status = MemberStatus.Inducted,
+                                            Rank = "Sixer"
                                         }
                                     }
                                 },

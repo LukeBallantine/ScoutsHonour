@@ -37,11 +37,7 @@ namespace ScoutsHonour.Controllers
                 return HttpNotFound();
             }
 
-            //var model = from g in groupX
-            //                select new {
-
-            //                }
-
+            SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
 
             return View(group);
         }
@@ -57,7 +53,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Title,GroupCode")] Group group)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Title,GroupCodeParent,GroupCodeLeader,BuildingName,StreetAddress,City")] Group group)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +85,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,GroupCode")] Group group)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,GroupCodeParent,GroupCodeLeader,BuildingName,StreetAddress,City")] Group group)
         {
             if (ModelState.IsValid)
             {

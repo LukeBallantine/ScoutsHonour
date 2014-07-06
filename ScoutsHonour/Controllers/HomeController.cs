@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ScoutsHonour.Migrations;
 
 namespace ScoutsHonour.Controllers
 {
@@ -13,9 +14,15 @@ namespace ScoutsHonour.Controllers
     {
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string migrations)
         {
-            var model = Context.Groups.ToList();
+            if (migrations == "true")
+            {
+                ViewBag.Title = "Migration";
+                new ScoutsHonour.Migrations.Configuration().SeedDb(Context);
+            }
+
+            var model = Context.Organisations.ToList();
             
             return View(model);
         }
@@ -24,8 +31,6 @@ namespace ScoutsHonour.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-            throw new Exception("hey");
 
             return View();
         }

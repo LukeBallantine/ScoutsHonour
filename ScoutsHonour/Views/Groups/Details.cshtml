@@ -1,5 +1,5 @@
-﻿@model ScoutsHonour.Models.Group
-
+﻿@using ScoutsHonour.Enums;
+@model ScoutsHonour.Models.Group
 @{
     ViewBag.Title = "Details";
 }
@@ -23,20 +23,14 @@
         </dt>
 
         <dd>
-            @Model.Members.Select(u => u.UserTypeId == 1).Count()
+            @Model.Members.Count()
         </dd>
 
-        <dt>
-            @Html.DisplayName("Leaders")
-        </dt>
-
-        <dd>
-            @Model.Members.Select(u => u.UserTypeId == 2).Count()
-        </dd>
     </dl>
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit Group", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit Cubs", "Index", "Members", new { id = Model.Id }, null) |
     @Html.ActionLink("Back to List", "Index")
 </p>
