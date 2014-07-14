@@ -11,6 +11,7 @@ using ScoutsHonour.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ScoutsHonour.Enums;
+using ScoutsHonour.Helpers;
 
 namespace ScoutsHonour.Controllers
 {
@@ -37,7 +38,7 @@ namespace ScoutsHonour.Controllers
                 return HttpNotFound();
             }
 
-            SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
+            SessionHelper.SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
 
             return View(group);
         }
