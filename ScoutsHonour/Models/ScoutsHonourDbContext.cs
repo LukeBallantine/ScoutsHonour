@@ -10,7 +10,7 @@ namespace ScoutsHonour.Models
 {
     public class ScoutsHonourDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ScoutsHonourDbContext() : base("name=DefaultConnection")
+        public ScoutsHonourDbContext() : base("name=DefaultConnection", throwIfV1Schema: false)
         { }
 
         public static ScoutsHonourDbContext Create()

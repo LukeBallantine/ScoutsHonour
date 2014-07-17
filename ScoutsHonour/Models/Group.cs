@@ -31,8 +31,8 @@ namespace ScoutsHonour.Models
         [StringLength(50)]
         public string City { get; set; }
 
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         public virtual Organisation Organisation { get; set; }
 
