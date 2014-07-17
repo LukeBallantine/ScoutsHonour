@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using ScoutsHonour.Attributes;
 
 namespace ScoutsHonour
 {
@@ -9,6 +10,7 @@ namespace ScoutsHonour
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new System.Web.Mvc.AuthorizeAttribute());
+            //filters.Add(new RequiresGroupIdInSessionAttribute());
         }
     }
 }

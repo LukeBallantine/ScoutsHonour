@@ -27,15 +27,12 @@ namespace ScoutsHonour.Controllers
             RoleManager = new RoleManager<TIdentityRole>(new RoleStore<TIdentityRole>(Context));
         }
 
-        protected int? GetSessionIntValue(SessionIntKeys key)
+        protected ApplicationUser CurrentUser
         {
-            int? intVal = System.Web.HttpContext.Current.Session[key.ToString()] as int?;
-            return intVal;
-        }
-
-        protected void SetSessionIntValue(SessionIntKeys key, int? value)
-        {
-            System.Web.HttpContext.Current.Session.Add(key.ToString(), value);
+            get
+            {
+                return UserManager.FindById(User.Identity.GetUserId());
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -1,36 +1,36 @@
-﻿@using ScoutsHonour.Enums;
-@model ScoutsHonour.Models.Group
+﻿@model ScoutsHonour.Models.Group
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+    <h2>Details</h2>
 
-<div>
-    <h4>Group</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div>
+        <h4>Group</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Cubs")
-        </dt>
+            <dt>
+                @Html.DisplayName("Cubs")
+            </dt>
 
-        <dd>
-            @Model.Members.Count()
-        </dd>
+            <dd>
+                @Model.Members.Count()
+            </dd>
 
-    </dl>
-</div>
+        </dl>
+    </div>
 
-<p>
-    @Html.ActionLink("Edit Group", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Edit Cubs", "Index", "Members", new { id = Model.Id }, null) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit Group", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Edit Cubs", "Index", "Members", new { id = Model.Id }, null) |
+        @Html.ActionLink("Edit Events", "Index", "Events", new { id = Model.Id }, null) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -10,22 +10,23 @@ using System.Web.Mvc;
 using ScoutsHonour.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ScoutsHonour.Enums;
+using ScoutsHonour.Attributes;
+using ScoutsHonour.Helpers;
 
 namespace ScoutsHonour.Controllers
 {
+    [RequiresGroupIdInSession]
     public class MembersController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
         private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Members
-        public ActionResult Index([Bind(Prefix="id")] int? groupId)
+        public ActionResult Index()
         {
+            var groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId);
             //TODO: Security check for GroupId
-            if (!groupId.HasValue)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            //return View(await db.Members.ToListAsync());
-            return View(db.Groups.Where(g => g.Id == groupId).FirstOrDefault().Members.OrderBy(m => m.SixColour).ToList());
+            return View(db.Members.Where(x => x.GroupId == groupId.Value).OrderBy(x => x.SixColour).ToList());
         }
 
         // GET: Members/Details/5
@@ -58,6 +59,7 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
+                member.GroupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
                 db.Members.Add(member);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -78,6 +80,23 @@ namespace ScoutsHonour.Controllers
             {
                 return HttpNotFound();
             }
+
+            var groups = CurrentUser.Groups.ToList();
+            ICollection<SelectListItem> currentUsersGroups = (from g in groups
+                                                             select new SelectListItem
+                                                             {
+                                                                    Text = g.Title,
+                                                                    Value = g.Id.ToString(),
+                                                                    Selected = (g.Id == member.GroupId)
+                                                             }).ToList();            
+            //EditMemberViewModel editMember = new EditMemberViewModel
+            //{
+            //    Member = member,
+            //    LinkedGroups = currentUsersGroups
+            //};
+
+            ViewBag.UsersGroups = currentUsersGroups;
+
             return View(member);
         }
 
@@ -86,10 +105,11 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes")] Member member)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes,GroupId")] Member member)
         {
             if (ModelState.IsValid)
             {
+                // TODO: Why is GroupId not updated by dropdown?
                 db.Entry(member).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

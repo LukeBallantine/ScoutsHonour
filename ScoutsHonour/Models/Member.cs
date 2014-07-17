@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ScoutsHonour.Models
 {
@@ -49,10 +50,18 @@ namespace ScoutsHonour.Models
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
 
+        //FK
+        public virtual int GroupId { get; set; }
         public virtual Group Group { get; set; }
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<Goal> Goals { get; set; }
+    }
+
+    public class EditMemberViewModel
+    {
+        public Member Member { get; set; }
+        public virtual ICollection<SelectListItem> LinkedGroups { get; set; }
     }
 }
