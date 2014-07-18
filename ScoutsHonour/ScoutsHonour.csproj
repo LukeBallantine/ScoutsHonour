@@ -177,6 +177,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Enums\MemberStatus.cs" />
+    <Compile Include="Enums\GoalType.cs" />
     <Compile Include="Enums\MemberType.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SessionIntKeys.cs" />
