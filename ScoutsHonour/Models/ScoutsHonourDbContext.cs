@@ -29,34 +29,20 @@ namespace ScoutsHonour.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            // setup relationships for link table with additional data
+            modelBuilder.Entity<MemberGoal>()
+                .HasKey(x => new { x.MemberId, x.GoalId });
 
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(x => x.Members)
-            //    .WithMany();
+            modelBuilder.Entity<Member>()
+                .HasMany(x => x.MemberGoals)
+                .WithRequired()
+                .HasForeignKey(x => x.MemberId);
 
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(x => x.Groups)
-            //    .WithMany();
-
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(x => x.Members)
-            //    .WithMany()
-            //    .Map(x =>
-            //    {
-            //        x.ToTable("AspNetUserMembers");
-            //        x.MapLeftKey("AspNetUser_Id");
-            //        x.MapRightKey("Member_Id");
-            //    });
-
-            //modelBuilder.Entity<Group>()
-            //    .HasMany(x => x.ApplicationUsers)
-            //    .WithMany()
-            //    .Map(x =>
-            //    {
-            //        x.ToTable("GroupAspNetUsers");
-            //        x.MapLeftKey("Group_Id"); 
-            //        x.MapRightKey("AspNetUser_Id");
-            //    });
+            modelBuilder.Entity<Goal>()
+                .HasMany(x => x.MemberGoals)
+                .WithRequired()
+                .HasForeignKey(x => x.GoalId);  
 
             #region Unused Remapping
 

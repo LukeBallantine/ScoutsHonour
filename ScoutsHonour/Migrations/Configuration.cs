@@ -115,49 +115,49 @@ namespace ScoutsHonour.Migrations
 
         void AddCubGoals(ScoutsHonour.Models.ScoutsHonourDbContext context)
         {
-            context.Goals.AddOrUpdate(r => r.Title,
-                new Goal
-                {
-                    Title = "Bronze Cornerstone",
-                    Level = 0,
-                    Goals = new List<Goal> {
-                                    new Goal {
-                                        Title = "My Community: Part 1", 
-                                        Level = 1,
-                                        ChildRequirementCount = 2,
-                                        Goals = new List<Goal> {
-                                            new Goal {
-                                                Title = "Visit a marae", 
-                                                Level = 3
-                                                },
-                                            new Goal {
-                                                Title = "Attend an Anzac day ceremony", 
-                                                Level = 3
-                                                }
-                                        }
-                                    },
-                                    new Goal {
-                                        Title = "My Community: Part 2", 
-                                        Level = 1,
-                                        ChildRequirementCount = 2,
-                                        Goals = new List<Goal> {
-                                            new Goal {
-                                                Title = "Visit a police station", 
-                                                Level = 3
-                                                },
-                                            new Goal {
-                                                Title = "Draw a map",
-                                                Description = "Draw a map of the route from your home to your school.",
-                                                Level = 3
-                                                },
-                                            new Goal {
-                                                Title = "Paint a mural",
-                                                Level = 3
-                                            }
-                                        }
-                                    }
-                                }
-                });
+            //context.Goals.AddOrUpdate(r => r.Title,
+            //    new Goal
+            //    {
+            //        Title = "Bronze Cornerstone",
+            //        Level = 0,
+            //        Goals = new List<Goal> {
+            //                        new Goal {
+            //                            Title = "My Community: Part 1", 
+            //                            Level = 1,
+            //                            ChildRequirementCount = 2,
+            //                            Goals = new List<Goal> {
+            //                                new Goal {
+            //                                    Title = "Visit a marae", 
+            //                                    Level = 3
+            //                                    },
+            //                                new Goal {
+            //                                    Title = "Attend an Anzac day ceremony", 
+            //                                    Level = 3
+            //                                    }
+            //                            }
+            //                        },
+            //                        new Goal {
+            //                            Title = "My Community: Part 2", 
+            //                            Level = 1,
+            //                            ChildRequirementCount = 2,
+            //                            Goals = new List<Goal> {
+            //                                new Goal {
+            //                                    Title = "Visit a police station", 
+            //                                    Level = 3
+            //                                    },
+            //                                new Goal {
+            //                                    Title = "Draw a map",
+            //                                    Description = "Draw a map of the route from your home to your school.",
+            //                                    Level = 3
+            //                                    },
+            //                                new Goal {
+            //                                    Title = "Paint a mural",
+            //                                    Level = 3
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //    });
         }
 
 

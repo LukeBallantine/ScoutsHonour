@@ -172,10 +172,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
+    <Compile Include="Enums\GoalLevel.cs" />
     <Compile Include="Enums\MemberStatus.cs" />
     <Compile Include="Enums\GoalType.cs" />
     <Compile Include="Enums\MemberType.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\MemberGoal.cs" />
     <Compile Include="Models\Organisation.cs" />
     <Compile Include="Models\ScoutsHonourDbContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -199,6 +202,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SqlScripts\DeleteAllDbTables.sql" />
+    <Content Include="App_Data\SqlScripts\SeedDb.sql" />
     <Content Include="Content\old-css\bootstrap.css" />
     <Content Include="Content\old-css\bootstrap.min.css" />
     <Content Include="Content\pure\pure-min.css" />
@@ -210,6 +215,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Data\SqlScripts\Cub badges.xlsx" />
     <None Include="Properties\PublishProfiles\scoutshonour %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scoutshonour.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -273,9 +279,13 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Goals\Create.cshtml" />
+    <Content Include="Views\Goals\Delete.cshtml" />
+    <Content Include="Views\Goals\Details.cshtml" />
+    <Content Include="Views\Goals\Edit.cshtml" />
+    <Content Include="Views\Goals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

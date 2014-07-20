@@ -56,7 +56,7 @@ namespace ScoutsHonour.Models
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
         public virtual ICollection<Event> Events { get; set; }
-        public virtual ICollection<Goal> Goals { get; set; }
+        public virtual ICollection<MemberGoal> MemberGoals { get; set; }
     }
 
     public class EditMemberViewModel

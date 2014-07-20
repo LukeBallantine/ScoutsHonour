@@ -1,0 +1,98 @@
+﻿@model ScoutsHonour.Models.Goal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Goal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Organisation.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organisation.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoalType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoalType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildRequirementCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildRequirementCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level1ChildRequirementCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level1ChildRequirementCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level2ChildRequirementCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level2ChildRequirementCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level3ChildRequirementCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level3ChildRequirementCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequirementLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequirementLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoalId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoalId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

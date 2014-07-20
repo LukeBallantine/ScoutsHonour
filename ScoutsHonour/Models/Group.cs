@@ -20,11 +20,11 @@ namespace ScoutsHonour.Models
         [Display(Name = "Leader Registration Code")]
         public string GroupCodeLeader { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         [Display(Name = "Building Name")]
         public string BuildingName { get; set; }
 
-        [StringLength(100)]
+        [StringLength(150)]
         [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
