@@ -26,8 +26,6 @@ namespace ScoutsHonour.Models
         public string Notes { get; set; }
         
         //[Display(Name = "Attendees")]
-        //public virtual ICollection<Member> Members { get; set; }
-
         private ICollection<Member> _members;
         public virtual ICollection<Member> Members
         {
@@ -35,7 +33,12 @@ namespace ScoutsHonour.Models
             protected set { _members = value; }
         }
 
-        [Display(Name = "Badges")]
-        public virtual ICollection<Goal> Goals { get; set; }
+        //[Display(Name = "Badges")]
+        private ICollection<Goal> _goals;
+        public virtual ICollection<Goal> Goals
+        {
+            get { return _goals ?? (_goals = new List<Goal>()); }
+            protected set { _goals = value; }
+        }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ScoutsHonour.Models.MemberGoalsSummaryViewModel>
+
+@{
+    ViewBag.Title = "Cornerstone";
+}
+
+<h2>Cornerstone Badges</h2>
+
+<p></p>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.FullName)</th>
+        <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
+        <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
+        <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BronzeBadge.Achieved) / 
+            @Html.DisplayFor(modelItem => item.BronzeBadge.Target)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SilverBadge.Achieved) /
+            @Html.DisplayFor(modelItem => item.SilverBadge.Target)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoldBadge.Achieved) /
+            @Html.DisplayFor(modelItem => item.GoldBadge.Target)
+        </td>
+    </tr>
+}
+
+</table>
+
+@foreach (var item in ViewBag.Goals)
+{
+    <span>@item.Title</span><br/>
+}

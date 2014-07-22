@@ -1,4 +1,4 @@
-USE [scoutshonour_db]
+USE [ScoutsHonourDb]
 GO
 
 -- Use this in SQL Azure (if Update-Database doesn't work)

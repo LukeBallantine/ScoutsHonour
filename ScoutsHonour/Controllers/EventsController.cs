@@ -108,7 +108,11 @@ namespace ScoutsHonour.Controllers
                 
                 // work out which members were added, and which were removed
                 var attendees = form.GetValues("attendees");
-                // TODO: null check for new attendees
+
+                // handle null
+                if (attendees == null)
+                    attendees = new string[0] { }; 
+
                 var dbEvent = db.Events.Where(e => e.Id == @event.Id).Include(e => e.Members);
                 var oldMembers = dbEvent.Single().Members.ToList();
                 var newMembers = db.Members.Where(m => attendees.Contains(m.Id.ToString())).ToList();

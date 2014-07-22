@@ -49,10 +49,12 @@ namespace ScoutsHonour.Models
         public virtual ICollection<Event> Events { get; set; }  // do we need this?
     }
 
-    public class GoalDetailViewModel
+    public class GoalViewModel
     {
-        
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public bool TopLevel { get; set; }
     }
-
 
 }

@@ -187,7 +187,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MemberGoalsHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Migrations\201407201159564_NullablePresentedDate.cs" />
+    <Compile Include="Migrations\201407201159564_NullablePresentedDate.Designer.cs">
+      <DependentUpon>201407201159564_NullablePresentedDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Goal.cs" />
@@ -284,8 +289,10 @@
     <Content Include="Views\Goals\Details.cshtml" />
     <Content Include="Views\Goals\Edit.cshtml" />
     <Content Include="Views\Goals\Index.cshtml" />
+    <Content Include="Views\Goals\Cornerstone.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Badges\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +301,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407201159564_NullablePresentedDate.resx">
+      <DependentUpon>201407201159564_NullablePresentedDate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
