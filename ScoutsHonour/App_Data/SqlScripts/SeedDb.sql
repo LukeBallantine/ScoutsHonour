@@ -33,7 +33,7 @@ INSERT INTO Goals VALUES ('Camp duties', 'While on camp, assist with duties such
 INSERT INTO Goals VALUES ('Cook with foil', 'Cook a meal in foil.', 1, NULL, NULL, NULL, NULL, 3, 1, 1);
 INSERT INTO Goals VALUES ('Cook outdoors', 'Cook a simple meal outdoors.', 1, NULL, NULL, NULL, NULL, 3, 1, 1);
 INSERT INTO Goals VALUES ('Sleep under canvas', 'Camp under canvas with Cubs, family or friends.', 1, NULL, NULL, NULL, NULL, 3, 1, 1);
-INSERT INTO Goals VALUES ('Pitch a tent', 'With a friend or a Six / team, show that you can pitch a hike tent, strike it and pack it away correctly. Explain why tents need to be aired and dried completely before being put in storage.', 1, NULL, NULL, NULL, NULL, 3, NULL, 1);
+INSERT INTO Goals VALUES ('Pitch a tent', 'With a friend or a Six / team, show that you can pitch a hike tent, strike it and pack it away correctly. Explain why tents need to be aired and dried completely before being put in storage.', 1, NULL, NULL, NULL, NULL, 3, 1, 1);
 INSERT INTO Goals VALUES ('Outdoors - Outdoor Skills', '', 1, NULL, 3, 3, 3, NULL, NULL, 1);
 INSERT INTO Goals VALUES ('Use a compass', 'Discover how to use a compass.', 1, NULL, NULL, NULL, NULL, 1, 13, 1);
 INSERT INTO Goals VALUES ('Draw a map', 'Draw a map of the streets in your neighbourhood. ', 1, NULL, NULL, NULL, NULL, 1, 13, 1);
