@@ -60,9 +60,19 @@
                             <span class="onoffswitch-switch"></span>
                         </label>
                     </div>
-                    <div class="onofftext">@item.Text</div>
+                    <label class="onofftext" for="attendee-@item.Value">@item.Text</label>
                 </div>
             }
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="text" placeholder="Search for badge..." class=""
+                       data-sh-autocomplete="@Url.Action("Autocomplete")"
+                       data-sh-target="goals-list" />
+            </div>
+            <div id="goals-list">
+            </div>
         </div>
 
         <div class="form-group">
@@ -77,6 +87,3 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

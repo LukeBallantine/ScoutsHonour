@@ -8,6 +8,19 @@ namespace ScoutsHonour
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/scoutshonour").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}-custom.js",
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/pure/ui.js",
+                        "~/Scripts/respond.js",
+                        "~/Scripts/main.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/pure").Include(
+            //          "~/Scripts/pure/ui.js",
+            //          "~/Scripts/respond.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -23,14 +36,12 @@ namespace ScoutsHonour
             //          "~/Scripts/bootstrap.js",
             //          "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/pure").Include(
-                      "~/Scripts/pure/ui.js",
-                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       //"~/Content/bootstrap.css",
                       "~/Content/pure/pure-min.css", 
                       "~/Content/pure/side-menu.css",
+                      "~/Content/jquery-ui-custom.css",
                       "~/Content/site.css"));
             
             bundles.Add(new StyleBundle("~/Content/old-ie-css").Include(
@@ -41,7 +52,7 @@ namespace ScoutsHonour
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

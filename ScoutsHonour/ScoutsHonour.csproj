@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\RequiresOrganisationIdInSessionAttribute.cs" />
     <Compile Include="Attributes\RequiresGroupIdInSessionAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -189,10 +190,6 @@
     </Compile>
     <Compile Include="Helpers\MemberGoalsHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
-    <Compile Include="Migrations\201407201159564_NullablePresentedDate.cs" />
-    <Compile Include="Migrations\201407201159564_NullablePresentedDate.Designer.cs">
-      <DependentUpon>201407201159564_NullablePresentedDate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Goal.cs" />
@@ -207,8 +204,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SqlScripts\AzureSeed.sql" />
     <Content Include="App_Data\SqlScripts\DeleteAllDbTables.sql" />
-    <Content Include="App_Data\SqlScripts\SeedDb.sql" />
+    <Content Include="App_Data\SqlScripts\SeedMembers.sql" />
+    <Content Include="App_Data\SqlScripts\SeedGoals.sql" />
+    <Content Include="Content\jquery-ui-custom.css" />
     <Content Include="Content\old-css\bootstrap.css" />
     <Content Include="Content\old-css\bootstrap.min.css" />
     <Content Include="Content\pure\pure-min.css" />
@@ -221,16 +221,20 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Data\SqlScripts\Cub badges.xlsx" />
+    <Content Include="App_Data\SqlScripts\Members.xlsx" />
     <None Include="Properties\PublishProfiles\scoutshonour %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scoutshonour.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.0-custom.js" />
+    <Content Include="Scripts\jquery-ui-1.11.0-custom.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pure\ui.js" />
     <Content Include="Scripts\respond.js" />
@@ -290,6 +294,7 @@
     <Content Include="Views\Goals\Edit.cshtml" />
     <Content Include="Views\Goals\Index.cshtml" />
     <Content Include="Views\Goals\Cornerstone.cshtml" />
+    <Content Include="Views\Goals\MemberCornerstone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Badges\" />
@@ -301,11 +306,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407201159564_NullablePresentedDate.resx">
-      <DependentUpon>201407201159564_NullablePresentedDate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

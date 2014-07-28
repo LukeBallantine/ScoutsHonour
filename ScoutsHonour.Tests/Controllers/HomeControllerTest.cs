@@ -21,7 +21,7 @@ namespace ScoutsHonour.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(null) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

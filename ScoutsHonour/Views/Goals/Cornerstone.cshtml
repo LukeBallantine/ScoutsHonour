@@ -17,7 +17,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FullName)
+            @Html.ActionLink(item.FullName, "MemberCornerstone", new { id = item.MemberId})            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BronzeBadge.Achieved) / 
@@ -35,8 +35,3 @@
 }
 
 </table>
-
-@foreach (var item in ViewBag.Goals)
-{
-    <span>@item.Title</span><br/>
-}

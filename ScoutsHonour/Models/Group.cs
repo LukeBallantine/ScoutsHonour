@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -34,15 +35,26 @@ namespace ScoutsHonour.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
 
+        // FKs
+        public int OrganisationId { get; set; } 
         public virtual Organisation Organisation { get; set; }
 
         private ICollection<ApplicationUser> _users;
         public virtual ICollection<ApplicationUser> Users
         {
             get { return _users ?? (_users = new List<ApplicationUser>()); }
-            protected set { _users = value; }
+            set { _users = value; }
         }
 
-        public virtual ICollection<Member> Members { get; set; }
+        private ICollection<Member> _members;
+        [ForeignKey("GroupId")]
+        public virtual ICollection<Member> Members
+        {
+            get { return _members ?? (_members = new List<Member>()); }
+            set { _members = value; }
+        }
+
+        //public virtual ICollection<Event> Events { get; set; }
+
     }
 }

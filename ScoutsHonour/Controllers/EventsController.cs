@@ -24,7 +24,8 @@ namespace ScoutsHonour.Controllers
         // GET: /Events/
         public async Task<ActionResult> Index()
         {
-            return View(await db.Events.ToListAsync());
+            int groupId = SessionHelper.GetGroupId().Value;
+            return View(await db.Events.Where(e => e.GroupId == groupId).ToListAsync());
         }
 
         // GET: /Events/Details/5
@@ -45,7 +46,6 @@ namespace ScoutsHonour.Controllers
         // GET: /Events/Create
         public ActionResult Create()
         {
-
             ViewBag.PossibleAttendees = GetPossibleAttendees();
             return View();
         }
@@ -57,15 +57,22 @@ namespace ScoutsHonour.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,EventDate,Notes")] Event @event, FormCollection form)
         {
-
-            var attendees = form.GetValues("attendees");
             if (ModelState.IsValid)
-            {
+            {                
+                @event.GroupId = SessionHelper.GetGroupId().Value;
                 db.Events.Add(@event);
+             
                 // add attendees
+                var attendees = form.GetValues("attendees");
                 var members = db.Members.Where(m => attendees.Contains(m.Id.ToString())).ToList();
                 foreach (var member in members)
                     @event.Members.Add(member);
+
+                // add goals
+                var goalIds = form.GetValues("goals");
+                var goals = db.Goals.Where(g => goalIds.Contains(g.Id.ToString())).ToList();
+                foreach (var goal in goals)
+                    @event.Goals.Add(goal);
 
                 await db.SaveChangesAsync();
 
@@ -162,6 +169,27 @@ namespace ScoutsHonour.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        [RequiresOrganisationIdInSession]
+        public ActionResult Autocomplete(string term)
+        {
+            int organisationId = SessionHelper.GetOrganisationId().Value;
+            var model = from g in db.Goals
+                      join gp in db.Goals on g.GoalId equals gp.Id
+                      where (
+                                g.GoalId != null 
+                                && g.OrganisationId == organisationId
+                                && (g.Title.Contains(term) || gp.Title.Contains(term))
+                            )
+                      select new
+                      {
+                          label = gp.Title + ": " + g.Title,
+                          value = g.Id
+                      };
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

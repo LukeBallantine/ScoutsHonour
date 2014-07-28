@@ -39,6 +39,7 @@ namespace ScoutsHonour.Controllers
             }
 
             SessionHelper.SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
+            SessionHelper.SetSessionIntValue(SessionIntKeys.OrganisationId, group.OrganisationId);
 
             return View(group);
         }

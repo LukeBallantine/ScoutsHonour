@@ -10,7 +10,6 @@ namespace ScoutsHonour.Models
     public class Goal
     {
         public int Id { get; set; }
-        //public int Level { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -38,13 +37,13 @@ namespace ScoutsHonour.Models
         public RequirementLevel? RequirementLevel { get; set; }
 
         // Foriegn keys
-        public virtual int? GoalId { get; set; }
-        public virtual Organisation Organisation { get; set; }
-        public virtual int OrganisationId { get; set; }
-
+        public int? GoalId { get; set; }
         public virtual ICollection<Goal> Goals { get; set; }
 
-        public virtual ICollection<MemberGoal> MemberGoals { get; set; }
+        public int OrganisationId { get; set; }
+        public virtual Organisation Organisation { get; set; }
+
+        public virtual ICollection<MemberGoal> MemberGoals { get; set; } // do we need this?
 
         public virtual ICollection<Event> Events { get; set; }  // do we need this?
     }
@@ -55,6 +54,7 @@ namespace ScoutsHonour.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public bool TopLevel { get; set; }
+        public RequirementLevel RequirementLevel { get; set; }
     }
 
 }

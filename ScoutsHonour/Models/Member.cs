@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,15 @@ namespace ScoutsHonour.Models
         [StringLength(50)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Alternate Phone")]
+        public string Phone2 { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Parent Email")]
@@ -48,14 +58,26 @@ namespace ScoutsHonour.Models
         public MemberStatus Status { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string Notes { get; set; }
+        [Display(Name = "Notes")]
+        public string PublicNotes { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Notes (Leaders only)")]
+        public string PrivateNotes { get; set; }
 
         //FK
-        public virtual int GroupId { get; set; }
+        public int? GroupId { get; set; }
         public virtual Group Group { get; set; }
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }      // AspNetUsers DB table
-        public virtual ICollection<Event> Events { get; set; }
+
+        private ICollection<Event> _events;
+        public virtual ICollection<Event> Events
+        {
+            get { return _events ?? (_events = new List<Event>()); }
+            set { _events = value; }
+        }
+
         public virtual ICollection<MemberGoal> MemberGoals { get; set; }
     }
 

@@ -8,6 +8,26 @@ namespace ScoutsHonour.Helpers
 {
     public static class SessionHelper
     {
+        public static int? GetGroupId()
+        {
+            return GetSessionIntValue(SessionIntKeys.GroupId);
+        }
+
+        public static void SetGroupId(int? id)
+        {
+            SetSessionIntValue(SessionIntKeys.GroupId, id);
+        }
+        
+        public static int? GetOrganisationId()
+        {
+            return GetSessionIntValue(SessionIntKeys.OrganisationId);
+        }
+
+        public static void SetOrganisationId(int? id)
+        {
+            SetSessionIntValue(SessionIntKeys.OrganisationId, id);
+        }
+
 
         public static int? GetSessionIntValue(SessionIntKeys key)
         {

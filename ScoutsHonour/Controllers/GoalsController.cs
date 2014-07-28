@@ -130,15 +130,27 @@ namespace ScoutsHonour.Controllers
         {
             //TODO: Remove hardcoded OrgId (Cubs NZ)
             var goals = db.Goals.Where(g => g.GoalType == GoalType.CubCornerstone && g.OrganisationId == 1).ToList();
-            ViewBag.Goals = goals.Select(g => new GoalViewModel {
-                    Id = g.Id,
-                    Title = g.Title,
-                    Description = g.Description,
-                    TopLevel = (g.GoalId == null)
-                });
 
             var memberGoals = GetMemberGoalsDetail(goals);
             return View(memberGoals);
+        }
+
+        [RequiresGroupIdInSession]
+        public ActionResult MemberCornerstone([Bind(Include = "Id")] int Id)
+        {
+            //TODO: Remove hardcoded OrgId (Cubs NZ)
+            var goals = db.Goals.Where(g => g.GoalType == GoalType.CubCornerstone && g.OrganisationId == 1).ToList();
+            ViewBag.Goals = goals.Select(g => new GoalViewModel
+            {
+                Id = g.Id,
+                Title = g.Title,
+                Description = g.Description,
+                TopLevel = (g.GoalId == null),
+                RequirementLevel = g.RequirementLevel ?? RequirementLevel.Any
+            });
+
+            var memberGoal = GetMemberGoalsDetail(goals).Where(mg => mg.MemberId == Id).FirstOrDefault();
+            return View(memberGoal);
         }
 
         //private List<MemberGoalsSummaryViewModel> GetMemberGoalsSummary()
@@ -267,14 +279,14 @@ namespace ScoutsHonour.Controllers
                 foreach (var goal in goals)
                 {
                     // this is a leaf (end node of the tree)
-                    if (goal.GoalId != null)
-                    {
+                    //if (goal.GoalId != null)
+                    //{
                         goalCompleteDate = null;
-                        memberGoalTemp = allMemberGoals.Where(g => g.GoalId == goal.Id).FirstOrDefault();
+                        memberGoalTemp = memberGoals.Where(g => g.GoalId == goal.Id).FirstOrDefault();
                         if (memberGoalTemp != null)
                             goalCompleteDate = memberGoalTemp.AchievedDate ?? DateTime.Now;
                         cornerstoneParts.Add(new BadgePartViewModel { GoalId = goal.Id, CompleteDate = goalCompleteDate });
-                    }
+                    //}
 
                     // summarise progress on bronze cornerstone
                     if (goal.Level1ChildRequirementCount > 0)
@@ -334,7 +346,7 @@ namespace ScoutsHonour.Controllers
 
                 memberGoalsList.Add(new MemberGoalsSummaryViewModel
                 {
-                    UserId = member.Id,
+                    MemberId = member.Id,
                     FullName = member.FirstName + " " + member.LastName,
                     BronzeBadge = bronzeBadge,
                     SilverBadge = silverBadge,

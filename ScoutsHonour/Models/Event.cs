@@ -24,7 +24,11 @@ namespace ScoutsHonour.Models
 
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
-        
+
+        // FK
+        public int GroupId { get; set; }
+        //public virtual Group Group { get; set; }
+
         //[Display(Name = "Attendees")]
         private ICollection<Member> _members;
         public virtual ICollection<Member> Members

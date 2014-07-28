@@ -29,7 +29,37 @@ namespace ScoutsHonour.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+            //modelBuilder.Entity<Event>()
+            //    .HasMany(m => m.Members)
+            //    .WithMany();
+            //    //.WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Member>()
+            //    .HasMany(e => e.Events)
+            //    .WithMany();
+            //    //.WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Event>()
+            //    .HasMany(e => e.Goals)
+            //    .WithRequired()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Goal>()
+            //    .HasMany(g => g.Events)
+            //    .WithRequired()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Member>()
+            //    .HasRequired(m => m.Group)
+            //    .WithRequiredDependent()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Group>()
+            //    .HasMany(m => m.Members)
+            //    .WithRequired()
+            //    .WillCascadeOnDelete(false);
+
             // setup relationships for link table with additional data
             modelBuilder.Entity<MemberGoal>()
                 .HasKey(x => new { x.MemberId, x.GoalId });
@@ -43,21 +73,6 @@ namespace ScoutsHonour.Models
                 .HasMany(x => x.MemberGoals)
                 .WithRequired()
                 .HasForeignKey(x => x.GoalId);  
-
-            #region Unused Remapping
-
-            //modelBuilder.Entity<IdentityUser>().ToTable("Users");//.Property(p => p.Id).HasColumnName("UserId"); ;
-            //modelBuilder.Entity<ApplicationUser>().ToTable("Users");//.Property(p => p.Id).HasColumnName("UserId");
-            //modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
-            //modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
-            //modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
-            //modelBuilder.Entity<IdentityRole>().ToTable("Roles");
-
-            //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
-            //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
-            //modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-
-            #endregion
 
         }
     }

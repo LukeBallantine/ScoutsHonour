@@ -35,7 +35,7 @@ namespace ScoutsHonour.Models
 
     public class MemberGoalsSummaryViewModel
     {
-        public int UserId { get; set; }
+        public int MemberId { get; set; }
         public string FullName { get; set; }
 
         [Display(Name="Bronze")]

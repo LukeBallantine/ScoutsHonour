@@ -8,7 +8,9 @@ namespace ScoutsHonour.Migrations
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.IO;
     using System.Linq;
+    using System.Web;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ScoutsHonour.Models.ScoutsHonourDbContext>
     {
@@ -27,7 +29,15 @@ namespace ScoutsHonour.Migrations
         {
             AddRoles(context);
             AddCubsOrgAndGroups(context);
-            AddCubGoals(context);      
+
+            context.SaveChanges();
+
+            string scriptPath = AppDomain.CurrentDomain.BaseDirectory + "/../App_Data/SqlScripts/";
+
+            context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedGoals.sql"));
+            context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedMembers.sql"));
+
+            base.Seed(context);
         }
 
         void AddRoles(ScoutsHonour.Models.ScoutsHonourDbContext context)
@@ -62,46 +72,7 @@ namespace ScoutsHonour.Migrations
                                 new Group { 
                                     Title = "Glendowie Cubs Wednesday Night", 
                                     GroupCodeParent = "GLENCUBWED",
-                                    GroupCodeLeader = "GLENCUBWEDL",
-                                    Members = new List<Member> {
-                                        new Member {
-                                            FirstName = "Ellis",
-                                            LastName = "Ballantine",
-                                            Email = "lukesinbox@gmail.com",
-                                            SixColour = "White",
-                                            Type = MemberType.Cub,
-                                            Status = MemberStatus.Inducted,
-                                            Rank = "Seconder",
-                                            DOB = DateTime.Parse("21-Feb-2005")                                            
-                                        },
-                                        new Member {
-                                            FirstName = "Cameron",
-                                            LastName = "Adams",
-                                            Email = "gregadams22@gmail.com",
-                                            SixColour = "Yellow",
-                                            Type = MemberType.Cub,
-                                            Status = MemberStatus.Inducted,
-                                            Rank = "Sixer"
-                                        },
-                                        new Member {
-                                            FirstName = "Micah",
-                                            LastName = "Fitton-Higgins",
-                                            Email = "clivehiggins@gmail.com",
-                                            SixColour = "Gray",
-                                            Type = MemberType.Cub,
-                                            Status = MemberStatus.Inducted,
-                                            Rank = "Seconder"
-                                        },
-                                        new Member {
-                                            FirstName = "Fraser",
-                                            LastName = "Lynch",
-                                            Email = "gerrylynch@mars.co.nz",
-                                            SixColour = "White",
-                                            Type = MemberType.Cub,
-                                            Status = MemberStatus.Inducted,
-                                            Rank = "Sixer"
-                                        }
-                                    }
+                                    GroupCodeLeader = "GLENCUBWEDL"
                                 },
                                 new Group {
                                     Title = "Glendowie Cubs Tuesday Night", 
