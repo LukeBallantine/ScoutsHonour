@@ -99,6 +99,15 @@ namespace ScoutsHonour.Controllers
             var possibleAttendees = GetPossibleAttendees(currentAttendees);
             ViewBag.PossibleAttendees = possibleAttendees;
 
+            var eventGoals = (from g in @event.Goals
+                      join gp in db.Goals on g.GoalId equals gp.Id
+                      select new SelectListItem
+                      {
+                          Text = gp.Title + ": " + g.Title,
+                          Value = g.Id.ToString()
+                      }).ToList();
+            ViewBag.EventGoals = eventGoals;
+
             return View(@event);
         }
 
@@ -107,20 +116,22 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include="Id,Title,Description,EventDate,Notes")] Event @event, FormCollection form)
+        public async Task<ActionResult> Edit([Bind(Include="Id,Title,Description,EventDate,Notes,GroupId")] Event @event, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(@event).State = EntityState.Modified;
-                
+
+                var dbEvent = db.Events.Where(e => e.Id == @event.Id)
+                    .Include(e => e.Members)
+                    .Include(e => e.Goals);                
+
                 // work out which members were added, and which were removed
                 var attendees = form.GetValues("attendees");
 
-                // handle null
                 if (attendees == null)
                     attendees = new string[0] { }; 
 
-                var dbEvent = db.Events.Where(e => e.Id == @event.Id).Include(e => e.Members);
                 var oldMembers = dbEvent.Single().Members.ToList();
                 var newMembers = db.Members.Where(m => attendees.Contains(m.Id.ToString())).ToList();
 
@@ -136,6 +147,29 @@ namespace ScoutsHonour.Controllers
                 {
                     @event.Members.Add(member);
                     db.Entry(member).State = EntityState.Unchanged;
+                }
+
+                // work out which goals were added, and which were removed
+                var goals = form.GetValues("goals");
+
+                if (goals == null)
+                    goals = new string[0] { };
+
+                var oldGoals = dbEvent.Single().Goals.ToList();
+                var newGoals = db.Goals.Where(g => goals.Contains(g.Id.ToString())).ToList();
+
+                var deletedGoals = oldGoals.Except(newGoals).ToList();
+                foreach (var goal in deletedGoals)
+                {
+                    @event.Goals.Remove(goal);
+                    db.Entry(goal).State = EntityState.Unchanged;
+                }
+
+                var addedGoals = newGoals.Except(oldGoals).ToList();
+                foreach (var goal in addedGoals)
+                {
+                    @event.Goals.Add(goal);
+                    db.Entry(goal).State = EntityState.Unchanged;
                 }
 
                 await db.SaveChangesAsync();
