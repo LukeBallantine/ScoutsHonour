@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScoutsHonour.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ScoutsHonour.Models
         public int GoalId { get; set; }
         public bool? Presented { get; set; }
         public DateTime? AchievedDate { get; set; }
+        public GoalLinkType? GoalLinkType { get; set; }
     }
 
     public class MemberGoalsDetailViewModel
@@ -87,6 +89,7 @@ namespace ScoutsHonour.Models
     {
         public int GoalId { get; set; }
         public DateTime? CompleteDate { get; set; }
+        public GoalLinkType? GoalLinkType { get; set; }
     }
 
 }

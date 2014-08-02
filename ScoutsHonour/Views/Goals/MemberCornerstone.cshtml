@@ -1,4 +1,5 @@
 ﻿@using ScoutsHonour.Enums;
+@using ScoutsHonour.Models;
 @model ScoutsHonour.Models.MemberGoalsSummaryViewModel
 
 @{
@@ -8,54 +9,86 @@
 <h2>Cornerstone Badges: @Model.FullName</h2>
 
 <p></p>
-<table class="table">
-    <tr>
-        <th>Badge Part</th>
-        <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
-        <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
-        <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
-    </tr>
-@{string colour;} 
-@foreach (var item in ViewBag.Goals)
-{
-    switch ((RequirementLevel)item.RequirementLevel) {
-        case RequirementLevel.Bronze:
-            colour = "#B88A00";
-            break;
-        case RequirementLevel.Silver:
-            colour = "#CCCCCC";
-            break;
-        case RequirementLevel.Gold:
-            colour = "#FFCC00";
-            break;            
-        default:
-            colour = "transparent";
-            break;   
-    }
-    <tr>
-        <td style="@(item.TopLevel ? "font-weight: bold" : "background-color: " + colour)">
-            @item.Title
-        </td>
-        @if (item.TopLevel) {
-            <td>
-                @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-            </td>
-            <td>
-                @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-            </td>
-            <td>
-                @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-            </td>
-        }
-        else {
-            <td colspan="3">
-                @(Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.HasValue ? Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.Value.ToShortDateString() : "-")
-            </td>
-        }
-    </tr>
-}
 
-</table>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>Badge Part</th>
+            <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
+            <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
+            <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
+        </tr>
+    @{string colour;} 
+    @{BadgePartViewModel badgePart;}
+    @foreach (var item in ViewBag.Goals)
+    {
+        switch ((RequirementLevel)item.RequirementLevel) {
+            case RequirementLevel.Bronze:
+                colour = "#B88A00";
+                break;
+            case RequirementLevel.Silver:
+                colour = "#CCCCCC";
+                break;
+            case RequirementLevel.Gold:
+                colour = "#FFCC00";
+                break;            
+            default:
+                colour = "transparent";
+                break;   
+        }
+        <tr>
+            <td style="@(item.TopLevel ? "font-weight: bold" : "background-color: " + colour)">
+                @item.Title
+            </td>
+            @if (item.TopLevel) {
+                <td>
+                    @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
+                    @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                </td>
+                <td>
+                    @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
+                    @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                </td>
+                <td>
+                    @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
+                    @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                </td>
+            }
+            else
+            {
+                <td colspan="3">
+                    @{badgePart = Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault();}
+                    @if (badgePart.GoalLinkType == GoalLinkType.Event)
+                    {
+                        if (badgePart.CompleteDate.HasValue)
+                        {
+                            <text>@badgePart.CompleteDate.Value.ToShortDateString()</text>
+                        }
+                        else
+                        {
+                            <text>Yes</text>
+                        }
+                    }
+                    else
+                    {
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member ) ? "checked" : "")>
+                            <label class="onoffswitch-label" for="goal-@item.Id">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    }
+                    @*@(Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.HasValue
+                    ? Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.Value.ToShortDateString()
+                    : "-")*@
+                </td>
+            }
+        </tr>
+    }
+    </table>
+    <div> 
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>    
+}

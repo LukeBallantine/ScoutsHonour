@@ -32,7 +32,12 @@ namespace ScoutsHonour.Migrations
 
             context.SaveChanges();
 
-            string scriptPath = AppDomain.CurrentDomain.BaseDirectory + "/../App_Data/SqlScripts/";
+            // Path to SQL files is different in Azure
+            string scriptPath = null;
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/App_Data/SqlScripts/"))
+                scriptPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/SqlScripts/";
+            else
+                scriptPath = AppDomain.CurrentDomain.BaseDirectory + "/../App_Data/SqlScripts/";
 
             context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedGoals.sql"));
             context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedMembers.sql"));
@@ -48,17 +53,6 @@ namespace ScoutsHonour.Migrations
             ir = rm.Create(new IdentityRole(Role.Admin.ToString()));
             ir = rm.Create(new IdentityRole(Role.Leader.ToString()));
             ir = rm.Create(new IdentityRole(Role.Parent.ToString()));
-
-            //var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            //var user = new ApplicationUser()
-            //{
-            //    UserName = "lukesinbox@contoso.com",
-            //};
-            //ir = um.Create(user, "P_assw0rd1");
-            //if (ir.Succeeded == false)
-            //    return ir.Succeeded;
-            //ir = um.AddToRole(user.Id, "canEdit");
-            //return ir.Succeeded;
         }
 
 
@@ -70,65 +64,18 @@ namespace ScoutsHonour.Migrations
                     Title = "Cubs New Zealand",
                     Groups = new List<Group> {
                                 new Group { 
-                                    Title = "Glendowie Cubs Wednesday Night", 
-                                    GroupCodeParent = "GLENCUBWED",
-                                    GroupCodeLeader = "GLENCUBWEDL"
+                                    Title = "Cubs Demo Wednesday Night", 
+                                    GroupCodeParent = "111111",
+                                    GroupCodeLeader = "222222"
                                 },
                                 new Group {
-                                    Title = "Glendowie Cubs Tuesday Night", 
-                                    GroupCodeParent = "GLENCUBTUE",
-                                    GroupCodeLeader = "GLENCUBTUEL"
+                                    Title = "Cubs Demo Tuesday Night", 
+                                    GroupCodeParent = "333333",
+                                    GroupCodeLeader = "444444"
                                 }
                             }
                 });
 
-        }
-
-        void AddCubGoals(ScoutsHonour.Models.ScoutsHonourDbContext context)
-        {
-            //context.Goals.AddOrUpdate(r => r.Title,
-            //    new Goal
-            //    {
-            //        Title = "Bronze Cornerstone",
-            //        Level = 0,
-            //        Goals = new List<Goal> {
-            //                        new Goal {
-            //                            Title = "My Community: Part 1", 
-            //                            Level = 1,
-            //                            ChildRequirementCount = 2,
-            //                            Goals = new List<Goal> {
-            //                                new Goal {
-            //                                    Title = "Visit a marae", 
-            //                                    Level = 3
-            //                                    },
-            //                                new Goal {
-            //                                    Title = "Attend an Anzac day ceremony", 
-            //                                    Level = 3
-            //                                    }
-            //                            }
-            //                        },
-            //                        new Goal {
-            //                            Title = "My Community: Part 2", 
-            //                            Level = 1,
-            //                            ChildRequirementCount = 2,
-            //                            Goals = new List<Goal> {
-            //                                new Goal {
-            //                                    Title = "Visit a police station", 
-            //                                    Level = 3
-            //                                    },
-            //                                new Goal {
-            //                                    Title = "Draw a map",
-            //                                    Description = "Draw a map of the route from your home to your school.",
-            //                                    Level = 3
-            //                                    },
-            //                                new Goal {
-            //                                    Title = "Paint a mural",
-            //                                    Level = 3
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //    });
         }
 
 

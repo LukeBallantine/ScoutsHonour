@@ -20,6 +20,7 @@ namespace ScoutsHonour.Models
         [Required]
         [Display(Name = "Event Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EventDate { get; set; }
 
         [DataType(DataType.MultilineText)]

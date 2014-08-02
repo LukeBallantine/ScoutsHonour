@@ -179,6 +179,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Enums\GoalLevel.cs" />
+    <Compile Include="Enums\GoalLinkType.cs" />
     <Compile Include="Enums\MemberStatus.cs" />
     <Compile Include="Enums\GoalType.cs" />
     <Compile Include="Enums\MemberType.cs" />
@@ -223,6 +224,8 @@
     <Content Include="App_Data\SqlScripts\Cub badges.xlsx" />
     <Content Include="App_Data\SqlScripts\Members.xlsx" />
     <None Include="Properties\PublishProfiles\scoutshonour %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\scoutshonour - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\scoutshonour - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\scoutshonour.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
