@@ -186,6 +186,7 @@
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SessionIntKeys.cs" />
     <Compile Include="Extensions\ExpandoObject.cs" />
+    <Compile Include="Extensions\HtmlHelperExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,10 +210,12 @@
     <Content Include="App_Data\SqlScripts\DeleteAllDbTables.sql" />
     <Content Include="App_Data\SqlScripts\SeedMembers.sql" />
     <Content Include="App_Data\SqlScripts\SeedGoals.sql" />
+    <Content Include="Content\font-awesome.4.1.0.min.css" />
     <Content Include="Content\jquery-ui-custom.css" />
     <Content Include="Content\old-css\bootstrap.css" />
     <Content Include="Content\old-css\bootstrap.min.css" />
     <Content Include="Content\pure\pure-min.css" />
+    <Content Include="Content\pure\pure.css" />
     <Content Include="Content\pure\side-menu-old-ie.css" />
     <Content Include="Content\pure\side-menu.css" />
     <Content Include="favicon.ico" />

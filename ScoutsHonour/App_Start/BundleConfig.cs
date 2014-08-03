@@ -42,6 +42,7 @@ namespace ScoutsHonour
                       "~/Content/pure/pure-min.css", 
                       "~/Content/pure/side-menu.css",
                       "~/Content/jquery-ui-custom.css",
+                      //"~/Content/font-awesome.4.1.0.min.css",
                       "~/Content/site.css"));
             
             bundles.Add(new StyleBundle("~/Content/old-ie-css").Include(

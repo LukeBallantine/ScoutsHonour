@@ -5,8 +5,9 @@
 
     <h2 class="content-subhead">Groups</h2>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> Create New</a>
     </p>
+    
     <table class="pure-table pure-table-striped">
         <thead>
             <tr>
@@ -21,7 +22,7 @@
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+                        @Html.ActionLink(item.Title, "Details", new { id = item.Id }, new { @class = "title" })
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

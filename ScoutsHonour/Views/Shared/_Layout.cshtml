@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Scouts Honour</title>
 
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!--[if lte IE 8]>
     @Styles.Render("~/Content/old-ie-css")
     <![endif]-->
@@ -15,7 +17,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
+    @{string url = Request.Url.AbsolutePath.ToLower();}
     <div id="layout">
         @* Menu toggle *@
         <a href="#menu" id="menuLink" class="menu-link">
@@ -26,22 +28,24 @@
             <div class="pure-menu pure-menu-open">
                 @Html.ActionLink("Scouts Honour", "Index", "Home", new { area = "" }, new { @class = "pure-menu-heading" })
                 <ul>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Packs", "Index", "Groups")</li>
-                    @*<li class="menu-item-divided pure-menu-selected">
-                            <a href="#">Services</a>
-                        </li>*@
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="@(url == "/" ? "pure-menu-selected" : "" )">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i>&nbsp; Home</a>
+                    </li>
+                    <li class="@(url.StartsWith("/groups") ? "pure-menu-selected" : "" )">
+                        <a href="@Url.Action("Index", "Groups")"><i class="fa fa-users fa-fw"></i>&nbsp; Groups</a>
+                    </li>
+                    <li class="@(url.StartsWith("/contact") ? "pure-menu-selected" : "" )">
+                        <a href="@Url.Action("Contact", "Home")"><i class="fa fa-envelope fa-fw"></i>&nbsp; Contact</a>
+                    </li>
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
 
         <div id="main">
-            <div class="header">
-                <h1>Scouts Honour</h1>
-                <h2>A tool for managing cubs</h2>
-            </div>
+            @*<div class="header">
+                <h2>Scouts Honour</h2>
+            </div>*@
             <div class="content">
                 @RenderBody()
             </div>

@@ -3,20 +3,21 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+        @Html.AntiForgeryToken()
+        string url = Request.Url.AbsolutePath.ToLower();
+        <li class="menu-item-divided @(url.StartsWith("/account") ? "pure-menu-selected" : "" )">
+            <a href="@Url.Action("Manage", "Account")"><i class="fa fa-user fa-fw"></i>&nbsp; Profile</a>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i>&nbsp; Log off</a></li>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+
+    <li class="menu-item-divided">
+        <a href="@Url.Action("Register", "Account")" id="registerLink"><i class="fa fa-user fa-fw"></i>&nbsp; Register</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Login", "Account")" id="loginLink"><i class="fa fa-sign-in fa-fw"></i>&nbsp; Login</a>
+    </li>
 }

@@ -1,6 +1,7 @@
 ﻿$(function () {
 
-    var createAutocomplete = function () {
+    // setup goal autocomplete
+    var createGoalAutocomplete = function () {
         var $input = $(this);
         var target = $input.attr("data-sh-target");
         var options = {
@@ -23,6 +24,9 @@
         $input.autocomplete(options);
     }
 
-    $("input[data-sh-autocomplete]").each(createAutocomplete);
+    $("input[data-sh-autocomplete]").each(createGoalAutocomplete);
+
+    //$("<i class='fa fa-cog'></i>").appendTo("td a.title");
+
 
 });

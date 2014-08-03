@@ -87,7 +87,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,GroupCodeParent,GroupCodeLeader,BuildingName,StreetAddress,City")] Group group)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,OrganisationId,Title,GroupCodeParent,GroupCodeLeader,BuildingName,StreetAddress,City")] Group group)
         {
             if (ModelState.IsValid)
             {

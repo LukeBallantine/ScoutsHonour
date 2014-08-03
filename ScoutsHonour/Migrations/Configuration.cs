@@ -10,6 +10,7 @@ namespace ScoutsHonour.Migrations
     using System.Data.Entity.Migrations;
     using System.IO;
     using System.Linq;
+    using System.Threading;
     using System.Web;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ScoutsHonour.Models.ScoutsHonourDbContext>
@@ -40,7 +41,10 @@ namespace ScoutsHonour.Migrations
                 scriptPath = AppDomain.CurrentDomain.BaseDirectory + "/../App_Data/SqlScripts/";
 
             context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedGoals.sql"));
+            context.SaveChanges();
+
             context.Database.ExecuteSqlCommand(File.ReadAllText(scriptPath + "SeedMembers.sql"));
+            context.SaveChanges();
 
             base.Seed(context);
         }
