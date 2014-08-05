@@ -391,16 +391,22 @@ namespace ScoutsHonour.Controllers
 
                 }
 
-                bronzeBadge.Achieved = bronzeBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                bronzeBadge.Target = bronzeBadge.BadgeSections.Select(bs => bs.Target).Sum();
+                bronzeBadge.Target = bronzeBadge.BadgeSections.Count();
+                bronzeBadge.Achieved = bronzeBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
+                //bronzeBadge.Achieved = bronzeBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
+                //bronzeBadge.Target = bronzeBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 bronzeBadge.Complete = (bronzeBadge.Achieved >= bronzeBadge.Target);
 
-                silverBadge.Achieved = silverBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                silverBadge.Target = silverBadge.BadgeSections.Select(bs => bs.Target).Sum();
+                silverBadge.Target = silverBadge.BadgeSections.Count();
+                silverBadge.Achieved = silverBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
+                //silverBadge.Achieved = silverBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
+                //silverBadge.Target = silverBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 silverBadge.Complete = (silverBadge.Achieved >= silverBadge.Target);
 
-                goldBadge.Achieved = goldBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                goldBadge.Target = goldBadge.BadgeSections.Select(bs => bs.Target).Sum();
+                goldBadge.Target = goldBadge.BadgeSections.Count();
+                goldBadge.Achieved = goldBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
+                //goldBadge.Achieved = goldBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
+                //goldBadge.Target = goldBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 goldBadge.Complete = (goldBadge.Achieved >= goldBadge.Target);
 
                 memberGoalsList.Add(new MemberGoalsSummaryViewModel

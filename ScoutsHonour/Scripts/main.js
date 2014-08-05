@@ -10,7 +10,7 @@
                 var dom = "<div>" +
                             "<input type='hidden' name='goals' id='goal-" + ui.item.value + "' value='" + ui.item.value + "' />" +
                             "<span>" + ui.item.label + "</span>" +
-                            "<em class='sh-delete'>X</em>" +
+                            "<a class='sh-delete pure-button button-xsmall bg-error'>x</a>" +
                         "</div>";
                 $(dom).prependTo("#" + target);
                 $input.val("");

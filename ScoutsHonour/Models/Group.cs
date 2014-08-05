@@ -15,9 +15,11 @@ namespace ScoutsHonour.Models
         [StringLength(100)]
         public string Title { get; set; }
 
+        [StringLength(20)]
         [Display(Name = "Parent Registration Code")]
         public string GroupCodeParent { get; set; }
 
+        [StringLength(20)]
         [Display(Name = "Leader Registration Code")]
         public string GroupCodeLeader { get; set; }
 
@@ -54,6 +56,7 @@ namespace ScoutsHonour.Models
             set { _members = value; }
         }
 
+        //Don't enable this next nav propert - EF will complain about multiple cascading deletes
         //public virtual ICollection<Event> Events { get; set; }
 
     }

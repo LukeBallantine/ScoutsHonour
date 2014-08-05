@@ -192,6 +192,10 @@
     </Compile>
     <Compile Include="Helpers\MemberGoalsHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.cs" />
+    <Compile Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.Designer.cs">
+      <DependentUpon>201408031100037_Limit codes in Group model to 20 chars.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Goal.cs" />
@@ -214,6 +218,8 @@
     <Content Include="Content\jquery-ui-custom.css" />
     <Content Include="Content\old-css\bootstrap.css" />
     <Content Include="Content\old-css\bootstrap.min.css" />
+    <Content Include="Content\pure\grids-responsive-min.css" />
+    <Content Include="Content\pure\grids-responsive-old-ie-min.css" />
     <Content Include="Content\pure\pure-min.css" />
     <Content Include="Content\pure\pure.css" />
     <Content Include="Content\pure\side-menu-old-ie.css" />
@@ -312,6 +318,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.resx">
+      <DependentUpon>201408031100037_Limit codes in Group model to 20 chars.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

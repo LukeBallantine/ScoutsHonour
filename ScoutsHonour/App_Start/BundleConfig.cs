@@ -39,7 +39,8 @@ namespace ScoutsHonour
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       //"~/Content/bootstrap.css",
-                      "~/Content/pure/pure-min.css", 
+                      "~/Content/pure/pure-min.css",
+                      "~/Content/pure/grids-responsive-min.css", 
                       "~/Content/pure/side-menu.css",
                       "~/Content/jquery-ui-custom.css",
                       //"~/Content/font-awesome.4.1.0.min.css",
@@ -48,6 +49,7 @@ namespace ScoutsHonour
             bundles.Add(new StyleBundle("~/Content/old-ie-css").Include(
                 //"~/Content/bootstrap.css",
                       "~/Content/pure/pure-min.css",
+                      "~/Content/pure/grids-responsive-old-ie-min.css", 
                       "~/Content/pure/side-menu-old-ie.css",
                       "~/Content/site.css"));
 

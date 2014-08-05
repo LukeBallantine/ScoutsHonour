@@ -64,15 +64,21 @@ namespace ScoutsHonour.Controllers
              
                 // add attendees
                 var attendees = form.GetValues("attendees");
-                var members = db.Members.Where(m => attendees.Contains(m.Id.ToString())).ToList();
-                foreach (var member in members)
-                    @event.Members.Add(member);
+                if (attendees != null)
+                {
+                    var members = db.Members.Where(m => attendees.Contains(m.Id.ToString())).ToList();
+                    foreach (var member in members)
+                        @event.Members.Add(member);
+                }
 
                 // add goals
                 var goalIds = form.GetValues("goals");
-                var goals = db.Goals.Where(g => goalIds.Contains(g.Id.ToString())).ToList();
-                foreach (var goal in goals)
-                    @event.Goals.Add(goal);
+                if (goalIds != null)
+                {
+                    var goals = db.Goals.Where(g => goalIds.Contains(g.Id.ToString())).ToList();
+                    foreach (var goal in goals)
+                        @event.Goals.Add(goal);
+                }
 
                 await db.SaveChangesAsync();
 
