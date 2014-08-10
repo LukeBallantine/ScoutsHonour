@@ -8,58 +8,47 @@
 
 <h2>Cornerstone Badges: @Model.FullName</h2>
 
-<p></p>
-
 @using (Html.BeginForm())
 {
-    <table class="pure-table pure-table-striped">
-        <tr>
-            <th>Badge Part</th>
-            <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
-            <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
-            <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
-        </tr>
-        @{string colour;}
+    <div class="badge-header clearfix">
+        <div class="badge-right-header">
+            <div class="badge-goal">@Html.DisplayNameFor(model => model.BronzeBadge)</div>
+            <div class="badge-goal">@Html.DisplayNameFor(model => model.SilverBadge)</div>
+            <div class="badge-goal">@Html.DisplayNameFor(model => model.GoldBadge)</div>
+        </div>
+        <div class="badge-left-header">Badge Section</div>
+    </div>
+    <div class="ui-accordion">
+        @{int i = 0;}
         @{BadgePartViewModel badgePart;}
         @foreach (var item in ViewBag.Goals)
         {
-            switch ((RequirementLevel)item.RequirementLevel)
+            i++;
+            if (item.TopLevel)
             {
-                case RequirementLevel.Bronze:
-                    colour = "#B88A00";
-                    break;
-                case RequirementLevel.Silver:
-                    colour = "#CCCCCC";
-                    break;
-                case RequirementLevel.Gold:
-                    colour = "#FFCC00";
-                    break;
-                default:
-                    colour = "transparent";
-                    break;
-            }
-            <tr>
-                <td style="@(item.TopLevel ? "font-weight: bold" : "background-color: " + colour)">
-                    @item.Title
-                </td>
-                @if (item.TopLevel)
-                {
-                    <td>
-                        @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                        @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-                    </td>
-                    <td>
-                        @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                        @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-                    </td>
-                    <td>
-                        @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved) /
-                        @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-                    </td>
+                if (i != 1) {
+                    @Html.Raw("</div>")
                 }
-                else
-                {
-                    <td colspan="3">
+                <div class="badge-section clearfix">
+                    <div class="badge-right-section">
+                        <div class="badge-goal @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
+                            @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                        </div>
+                        <div class="badge-goal @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
+                            @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                        </div>
+                        <div class="badge-goal @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
+                            @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                        </div>
+                    </div>
+                    <div class="badge-left-section">@item.Title</div>
+                </div>
+                @Html.Raw("<div>")
+            }
+            else
+            {
+                <div class="badge-part clearfix">
+                    <div class="badge-right-part">
                         @{badgePart = Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault();}
                         @if (badgePart.GoalLinkType == GoalLinkType.Event)
                         {
@@ -74,7 +63,7 @@
                         }
                         else
                         {
-                            <div class="onoffswitch">
+                            <div class="onoffswitch clearfix">
                                 <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "checked" : "")>
                                 <label class="onoffswitch-label" for="goal-@item.Id">
                                     <span class="onoffswitch-inner"></span>
@@ -82,15 +71,16 @@
                                 </label>
                             </div>
                         }
-                        @*@(Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.HasValue
-                            ? Model.CornerstoneBadges.Where(cb => cb.GoalId == item.Id).FirstOrDefault().CompleteDate.Value.ToShortDateString()
-                            : "-")*@
-                    </td>
-                }
-            </tr>
+                    </div>
+                    <div class="badge-left-part"> <i class="fa-@(item.RequirementLevel.ToString().ToLower()) fa fa-question-circle" title="@(item.RequirementLevel.ToString()): @item.Description"></i> @item.Title </div>
+                </div>
+            }
         }
-    </table>
+        @Html.Raw("</div>")
+    </div>
     <div> 
-        <input type="submit" value="Save" class="btn btn-default" />
-    </div>    
+        <button type="submit" class="pure-button pure-button-primary">Save</button>
+        <a href="@Url.Action("Cornerstone")" class="pure-button">Cancel</a>
+    </div> 
+    <br />   
 }

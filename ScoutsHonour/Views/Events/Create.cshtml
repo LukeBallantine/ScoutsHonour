@@ -5,9 +5,10 @@
     ViewBag.Title = "Create";
 }
 
+<h2>Create Event</h2>
+
 <div class="pure-g">
     <div class="pure-u-1">
-        <h2>Create Event</h2>
 
         @using (Html.BeginFormWithClassName("pure-form pure-form-aligned"))
         {
@@ -17,40 +18,41 @@
                 @Html.ValidationSummary(true)
 
                 <div class="pure-control-group">
-                    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.Title)
+                    @Html.LabelFor(model => model.EventDate)
+                    @Html.EditorFor(model => model.EventDate, new { htmlAttributes = new { @class = "event-date" } })
+                    @Html.ValidationMessageFor(model => model.EventDate)
+                </div>
+
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.Title)
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "event-title" } })
                     @Html.ValidationMessageFor(model => model.Title)
                 </div>
 
                 <div class="pure-control-group">
-                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Description)
                     @Html.EditorFor(model => model.Description)
                     @Html.ValidationMessageFor(model => model.Description)
                 </div>
 
                 <div class="pure-control-group">
-                    @Html.LabelFor(model => model.EventDate, new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.EventDate)
-                    @Html.ValidationMessageFor(model => model.EventDate)
-                </div>
-
-                <div class="pure-control-group">
-                    @Html.LabelFor(model => model.Notes, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Notes)
                     @Html.EditorFor(model => model.Notes)
                     @Html.ValidationMessageFor(model => model.Notes)
                 </div>
 
-                <div class="pure-control-group">
+                <div class="pure-control-group sh-control-separator">
+                    <h4>Badges</h4>
                     <label for="goal-search">Badge search</label>
                     <input type="text" placeholder="Search for badge..." id="goal-search" class=""
-                           data-sh-autocomplete="@Url.Action("Autocomplete")"
+                           data-sh-goalautocomplete="@Url.Action("Autocomplete")"
                            data-sh-target="goals-list" />
                     <div id="goals-list">
                     </div>
                 </div>
 
-                <div class="">
-                    <h4>Attendees</h4>
+                <h4>Attendees</h4>
+                <div class="pure-controls">
                     @foreach (var item in ViewBag.PossibleAttendees)
                     {
                         <div class="onoffwrap">
@@ -64,12 +66,13 @@
                             <label class="onofftext" for="attendee-@item.Value">@item.Text</label>
                         </div>
                     }
+                    <br />
                 </div>
 
-                <div class="pure-control-group clearfix">
-                    <br/><br />
+                <div class="pure-controls clearfix">
+                    <br />
                     <button type="submit" class="pure-button-primary pure-button">Create</button>
-                    <a href="@Url.Action("Cancel")" class="pure-button">Cancel</a>
+                    <a href="@Url.Action("Index")" class="pure-button">Cancel</a>
                 </div>
             </fieldset>
         }

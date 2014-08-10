@@ -8,31 +8,31 @@
 
 <p></p>
 <table class="pure-table pure-table-striped">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.FullName)</th>
-        <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
-        <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
-        <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td>
-                @Html.ActionLink(item.FullName, "MemberCornerstone", new { id = item.MemberId })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BronzeBadge.Achieved) /
-                @Html.DisplayFor(modelItem => item.BronzeBadge.Target)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SilverBadge.Achieved) /
-                @Html.DisplayFor(modelItem => item.SilverBadge.Target)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GoldBadge.Achieved) /
-                @Html.DisplayFor(modelItem => item.GoldBadge.Target)
-            </td>
+            <th>Name</th>
+            <th>@Html.DisplayNameFor(model => model.BronzeBadge)</th>
+            <th>@Html.DisplayNameFor(model => model.SilverBadge)</th>
+            <th>@Html.DisplayNameFor(model => model.GoldBadge)</th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.FullName, "MemberCornerstone", new { id = item.MemberId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BronzeBadge.Achieved)/@Html.DisplayFor(modelItem => item.BronzeBadge.Target)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SilverBadge.Achieved)/@Html.DisplayFor(modelItem => item.SilverBadge.Target)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoldBadge.Achieved)/@Html.DisplayFor(modelItem => item.GoldBadge.Target)
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

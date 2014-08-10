@@ -4,47 +4,46 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Event</h2>
 
-<div>
-    <h4>Event</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+<div class="pure-g">
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+    <div class="pure-u-1">
+        <div class="box-1">
+            <div class="box-head clearfix">
+                <h3 class="pull-left">@Html.DisplayFor(model => model.Title)</h3>
+                <div class="pull-right">
+                    <a href="@Url.Action("Edit", "Events", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                    <a href="@Url.Action("Delete", "Events", new { id = Model.Id })" class="bg-error pure-button"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                </div>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EventDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EventDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EventDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Notes)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
+            </dl>
+        </div>
+    </div>
 
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

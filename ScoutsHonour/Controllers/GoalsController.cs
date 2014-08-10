@@ -350,12 +350,15 @@ namespace ScoutsHonour.Controllers
                     // summarise progress on bronze cornerstone
                     if (goal.Level1ChildRequirementCount > 0)
                     {
-                        subGoals = goals.Where(g => g.GoalId == goal.Id && (!g.RequirementLevel.HasValue || g.RequirementLevel == RequirementLevel.Bronze))
+                        // disable the check for requirement level as we allow any gold/silver to count toward bronze, 
+                        // and any gold to count toward silver:
+                        //     goals.Where(g => g.GoalId == goal.Id && (!g.RequirementLevel.HasValue || g.RequirementLevel == RequirementLevel.Bronze))
+                        subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
                         bronzeBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(),
+                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level1ChildRequirementCount.Value),
                             Target = goal.Level1ChildRequirementCount.Value,
                             Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level1ChildRequirementCount)
                         });
@@ -364,12 +367,12 @@ namespace ScoutsHonour.Controllers
                     // summarise progress on silver cornerstone
                     if (goal.Level2ChildRequirementCount > 0)
                     {
-                        subGoals = goals.Where(g => g.GoalId == goal.Id && (!g.RequirementLevel.HasValue || g.RequirementLevel == RequirementLevel.Silver))
+                        subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
                         silverBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(),
+                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level2ChildRequirementCount.Value),
                             Target = goal.Level2ChildRequirementCount.Value,
                             Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level2ChildRequirementCount)
                         });
@@ -378,12 +381,12 @@ namespace ScoutsHonour.Controllers
                     // summarise progress on gold cornerstone
                     if (goal.Level3ChildRequirementCount > 0)
                     {
-                        subGoals = goals.Where(g => g.GoalId == goal.Id && (!g.RequirementLevel.HasValue || g.RequirementLevel == RequirementLevel.Gold))
+                        subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
                         goldBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(),
+                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level3ChildRequirementCount.Value), 
                             Target = goal.Level3ChildRequirementCount.Value,
                             Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level3ChildRequirementCount)
                         });
@@ -393,20 +396,14 @@ namespace ScoutsHonour.Controllers
 
                 bronzeBadge.Target = bronzeBadge.BadgeSections.Count();
                 bronzeBadge.Achieved = bronzeBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
-                //bronzeBadge.Achieved = bronzeBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                //bronzeBadge.Target = bronzeBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 bronzeBadge.Complete = (bronzeBadge.Achieved >= bronzeBadge.Target);
 
                 silverBadge.Target = silverBadge.BadgeSections.Count();
                 silverBadge.Achieved = silverBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
-                //silverBadge.Achieved = silverBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                //silverBadge.Target = silverBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 silverBadge.Complete = (silverBadge.Achieved >= silverBadge.Target);
 
                 goldBadge.Target = goldBadge.BadgeSections.Count();
                 goldBadge.Achieved = goldBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
-                //goldBadge.Achieved = goldBadge.BadgeSections.Select(bs => bs.Achieved).Sum();
-                //goldBadge.Target = goldBadge.BadgeSections.Select(bs => bs.Target).Sum();
                 goldBadge.Complete = (goldBadge.Achieved >= goldBadge.Target);
 
                 memberGoalsList.Add(new MemberGoalsSummaryViewModel

@@ -4,27 +4,26 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="content-subhead">Events</h2>
+<h2>Events</h2>
 <p>
-    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> Create New</a>
+    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Event</a>
 </p>
 
 <table class="pure-table pure-table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.EventDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="xsm-hidden">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="xsm-hidden sm-hidden">
                 @Html.DisplayNameFor(model => model.Notes)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -33,21 +32,21 @@
         {
             <tr>
                 <td>
-                    <a href="@Url.Action("Details", "Events", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a> 
+                    <a href="@Url.Action("Details", "Events", new { id = item.Id })">@Html.DisplayFor(modelItem => item.EventDate)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td class="xsm-hidden">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventDate)
-                </td>
                 <td class="xsm-hidden sm-hidden">
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
             </tr>
         }
     </tbody>

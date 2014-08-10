@@ -3,9 +3,9 @@
     ViewBag.Title = "Index";
 }
 
-    <h2 class="content-subhead">Groups</h2>
+    <h2>Groups</h2>
     <p>
-        <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> Create New</a>
+        <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Group</a>
     </p>
     
     <table class="pure-table pure-table-striped">
@@ -17,7 +17,6 @@
                 <th class="xsm-hidden">
                     Address
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -40,11 +39,6 @@
                         {
                             <text>@item.City</text>
                         }
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>
                 </tr>
             }

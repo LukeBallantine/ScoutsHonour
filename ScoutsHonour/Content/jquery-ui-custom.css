@@ -65,6 +65,14 @@
 	min-height: 0; /* support: IE7 */
 	/* support: IE10, see #8844 */
 	list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+    background-color: #fff;     /* tweak */
+    border: solid 1px #999;
+}
+.ui-menu-item:hover {
+    background-color: #EEE;
+}
+.ui-helper-hidden-accessible {
+    display: none;
 }
 .ui-menu .ui-menu-divider {
 	margin: 5px 0;

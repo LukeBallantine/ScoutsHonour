@@ -55,7 +55,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes")] Member member)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes,GroupId")] Member member)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes,GroupId")] Member member)
         {
             if (ModelState.IsValid)
             {

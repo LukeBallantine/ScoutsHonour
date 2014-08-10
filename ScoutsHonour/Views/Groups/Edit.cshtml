@@ -5,10 +5,10 @@
     ViewBag.Title = "Edit";
 }
 
+<h2>Edit Group</h2>
+
 <div class="pure-g">
     <div class="pure-u-1">
-        <h2>Edit Group</h2>
-        <hr />
 
         @using (Html.BeginFormWithClassName("pure-form pure-form-aligned"))
         {
@@ -58,7 +58,7 @@
 
                 <div class="pure-control-group">
                     <button type="submit" class="pure-button-primary pure-button">Save</button>
-                    @Html.ActionLink("Cancel", "Index", null, htmlAttributes: new { @class = "pure-button" })
+                    <a href="@Url.Action("Details", new { Id = Model.Id})" class="pure-button">Cancel</a>
                 </div>
             </fieldset>
         }

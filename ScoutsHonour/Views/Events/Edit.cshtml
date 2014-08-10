@@ -1,99 +1,97 @@
-﻿@model ScoutsHonour.Models.Event
+﻿@using ScoutsHonour.Extensions
+@model ScoutsHonour.Models.Event
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit Event</h2>
 
+<div class="pure-g">
+    <div class="pure-u-1">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        @using (Html.BeginFormWithClassName("pure-form pure-form-aligned"))
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Event</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.GroupId)
+            <fieldset>
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.GroupId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
-                @Html.ValidationMessageFor(model => model.Title)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EventDate, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EventDate)
-                @Html.ValidationMessageFor(model => model.EventDate)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes)
-                @Html.ValidationMessageFor(model => model.Notes)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <h4>Attendees</h4>
-            @foreach (var item in ViewBag.PossibleAttendees)
-            {
-                <div class="col-md-12 onoffwrap">
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="attendees" class="onoffswitch-checkbox" id="attendee-@item.Value" value="@item.Value" @(item.Selected ? "checked" : "")>
-                        <label class="onoffswitch-label" for="attendee-@item.Value">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
-                    </div>
-                    <div class="onofftext">@item.Text</div>
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.EventDate)
+                    @Html.EditorFor(model => model.EventDate)
+                    @Html.ValidationMessageFor(model => model.EventDate)
                 </div>
-            }
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="text" placeholder="Search for badge..." class=""
-                       data-sh-autocomplete="@Url.Action("Autocomplete")"
-                       data-sh-target="goals-list" />
-            </div>
-            <div id="goals-list">
-                @foreach (var item in ViewBag.EventGoals)
-                {
-                    <div>
-                        <input type="hidden" name="goals" id="goal-@item.Value" value="@item.Value" />
-                        <span>@item.Text</span>
-                        <em class="sh-delete">X</em>
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.Title)
+                    @Html.EditorFor(model => model.Title)
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.Description)
+                    @Html.EditorFor(model => model.Description)
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.Notes)
+                    @Html.EditorFor(model => model.Notes)
+                    @Html.ValidationMessageFor(model => model.Notes)
+                </div>
+
+                <div class="pure-control-group sh-control-separator">
+                    <h4>Badges for this event</h4>
+                    <label for="goal-search">Badge search</label>
+                    <input type="text" placeholder="Search for badge..." id="goal-search" class=""
+                           data-sh-goalautocomplete="@Url.Action("Autocomplete")"
+                           data-sh-target="goals-list" />
+                    <div id="goals-list">
+                        @{string[] split;}
+                        @{string badgeSection, badgePart;}
+                        @foreach (var item in ViewBag.EventGoals)
+                        {
+                            split = @item.Text.Split(':');
+                            badgeSection = split[0].Trim();
+                            badgePart = (split.Length > 1) ? split[1].Trim() : "";
+                            <div>
+                                <input type="hidden" name="goals" id="goal-@item.Value" value="@item.Value" />
+                                <a href="#" class="sh-delete pure-button button-small bg-error pull-right"><i class="fa fa-times"></i></a>
+                                <em>@badgeSection</em><br />
+                                <span>@badgePart</span>
+                            </div>
+                        }
                     </div>
-                }
-            </div>
-        </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+                <h4>Attendees for this event</h4>
+                <div class="pure-controls">
+                    @foreach (var item in ViewBag.PossibleAttendees)
+                    {
+                        <div class="onoffwrap">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="attendees" class="onoffswitch-checkbox" id="attendee-@item.Value" value="@item.Value" @(item.Selected ? "checked" : "")>
+                                <label class="onoffswitch-label" for="attendee-@item.Value">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <label class="onofftext" for="attendee-@item.Value">@item.Text</label>
+                        </div>
+                    }
+                    <br />
+                </div>
+
+                <div class="pure-control-group clearfix">
+                    <br /> 
+                    <button type="submit" class="pure-button-primary pure-button">Save</button>
+                    <a href="@Url.Action("Index")" class="pure-button">Cancel</a>
+                </div>
+            </fieldset>
+        }
+
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-

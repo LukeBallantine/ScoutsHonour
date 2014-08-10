@@ -25,7 +25,7 @@ namespace ScoutsHonour.Controllers
         public async Task<ActionResult> Index()
         {
             int groupId = SessionHelper.GetGroupId().Value;
-            return View(await db.Events.Where(e => e.GroupId == groupId).ToListAsync());
+            return View(await db.Events.Where(e => e.GroupId == groupId).OrderByDescending(e => e.EventDate).ToListAsync());
         }
 
         // GET: /Events/Details/5
@@ -46,8 +46,10 @@ namespace ScoutsHonour.Controllers
         // GET: /Events/Create
         public ActionResult Create()
         {
+            var @event = new Event { EventDate = DateTime.Now };
+
             ViewBag.PossibleAttendees = GetPossibleAttendees();
-            return View();
+            return View(@event);
         }
 
         // POST: /Events/Create

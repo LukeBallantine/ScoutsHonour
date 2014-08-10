@@ -171,5 +171,9 @@ BEGIN
 	INSERT INTO Goals VALUES ('Plan a cub activity', 'Help the Cub Leaders plan an activity or programme. ', 1, NULL, NULL, NULL, NULL, 3, 153, 1);
 	INSERT INTO Goals VALUES ('Organise a Cubs Own', 'Organise with the Cub Leaders help, a Cubs Own. Take a special part in it yourself.', 1, NULL, NULL, NULL, NULL, 3, 153, 1);
 
+	-- Reset goals to allow silver/gold to count to bronze, gold to count to silver
+	UPDATE Goals SET Level2ChildRequirementCount = 6 WHERE Level2ChildRequirementCount = 3 AND GoalId IS NULL AND OrganisationId = 1
+	UPDATE Goals SET Level3ChildRequirementCount = 9 WHERE Level3ChildRequirementCount = 3 AND GoalId IS NULL AND OrganisationId = 1
+
 END
 

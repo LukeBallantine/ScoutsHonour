@@ -28,6 +28,64 @@ body {
     background-color: #f4f4f4;
 }
 
+.input-validation-error {
+    border: solid 1px #E94B3B;
+}
+.field-validation-error {
+    color: #E94B3B;
+}
+
+/* side-menu.css (pure) overrides */
+#menu .pure-menu-heading {
+    /*font-family: 'Segoe UI Light', Arial, sans-serif;*/
+    font-size: 90%;
+    font-weight: bold;
+}
+
+#main {
+    background-color: #f4f4f4;
+}
+
+.content {
+    margin: 0;
+}
+
+/* media queries */
+@media (max-width: 30em) {
+
+    .content {
+        padding: 0.25em;
+    }
+
+    .xsm-hidden {
+        display: none;
+    }
+}
+
+@media (max-width: 48em) {
+
+    .content {
+        padding: 0.5em;
+    }
+
+    .content > h2 {
+        margin: 0.1em 0 1em 2.6em;
+    }
+
+    .sm-hidden {
+        display: none;
+    }
+}
+
+/* custom css starts here */
+.header {
+    padding: 0;
+}
+
+.ui-widget-content {
+    background-color: white;
+}
+
 .box-1 {
     background-color: #FFF;
     padding: 1em;
@@ -85,91 +143,113 @@ body {
     font-size: 70%;
 }
 
-/*
-.button-success {
-    background: rgb(28, 184, 65);
-}
-.button-error {
-    background: rgb(202, 60, 60);
-    color: #fff;
-}
-.button-warning {
-    background: rgb(223, 117, 20);
-}
-.button-secondary {
-    background: rgb(66, 184, 221);
-}*/
-
-
-/*.no-padding {
-    padding: 0 !important;
-}
-
-.no-margin {
-    margin: 0 !important;
-}*/
-
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
-}*/
-
-.button-xsmall {
-    font-size: 70%;
-}
-
 .button-small {
     font-size: 85%;
+    padding: 0.4em 0.7em;
 }
 
-/* side-menu.css (pure) overrides */
-#menu .pure-menu-heading {
-    /*font-family: 'Segoe UI Light', Arial, sans-serif;*/
-    font-size: 90%;
+/* Event styles */
+.pure-control-group h5 {
+    margin: 0.2em 0 0.3em 0;
+}
+
+.sh-control-separator {
+    border-top: solid 1px #ddd;
+    max-width: 445px;
+}
+
+#goals-list {
+    max-width: 445px;
+    border-bottom: solid 1px #ddd;
+    margin-top: 1em;
+}
+
+#goals-list div {
+    border-top: solid 1px #ddd;
+    padding: 0.1em 0 0.3em 0; 
+}
+
+#goals-list a {
+    margin-top: 0.85em;
+}
+
+    #goals-list em {
+        font-size: 0.85em;
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    #goals-list span {
+        font-size: 0.9em;
+    }
+
+/* Goal / Badge styles */
+.medal {
+    margin: 0.3em;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #999;
+}
+
+.fa-bronze {
+    color: #B88A00;
+    background-color: #fff;
+}
+.fa-silver {
+    color: #CCCCCC;
+    background-color: #fff;
+}
+.fa-gold {
+    color: #FFCC00;
+    background-color: #fff;
+}
+
+.badge-header {
+    height: 40px;
+}
+.badge-left-header {
+    width: auto;
+    margin-right: 185px;
+}
+.badge-right-header {
+    float: right;
+    width: 180px;
+    margin-right: 13px;
+}
+.badge-section {
+    border-top: solid 1px #ccc;
+}
+.badge-left-section {
+    width: auto;
+    margin-right: 185px;
+}
+.badge-right-section {
+    float: right;
+    width: 185px;
+}
+    .badge-right-header div.badge-goal, .badge-right-section div.badge-goal {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 60px;
+        float: left;
+        text-align: center;
+    }
+.badge-complete {
     font-weight: bold;
 }
-
-#main {
-    background-color: #f4f4f4;
+.badge-part {
+    height: 35px;
+}
+.badge-left-part {
+    width: auto;
+    margin-right: 110px;
+}
+.badge-right-part {
+    float: right;
+    width: 105px;
 }
 
-.content {
-    margin: 0;
-}
-
-/* media queries */
-@media (max-width: 30em) {
-
-    .content {
-        padding: 0.25em;
-    }
-
-    .xsm-hidden {
-        display: none;
-    }
-}
-
-@media (max-width: 48em) {
-
-    .content {
-        padding: 0.5em;
-    }
-
-    .content > h2 {
-        margin: 0.4em 0 1em 1.5em;
-    }
-
-    .sm-hidden {
-        display: none;
-    }
-}
-
-/* custom css starts here */
-.header {
-    padding: 0;
-}
 
 /* onoff CSS from http://proto.io/freebies/onoff/ */
 .onoffswitch {

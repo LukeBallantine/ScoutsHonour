@@ -66,6 +66,7 @@ namespace ScoutsHonour.Models
         public string PrivateNotes { get; set; }
 
         //FK
+        [Display(Name = "Group")]
         public int? GroupId { get; set; }
         public virtual Group Group { get; set; }
 

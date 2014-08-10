@@ -4,9 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="content-subhead">Groups</h2>
+<h2 class="content-subhead">Members</h2>
 <p>
-    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> Create New</a>
+    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Member</a>
 </p>
 
 <table class="pure-table pure-table-striped">
@@ -15,10 +15,7 @@
         <tr>
             <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SixColour)
@@ -58,3 +55,4 @@
         }
     </tbody>
 </table>
+<br />
