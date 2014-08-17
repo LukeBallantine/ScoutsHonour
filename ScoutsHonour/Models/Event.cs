@@ -13,6 +13,10 @@ namespace ScoutsHonour.Models
         [StringLength(50)]
         public string Title { get; set; }
 
+        [StringLength(50)]
+        [Display(Name = "Organiser")]
+        public string OrganisedBy { get; set; }
+
         [StringLength(500)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }

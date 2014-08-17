@@ -23,13 +23,13 @@
                 <td>
                     @Html.ActionLink(item.FullName, "MemberCornerstone", new { id = item.MemberId })
                 </td>
-                <td>
+                <td class="@(item.BronzeBadge.Complete ? "badge-complete" : "")">
                     @Html.DisplayFor(modelItem => item.BronzeBadge.Achieved)/@Html.DisplayFor(modelItem => item.BronzeBadge.Target)
                 </td>
-                <td>
+                <td class="@(item.SilverBadge.Complete ? "badge-complete" : "")">
                     @Html.DisplayFor(modelItem => item.SilverBadge.Achieved)/@Html.DisplayFor(modelItem => item.SilverBadge.Target)
                 </td>
-                <td>
+                <td class="@(item.GoldBadge.Complete ? "badge-complete" : "")">
                     @Html.DisplayFor(modelItem => item.GoldBadge.Achieved)/@Html.DisplayFor(modelItem => item.GoldBadge.Target)
                 </td>
             </tr>

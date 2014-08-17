@@ -49,10 +49,12 @@ namespace ScoutsHonour.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DOB { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Date Joined")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateJoined { get; set; }
 
         public MemberStatus Status { get; set; }

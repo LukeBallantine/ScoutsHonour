@@ -32,6 +32,12 @@
                 </div>
 
                 <div class="pure-control-group">
+                    @Html.LabelFor(model => model.OrganisedBy)
+                    @Html.EditorFor(model => model.OrganisedBy)
+                    @Html.ValidationMessageFor(model => model.OrganisedBy)
+                </div>
+
+                <div class="pure-control-group">
                     @Html.LabelFor(model => model.Description)
                     @Html.EditorFor(model => model.Description)
                     @Html.ValidationMessageFor(model => model.Description)

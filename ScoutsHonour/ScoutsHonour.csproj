@@ -191,10 +191,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MemberGoalsHelper.cs" />
+    <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.cs" />
     <Compile Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.Designer.cs">
       <DependentUpon>201408031100037_Limit codes in Group model to 20 chars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408152349233_AddEventOrganiser.cs" />
+    <Compile Include="Migrations\201408152349233_AddEventOrganiser.Designer.cs">
+      <DependentUpon>201408152349233_AddEventOrganiser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -307,6 +312,8 @@
     <Content Include="Views\Goals\Index.cshtml" />
     <Content Include="Views\Goals\Cornerstone.cshtml" />
     <Content Include="Views\Goals\MemberCornerstone.cshtml" />
+    <Content Include="Views\Goals\Personal.cshtml" />
+    <Content Include="Views\Goals\MemberPersonal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Badges\" />
@@ -322,6 +329,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201408031100037_Limit codes in Group model to 20 chars.resx">
       <DependentUpon>201408031100037_Limit codes in Group model to 20 chars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408152349233_AddEventOrganiser.resx">
+      <DependentUpon>201408152349233_AddEventOrganiser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

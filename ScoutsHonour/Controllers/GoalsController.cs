@@ -126,7 +126,6 @@ namespace ScoutsHonour.Controllers
             return RedirectToAction("Index");
         }
 
-
         [RequiresGroupIdInSession]
         public ActionResult Cornerstone()
         {
@@ -138,6 +137,19 @@ namespace ScoutsHonour.Controllers
             return View(memberGoals);
         }
 
+        [RequiresOrganisationIdInSession]
+        [RequiresGroupIdInSession]
+        public ActionResult Personal()
+        {
+            var orgId = SessionHelper.GetOrganisationId().Value;
+            var goals = db.Goals.Where(g => g.GoalType == GoalType.CubPersonal
+                && g.OrganisationId == orgId).ToList();
+
+            var memberGoals = GetMemberGoalsDetail(goals);
+            return View(memberGoals);
+        }
+
+        [RequiresOrganisationIdInSession]
         [RequiresGroupIdInSession]
         public ActionResult MemberCornerstone([Bind(Include = "Id")] int Id)
         {
@@ -158,6 +170,7 @@ namespace ScoutsHonour.Controllers
         }
 
         [HttpPost]
+        [RequiresOrganisationIdInSession]
         [RequiresGroupIdInSession]
         public ActionResult MemberCornerstone([Bind(Include = "Id")] int Id, FormCollection form)
         {
@@ -168,7 +181,11 @@ namespace ScoutsHonour.Controllers
                 goals = new string[0] { };
 
             var member = db.Members.Where(m => m.Id == Id).Include(m => m.MemberGoals).FirstOrDefault();
-            var oldGoals = member.MemberGoals.Where(mg => mg.GoalLinkType == GoalLinkType.Member).Select(mg => mg.GoalId).ToList();
+
+            // limit oldGoals to cornerstone (so we don't delete all personal badge accomplishments)
+            var orgId = SessionHelper.GetOrganisationId().Value;
+            var cornerstoneGoals = db.Goals.Where(g => g.OrganisationId == orgId && g.GoalType == GoalType.CubCornerstone).Select(g => g.Id).ToList();            
+            var oldGoals = member.MemberGoals.Where(mg => mg.GoalLinkType == GoalLinkType.Member && cornerstoneGoals.Contains(mg.GoalId)).Select(mg => mg.GoalId).ToList();
             var newGoals = db.Goals.Where(g => goals.Contains(g.Id.ToString()))
                                 .Select(g => g.Id).ToList();
 
@@ -193,6 +210,70 @@ namespace ScoutsHonour.Controllers
 
             db.SaveChanges();
             return RedirectToAction("Cornerstone");
+        }
+
+        [RequiresOrganisationIdInSession]
+        [RequiresGroupIdInSession]
+        public ActionResult MemberPersonal([Bind(Include = "Id")] int Id)
+        {
+            var orgId = SessionHelper.GetOrganisationId().Value;
+            var goals = db.Goals.Where(g => g.GoalType == GoalType.CubPersonal
+                && g.OrganisationId == orgId).ToList();
+            ViewBag.Goals = goals.Select(g => new GoalViewModel
+            {
+                Id = g.Id,
+                Title = g.Title,
+                Description = g.Description,
+                TopLevel = (g.GoalId == null),
+                RequirementLevel = g.RequirementLevel ?? RequirementLevel.Any
+            });
+
+            var memberGoal = GetMemberGoalsDetail(goals).Where(mg => mg.MemberId == Id).FirstOrDefault();
+            return View(memberGoal);
+        }
+
+        [HttpPost]
+        [RequiresOrganisationIdInSession]
+        [RequiresGroupIdInSession]
+        public ActionResult MemberPersonal([Bind(Include = "Id")] int Id, FormCollection form)
+        {
+            // work out which goals were added, and which were removed
+            var goals = form.GetValues("goals");
+
+            if (goals == null)
+                goals = new string[0] { };
+
+            var member = db.Members.Where(m => m.Id == Id).Include(m => m.MemberGoals).FirstOrDefault();
+
+            // limit oldGoals to personal (so we don't delete all cornerstone badge accomplishments)
+            var orgId = SessionHelper.GetOrganisationId().Value;
+            var personalGoals = db.Goals.Where(g => g.OrganisationId == orgId && g.GoalType == GoalType.CubPersonal).Select(g => g.Id).ToList();            
+            var oldGoals = member.MemberGoals.Where(mg => mg.GoalLinkType == GoalLinkType.Member && personalGoals.Contains(mg.GoalId)).Select(mg => mg.GoalId).ToList();
+            var newGoals = db.Goals.Where(g => goals.Contains(g.Id.ToString()))
+                                .Select(g => g.Id).ToList();
+
+            var deletedGoals = oldGoals.Except(newGoals).ToList();
+            var deleteMemberGoals = member.MemberGoals.Where(mg => deletedGoals.Contains(mg.GoalId)).ToList();
+            foreach (var memberGoal in deleteMemberGoals)
+            {
+                member.MemberGoals.Remove(memberGoal);
+            }
+
+            var addedGoals = newGoals.Except(oldGoals).ToList();
+            foreach (var goalId in addedGoals)
+            {
+                member.MemberGoals.Add(new MemberGoal
+                {
+                    MemberId = member.Id,
+                    GoalId = goalId,
+                    Presented = false,
+                    AchievedDate = DateTime.Now,
+                    GoalLinkType = GoalLinkType.Member
+                });
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Personal");
         }
 
         //private List<MemberGoalsSummaryViewModel> GetMemberGoalsSummary()
@@ -294,29 +375,22 @@ namespace ScoutsHonour.Controllers
         {
 
             // If I was smarter, I'd write this in LINQ
-            //string query = "SELECT DISTINCT M.Id 'MemberId', GE.Goal_Id 'GoalId', NULL 'Presented', NULL 'AchievedDate' " +
-            //                "FROM Members M " +
-            //                    "INNER JOIN MemberEvents ME ON M.Id = ME.Member_Id " +
-            //                    "INNER JOIN [Events] E ON ME.Event_Id = E.Id " +
-            //                    "INNER JOIN GoalEvents GE ON E.Id = GE.Event_Id " +
-            //                "WHERE M.GroupId = @GroupId " +
-            //                "ORDER BY M.Id";
-
             // Get goal links (indirect) from events, and goal links (direct) from member, then combine 
-            string query = "SELECT MemberId, GoalId, MAX(AchievedDate) AS AchievedDate, MIN(LinkType) AS GoalLinkType, CAST(MAX(Presented+0) AS bit) AS Presented " +
-                            "FROM (SELECT DISTINCT M.Id 'MemberId', GE.Goal_Id 'GoalId', 1 'LinkType', NULL 'Presented', E.EventDate 'AchievedDate' " +
-                                "FROM Members M " +
-                                    "INNER JOIN MemberEvents ME ON M.Id = ME.Member_Id " +
-                                    "INNER JOIN [Events] E ON ME.Event_Id = E.Id " +
-                                    "INNER JOIN GoalEvents GE ON E.Id = GE.Event_Id " +
-                                "WHERE M.GroupId = @GroupId " +
-                                "UNION " +
-                                "SELECT DISTINCT M.Id 'MemberId', MG.GoalId 'GoalId', 2 'LinkType', MG.Presented, MG.AchievedDate " +
-                                "FROM Members M " +
-                                    "INNER JOIN MemberGoals MG ON M.Id = MG.MemberId " +
-                                "WHERE M.GroupId = @GroupId) AS g " +
-                            "GROUP BY MemberId, GoalId " +
-                            "ORDER BY MemberId, GoalId";
+            string query = 
+                        @"SELECT MemberId, GoalId, MAX(AchievedDate) AS AchievedDate, MIN(LinkType) AS GoalLinkType, CAST(MAX(Presented+0) AS bit) AS Presented 
+                            FROM (SELECT DISTINCT M.Id 'MemberId', GE.Goal_Id 'GoalId', 1 'LinkType', NULL 'Presented', E.EventDate 'AchievedDate' 
+                                FROM Members M 
+                                    INNER JOIN MemberEvents ME ON M.Id = ME.Member_Id 
+                                    INNER JOIN [Events] E ON ME.Event_Id = E.Id 
+                                    INNER JOIN GoalEvents GE ON E.Id = GE.Event_Id 
+                                WHERE M.GroupId = @GroupId 
+                                UNION 
+                                SELECT DISTINCT M.Id 'MemberId', MG.GoalId 'GoalId', 2 'LinkType', MG.Presented, MG.AchievedDate 
+                                FROM Members M 
+                                    INNER JOIN MemberGoals MG ON M.Id = MG.MemberId 
+                                WHERE M.GroupId = @GroupId) AS g 
+                            GROUP BY MemberId, GoalId 
+                            ORDER BY MemberId, GoalId";
 
             IEnumerable<MemberGoal> allMemberGoals = db.Database.SqlQuery<MemberGoal>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
 
@@ -332,7 +406,8 @@ namespace ScoutsHonour.Controllers
                 var bronzeBadge = new BadgeViewModel();
                 var silverBadge = new BadgeViewModel();
                 var goldBadge = new BadgeViewModel();
-                var cornerstoneParts = new List<BadgePartViewModel>();
+                var personalBadge = new BadgeViewModel();
+                var badgeParts = new List<BadgePartViewModel>();
 
                 IEnumerable<MemberGoal> memberGoals = allMemberGoals.Where(g => g.MemberId == member.Id).ToList();
                 foreach (var goal in goals)
@@ -341,7 +416,8 @@ namespace ScoutsHonour.Controllers
                     memberGoalTemp = memberGoals.Where(g => g.GoalId == goal.Id).FirstOrDefault();
                     if (memberGoalTemp != null)
                         goalCompleteDate = memberGoalTemp.AchievedDate ?? DateTime.Now;
-                    cornerstoneParts.Add(new BadgePartViewModel { 
+
+                    badgeParts.Add(new BadgePartViewModel { 
                         GoalId = goal.Id, 
                         CompleteDate = goalCompleteDate, 
                         GoalLinkType = (memberGoalTemp != null ? memberGoalTemp.GoalLinkType : null ) 
@@ -360,7 +436,7 @@ namespace ScoutsHonour.Controllers
                             GoalId = goal.Id,
                             Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level1ChildRequirementCount.Value),
                             Target = goal.Level1ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level1ChildRequirementCount)
+                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level1ChildRequirementCount.Value)
                         });
                     }
 
@@ -374,7 +450,7 @@ namespace ScoutsHonour.Controllers
                             GoalId = goal.Id,
                             Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level2ChildRequirementCount.Value),
                             Target = goal.Level2ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level2ChildRequirementCount)
+                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level2ChildRequirementCount.Value)
                         });
                     }
 
@@ -388,10 +464,23 @@ namespace ScoutsHonour.Controllers
                             GoalId = goal.Id,
                             Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level3ChildRequirementCount.Value), 
                             Target = goal.Level3ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level3ChildRequirementCount)
+                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level3ChildRequirementCount.Value)
                         });
                     }
 
+                    // summarise progress on personal
+                    if (goal.ChildRequirementCount > 0)
+                    {
+                        subGoals = goals.Where(g => g.GoalId == goal.Id)
+                                        .Select(g => g.Id);
+                        personalBadge.BadgeSections.Add(new BadgeSectionViewModel
+                        {
+                            GoalId = goal.Id,
+                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.ChildRequirementCount.Value),
+                            Target = goal.ChildRequirementCount.Value,
+                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.ChildRequirementCount.Value)
+                        });
+                    }
                 }
 
                 bronzeBadge.Target = bronzeBadge.BadgeSections.Count();
@@ -406,6 +495,10 @@ namespace ScoutsHonour.Controllers
                 goldBadge.Achieved = goldBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
                 goldBadge.Complete = (goldBadge.Achieved >= goldBadge.Target);
 
+                personalBadge.Target = personalBadge.BadgeSections.Count();
+                personalBadge.Achieved = personalBadge.BadgeSections.Where(bs => bs.Achieved >= bs.Target).Count();
+                personalBadge.Complete = (personalBadge.Achieved >= personalBadge.Target);
+
                 memberGoalsList.Add(new MemberGoalsSummaryViewModel
                 {
                     MemberId = member.Id,
@@ -413,7 +506,8 @@ namespace ScoutsHonour.Controllers
                     BronzeBadge = bronzeBadge,
                     SilverBadge = silverBadge,
                     GoldBadge = goldBadge,
-                    CornerstoneBadges = cornerstoneParts
+                    PersonalBadge = personalBadge,
+                    BadgeSections = badgeParts
                 });
 
             }

@@ -16,15 +16,16 @@
                     <a href="@Url.Action("Delete", "Groups", new { id = Model.Id })" class="bg-error pure-button"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
                 </div>
             </div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayName("Cubs")
-                </dt>
-
-                <dd>
-                    @Model.Members.Count()
-                </dd>
-            </dl>
+            <table class="pure-table pure-table-striped">
+                <tr>
+                    <td>Current Members</td>
+                    <td>@ViewBag.CurrentCubs</td>
+                </tr>
+                <tr>
+                    <td>Wait List</td>
+                    <td>@ViewBag.WaitingCubs</td>
+                </tr>
+            </table>
         </div>
     </div>
 
@@ -36,6 +37,16 @@
                 </span>
                 Events
             </h4>
+            <hr />
+            @if (ViewBag.Events != null) {
+                <div>Recent & Upcoming</div>
+            }
+            @foreach (var item in ViewBag.Events)
+            {
+                <div>
+                    @item.EventDate.ToString("dd MMM") <a href="@Url.Action("Details", "Events", new { Id = item.Id })">@item.Title</a> 
+                </div>
+            }
             <hr />
             <div>
                 <a href="@Url.Action("Index", "Events")" class="pure-button">View</a>
@@ -70,7 +81,8 @@
             </h4>
             <hr />
             <div>
-                <a href="@Url.Action("Cornerstone", "Goals")" class="pure-button">View</a>
+                <a href="@Url.Action("Cornerstone", "Goals")" class="pure-button">Cornerstone</a>
+                <a href="@Url.Action("Personal", "Goals")" class="pure-button">Personal</a>
             </div>
         </div>
     </div>

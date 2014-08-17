@@ -177,3 +177,41 @@ BEGIN
 
 END
 
+DECLARE @hasPersonalGoals1 bit
+SET @hasPersonalGoals1 = (SELECT TOP 1 Id FROM Goals WHERE OrganisationId = 1 AND GoalType = 2 AND Title = 'Artist')
+IF (@hasPersonalGoals1 IS NULL)
+BEGIN
+
+	INSERT INTO Goals VALUES ('Artist', '', 2, 3, NULL, NULL, NULL, NULL, NULL, 1);
+	INSERT INTO Goals VALUES ('Draw in front of a leader', 'Draw in the presence of your examiner, with pencil, brush, pen or crayon, an original illustration of an incident, character or scene from a simple story told by your examiner. This should be 18cm x 13cm.', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Greeting card', 'Design and make a greeting card', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Make a model', 'Make a model in clay or plastic materials. Your model should be at least 10cm square.', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Make a decorative article', 'Make a decorative article from cane, raffia, wool, leather, wood or other suitable material approved by the examiner in advance.', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Potato or lino cuts', 'Make a design and print it on paper or fabric e.g. using potato or lino cuts or similar methods.', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Make a toy', 'Make a worthwhile toy or model.', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Plastic or metal', 'Undertake a project after discussing it with your examiner. It should involve the use of plastic or metal. The project should be imaginative and of high quality. ', 2, NULL, NULL, NULL, NULL, NULL, 163, 1);
+	INSERT INTO Goals VALUES ('Athlete Stage 1', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1);
+	INSERT INTO Goals VALUES ('Standing jump (1.45m)', 'Jump at least 1.45 metres from a standing start (with two feet together)', 2, NULL, NULL, NULL, NULL, NULL, 171, 1);
+	INSERT INTO Goals VALUES ('50 metre sprint (<10s)', 'Sprint 50m in 10 seconds or less', 2, NULL, NULL, NULL, NULL, NULL, 171, 1);
+	INSERT INTO Goals VALUES ('Ball throw (10m)', 'Throw a ball at least 10 metres on the full (without bouncing)', 2, NULL, NULL, NULL, NULL, NULL, 171, 1);
+	INSERT INTO Goals VALUES ('Running long jump (2m)', 'Jump at least 2 metres from a running start', 2, NULL, NULL, NULL, NULL, NULL, 171, 1);
+	INSERT INTO Goals VALUES ('High jump (0.85m)', 'Jump over an obstacle at least 0.85 metres high', 2, NULL, NULL, NULL, NULL, NULL, 171, 1);
+	INSERT INTO Goals VALUES ('Athlete Stage 2', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1);
+	INSERT INTO Goals VALUES ('Standing jump (1.55m)', 'Jump at least 1.55 metres from a standing start (with two feet together)', 2, NULL, NULL, NULL, NULL, NULL, 177, 1);
+	INSERT INTO Goals VALUES ('50 metre sprint (<9.5s)', 'Sprint 50m in 9.5 seconds or less', 2, NULL, NULL, NULL, NULL, NULL, 177, 1);
+	INSERT INTO Goals VALUES ('Ball throw (25m)', 'Throw a ball at least 25 metres on the full (without bouncing)', 2, NULL, NULL, NULL, NULL, NULL, 177, 1);
+	INSERT INTO Goals VALUES ('Running long jump (2.6m)', 'Jump at least 2.6 metres from a running start', 2, NULL, NULL, NULL, NULL, NULL, 177, 1);
+	INSERT INTO Goals VALUES ('High jump (0.91m)', 'Jump over an obstacle at least 0.91 metres high', 2, NULL, NULL, NULL, NULL, NULL, 177, 1);
+	INSERT INTO Goals VALUES ('Athlete Stage 3', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1);
+	INSERT INTO Goals VALUES ('Standing jump (1.65m)', 'Jump at least 1.65 metres from a standing start (with two feet together)', 2, NULL, NULL, NULL, NULL, NULL, 183, 1);
+	INSERT INTO Goals VALUES ('50 metre sprint (<9s)', 'Sprint 50m in 9 seconds or less', 2, NULL, NULL, NULL, NULL, NULL, 183, 1);
+	INSERT INTO Goals VALUES ('Ball throw (30m)', 'Throw a ball at least 30 metres on the full (without bouncing)', 2, NULL, NULL, NULL, NULL, NULL, 183, 1);
+	INSERT INTO Goals VALUES ('Running long jump (3.2m)', 'Jump at least 3.2 metres from a running start', 2, NULL, NULL, NULL, NULL, NULL, 183, 1);
+	INSERT INTO Goals VALUES ('High jump (1m)', 'Jump over an obstacle at least 1 metres high', 2, NULL, NULL, NULL, NULL, NULL, 183, 1);
+	INSERT INTO Goals VALUES ('Book Reader', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1);
+	INSERT INTO Goals VALUES ('A list of books', 'Produce a list of books you have read recently. Name their authors and be able to tell the examiner something about three of the books. The books can be chosen by you and should include at least one factual book. ', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
+	INSERT INTO Goals VALUES ('Care for books', 'Explain how to care or books.', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
+	INSERT INTO Goals VALUES ('Dictionary, encyclopaedia, atlas', 'Demonstrate that you can use a dictionary, encyclopaedia and an atlas.', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
+	INSERT INTO Goals VALUES ('Finding books in a library', 'Explain to your examiner how the books in your library are set out and how you would find a specific book.', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
+
+END

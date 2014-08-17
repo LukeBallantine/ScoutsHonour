@@ -16,24 +16,26 @@ namespace ScoutsHonour.Models
         public GoalLinkType? GoalLinkType { get; set; }
     }
 
-    public class MemberGoalsDetailViewModel
-    {
-        public int UserId { get; set; }
-        public string FullName { get; set; }
+    //public class MemberGoalsDetailViewModel
+    //{
+    //    public int UserId { get; set; }
+    //    public string FullName { get; set; }
 
-        [Display(Name = "Bronze")]
-        public BadgeViewModel BronzeBadge { get; set; }
+    //    [Display(Name = "Bronze")]
+    //    public BadgeViewModel BronzeBadge { get; set; }
 
-        [Display(Name = "Silver")]
-        public BadgeViewModel SilverBadge { get; set; }
+    //    [Display(Name = "Silver")]
+    //    public BadgeViewModel SilverBadge { get; set; }
 
-        [Display(Name = "Gold")]
-        public BadgeViewModel GoldBadge { get; set; }
+    //    [Display(Name = "Gold")]
+    //    public BadgeViewModel GoldBadge { get; set; }
 
-        public int PersonalBadges { get; set; }
-        //public ICollection<BadgeViewModel> PersonalBadges { get; set; }
-    }
+    //    [Display(Name = "Personal")]
+    //    public BadgeViewModel PersonalBadge { get; set; }
 
+    //    //public int PersonalBadges { get; set; }
+    //    //public ICollection<BadgeViewModel> PersonalBadges { get; set; }
+    //}
 
     public class MemberGoalsSummaryViewModel
     {
@@ -49,15 +51,18 @@ namespace ScoutsHonour.Models
         [Display(Name = "Gold")]
         public BadgeViewModel GoldBadge { get; set; }
 
-        private ICollection<BadgePartViewModel> _cornerstoneBadges;
-        [Display(Name = "Cornerstones")]
-        public virtual ICollection<BadgePartViewModel> CornerstoneBadges
+        [Display(Name = "Personal")]
+        public BadgeViewModel PersonalBadge { get; set; }
+
+        private ICollection<BadgePartViewModel> _badgeSections;
+        [Display(Name = "Badge Sections")]
+        public virtual ICollection<BadgePartViewModel> BadgeSections
         {
-            get { return _cornerstoneBadges ?? (_cornerstoneBadges = new List<BadgePartViewModel>()); }
-            set { _cornerstoneBadges = value; }
+            get { return _badgeSections ?? (_badgeSections = new List<BadgePartViewModel>()); }
+            set { _badgeSections = value; }
         }
 
-        public int PersonalBadges { get; set; }
+        //public int PersonalBadges { get; set; }
         //public ICollection<BadgeViewModel> PersonalBadges { get; set; }
     }
 

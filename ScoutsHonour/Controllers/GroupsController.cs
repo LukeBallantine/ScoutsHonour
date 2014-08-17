@@ -41,6 +41,16 @@ namespace ScoutsHonour.Controllers
             SessionHelper.SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
             SessionHelper.SetSessionIntValue(SessionIntKeys.OrganisationId, group.OrganisationId);
 
+            var pastDate = DateTime.Now.AddDays(-7);
+            var events = Context.Events.Where(e => e.GroupId == group.Id && e.EventDate >= pastDate)
+                            .OrderBy(e => e.EventDate).Take(2).ToList();
+            ViewBag.Events = events;
+
+            ViewBag.CurrentCubs = group.Members.Where(m => m.Status != MemberStatus.Deleted
+                                    && m.Status != MemberStatus.Left
+                                    && m.Status != MemberStatus.Waitlisted).Count();
+            ViewBag.WaitingCubs = group.Members.Where(m => m.Status == MemberStatus.Waitlisted).Count();
+
             return View(group);
         }
 

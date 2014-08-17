@@ -39,7 +39,6 @@ namespace ScoutsHonour.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            ViewBag.Location = "New Zealand";
 
             return View();
         }

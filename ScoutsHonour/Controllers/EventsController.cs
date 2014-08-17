@@ -57,7 +57,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,EventDate,Notes")] Event @event, FormCollection form)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Title,OrganisedBy,Description,EventDate,Notes")] Event @event, FormCollection form)
         {
             if (ModelState.IsValid)
             {                
@@ -124,7 +124,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include="Id,Title,Description,EventDate,Notes,GroupId")] Event @event, FormCollection form)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,OrganisedBy,Description,EventDate,Notes,GroupId")] Event @event, FormCollection form)
         {
             if (ModelState.IsValid)
             {

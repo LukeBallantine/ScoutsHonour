@@ -3,25 +3,22 @@
 @model ScoutsHonour.Models.MemberGoalsSummaryViewModel
 
 @{
-    ViewBag.Title = "Cornerstone";
+    ViewBag.Title = "Personal";
 }
 
-<h2>Cornerstone Badges: @Model.FullName</h2>
+<h2>Personal Badges: @Model.FullName</h2>
 
 @using (Html.BeginForm())
 {
     <div class="badge-header clearfix">
         <div class="badge-right-header">
-            <div class="badge-goal">@Html.DisplayNameFor(model => model.BronzeBadge)</div>
-            <div class="badge-goal">@Html.DisplayNameFor(model => model.SilverBadge)</div>
-            <div class="badge-goal">@Html.DisplayNameFor(model => model.GoldBadge)</div>
+            <div class="badge-goal">@Html.DisplayNameFor(model => model.PersonalBadge)</div>
         </div>
-        <div class="badge-left-header">Badge Section</div>
+        <div class="badge-left-header">Badge</div>
     </div>
     <div class="ui-accordion">
         @{int i = 0;}
         @{BadgePartViewModel badgePart;}
-        @{string[] badgePartTitle = new string[2];}
         @foreach (var item in ViewBag.Goals)
         {
             i++;
@@ -33,20 +30,12 @@
                 }
                 <div class="badge-section clearfix">
                     <div class="badge-right-section">
-                        <div class="badge-goal @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
-                            @(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.BronzeBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-                        </div>
-                        <div class="badge-goal @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
-                            @(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.SilverBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
-                        </div>
-                        <div class="badge-goal @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
-                            @(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.GoldBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
+                        <div class="badge-goal @(Model.PersonalBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Complete ? "badge-complete" : "")">
+                            @(Model.PersonalBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Achieved)/@(Model.PersonalBadge.BadgeSections.Where(bs => bs.GoalId == item.Id).FirstOrDefault().Target)
                         </div>
                     </div>
                     <div class="badge-left-section">
-                        @{badgePartTitle = item.Title.Split('-');}
-                        @badgePartTitle[0].Trim()<br />
-                        <strong>@badgePartTitle[1].Trim()</strong>
+                        <strong>@item.Title</strong>
                     </div>
                 </div>
                 @Html.Raw("<div>")
@@ -78,7 +67,7 @@
                             </div>
                         }
                     </div>
-                    <div class="badge-left-part"> <i class="fa-@(item.RequirementLevel.ToString().ToLower()) fa fa-question-circle" title="@(item.RequirementLevel.ToString()): @item.Description"></i> @item.Title </div>
+                    <div class="badge-left-part"> <i class="fa-@(item.RequirementLevel.ToString().ToLower()) fa fa-question-circle" title="@item.Description"></i> @item.Title </div>
                 </div>
             }
         }

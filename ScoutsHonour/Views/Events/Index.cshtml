@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganisedBy)
+            </th>
             <th class="xsm-hidden">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
@@ -36,6 +39,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganisedBy)
                 </td>
                 <td class="xsm-hidden">
                     @Html.DisplayFor(modelItem => item.Description)
