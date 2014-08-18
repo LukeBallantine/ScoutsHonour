@@ -215,3 +215,198 @@ BEGIN
 	INSERT INTO Goals VALUES ('Finding books in a library', 'Explain to your examiner how the books in your library are set out and how you would find a specific book.', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
 
 END
+
+DECLARE @hasPersonalGoals2 bit
+SET @hasPersonalGoals2 = (SELECT TOP 1 Id FROM Goals WHERE OrganisationId = 1 AND GoalType = 2 AND Title = 'Collector')
+IF (@hasPersonalGoals2 IS NULL)
+BEGIN
+
+INSERT INTO Goals VALUES ('Collector', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Make a collection', 'Make a collection over a period of three months of a number of similar items (e.g. stamps, coins, postcards, badges, fossils).', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Display your collection', 'Display the collection in an exciting and interesting way.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Talk about your collection', 'Talk about items in the collection that particularly interest you', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Another collection', 'Visit or look at a collection made by someone else and explain what you like or dislike about the presentation of the collection. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Computer', '', 2, 5, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Use a computer', 'Have regular use of a computer.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Explain the parts', 'Explain the main parts of a Personal Comuper', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Use a keyboard', 'Show you can competently use the keyboard by: 
+1.  Typing in capitals and small letters. 
+2.  Using the top symbols of the keys. 
+3.  Using other important keys as asked by the examiner', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Talk about programs', 'Tell the examiner about the different types of programs on the computer and what they are used for', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Give a demo', 'Demonstrate how to use one of the programs', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Conservation', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Make or observe', 'Complete one of the following:
+1. Make, set up and maintain a bird feeder, bird table, or birdbath. 
+2. Make, set up and maintain a bird nesting box. 
+3. Take part in a nature survey. 
+4. Take part in an anti-litter campaign. 
+5. Arrange a nature trail or competition for the members of your Cub Pack. 
+6. Choose a wild animal, tree, fish or bird. Discover all you can about it and report your discoveries on a wall chart, in a logbook, or in a scrapbook. 
+7. Visit a zoo, botanical gardens, nature gardens, natural history museum or watch a film about animals or plants. Report on your observations. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Go on an expedition', 'Go on an expedition with your group into the countryside and: 
+1. Find some examples showing how man has damaged nature and some examples showing how man has improved nature. 
+2. Write down some rules for good behaviour in the countryside (outdoor code) and show how you are doing your best to keep them', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Endangered species', 'Complete one of the following: 
+1. Choose an endangered plant or animal in New Zealand and find out what is being done to save it and how you can help. 
+2. Choose an endangered animal in another country and find out what is being done to save it and how you can help. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Improve the environment', 'Complete one of the following: 
+1. Plant a tree 
+2. Lay grass on an area where there is no vegetation cover 
+3. Plant something in a balcony box or indoors in a flowerpot. 
+4. Clear rubbish from a beach or riverbank and explain why rubbish is so dangerous to animals. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Cook', '', 2, 5, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Boil an egg', 'Boil an egg for three minutes, remove the top from the egg and serve up the egg in an eggcup.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Prepare a sandwich', 'Prepare a sandwich for your school lunch, using your favourite filling. Wrap the sandwich up and put it in your lunch box', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('A piece of fruit', 'Explain the benefit of including a piece of fruit with the lunch', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Do the dishes', 'Wash, dry and put away the dishes you used', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Evening meal', 'Help prepare the evening meal for your family for a week.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Cyclist', '', 2, 7, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Use a bike', 'Have the regular use of a bicycle of the correct size and equipped as set out in the road code', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Mount and dismount', 'Demonstrate how to mount and dismount a bicycle correctly.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Clean and oil', 'Clean and oil the bicycle and pump up the tyres', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Roadworthiness', 'Explain the need for keeping the bicycle in road worthy condition. Explain the consequences for not doing so', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Mend a puncture', 'Show how to mend a puncture', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Talk about hills', 'Explain the dangers of cycling on hills', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Go for a ride', 'Go for a short ride while the examiner watches. Demonstrate the proper hand signals and the road rules applying to bicycles', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Entertainer', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('2 folk songs', 'Sing two folk songs', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('5 minute yarn', 'Tell a yarn lasting at least five minutes', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('3 magic tricks', 'Demonstrate three magic tricks', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Puppet story', 'Tell a story using puppets.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Teach a song', 'Teach the Cub Pack a simple song', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Play an instrument', 'Play a simple melody on a musical instrument', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Perform a play', 'Make up a play and produce it for the pack', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Tumbling tricks', 'Perform a series of tumbling tricks', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Folk dancing', 'Lead the pack in some form of folk dancing', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Other entertainment', 'Any other form of entertainment of a similar standard that should be agreed to by the examiner.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('First Aid', '', 2, 7, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('A big fright', 'Explain why people should lie down if they have had a big fright or have been injured.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Keep someone warm', 'Demonstrate how to keep someone warm and comfortable with one or two blankets.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Mild headaches', 'Demonstrate how apply a cold face cloth to a person suffering from a mild headache.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Cuts and grazes', 'Demonstrate how to gently clean a cut or graze, apply an antiseptic cream and a plaster.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Call an adult', 'Explain the limits of first aid treatment and when it’s important to call an adult. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Ambulance and police', 'Explain how to call an ambulance and the police and when this should be done.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Bites and stings', 'Explain how to treat insect bites and stings.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Fishing', '', 2, 9, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Be able to swim', 'Be able to swim sufficiently to get to the bank of a stream or river if you fall in.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Rivers and creeks', 'Explain the dangers of fishing off the banks of rivers and creeks and how to minimize the risk of injury or drowning.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Baits and lures', 'Demonstrate how to bait a hook correctly and safely and explain your choice of bait, or demonstrate how to choose a suitable lure and fix it to the line.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Avoiding injury', 'Explain how you can avoid injuring other people with you when you are throwing your line in the river, creek or the sea. Demonstrate how to do this safely', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Removing the hook', 'Demonstrate how to kill a fish quickly and humanely and then remove the hook from its mouth.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Storing fish', 'Explain how to store caught fish so that is doesn''t spoil before getting it home to a fridge, and why it is so important.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Fishing limits', 'Research and then explain the types of fish and shellfish you may catch where you fish and what limits there are on the numbers caught.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Care for your gear', 'Demonstrate how to care for and store your fishing line, hooks and sinkers and rods if any so that they remain in good condition and are ready to use when you next go fishing.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Keep a log', 'Keep a simple log of at least four fishing trips over at least two months.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Gardening', '', 2, 2, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Complete one', 'Complete one of the following:
+1.  Look after a patch of garden, know what tools are needed and how to use them and look after them. Grow something in your garden suitable for the time of year. 
+2. Grow a variety of plants indoors and know the conditions under which they must be kept.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Complete two', 'Complete two of the following:
+1. Grow vegetables or flowers from seed; know how to prick out and transplant. 
+2. Know about hazards to plants and flowers (e.g. diseases, pests) and understand what preventative methods can be taken and what can be done to aid rowth. 
+3. Know how to store vegetables and how long they may be stored. 
+4. Show how to prepare flowers for display. 
+5. Make a compost heap. 
+6. Carry out a soil test using a standard kit. 
+7. Help plan and plant a rockery garden, a fern or herb garden, herbaceous border, hanging basket, garden tub etc. 
+8. Help maintain a lawn and understand why it needs constant attention', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Hobbies', '', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('3 month hobbie', 'Show a continuing interest and progress, over a period of at least three months, in a hobby or skill.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Demonstrate your hobbie', 'Demonstrate it and discuss it with an adult or your Cub Pack. Suitable hobbies might be: chess, singing in a choir, model making or your own special hobby. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Home  Help', '', 2, 8, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Wash dishes', 'Take your turn with washing or drying the dishes, or stacking the evening dishes in a dishwasher', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Food scraps', 'Explain why it’s important to remove scraps of food from the kitchen bench as soon as possible after preparing and eating a meal.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Set the table', 'Take your turn setting the dinner table for the evening meal.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Tidy your bedroom', 'Tidy your bedroom before going to school everyday for a period of one week and without being reminded.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Clean your shoes', 'Learn to clean your shoes and make sure they are clean before going out each day', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Do the vacuuming', 'Assist with vacuum cleaning the living area of the house by picking up toys and books and putting them away.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Wash your scarf', 'Wash and Iron your Cub Scarf.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Sew a badge', 'Sew a badge on your jacket or blanket or sew a button on a garment.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('My Faith', '', 2, 6, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Good turns', 'Do some good turns for your family', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Make a trip', 'Make a trip to a church, shrine, temple or meeting place associated with your faith and then discuss what you observed during your visit. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Take care of others', 'The Bible and books of other religious faiths describe people taking care of others. Read such a story and then do something for someone who may be ill or lonely. You could make a card, take them some cooking or run messages for them.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Read a prayer', 'Read a prayer at your Cub Pack opening or closing', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Learn from your faith', 'Our faith asks us to love our families and friends and also people we don’t care for very much. Ask some one to find such a story in the book your faith uses, then read it and discuss what you learned from it', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Attend a service', 'Attend a meeting or service of your religious faith.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Pet Keeper', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Look after a pet', 'Own a pet and look after it correctly for three months.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Keep a record', 'Keep a record in an exercise book of the following: 
+1.  What you feed your pet and how often. 
+2.  When you clean out it cage, house run or tank etc. 
+3.  Where you get your pet’s food from. 
+4.  How you ensure your pet does not get out or lost while you are cleaning its ‘home’. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Signs of sickness', 'Research and write down the signs and symptoms you would look for so you will know if your pet gets sick.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Caring for the young', 'What special care is needed when your pet has just been born or has young of its own.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Natural habitat', 'What is the natural habitat for your pet if it lives in the wild, or once did, or its ancestors did.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Photographer', '', 2, 5, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Take pictures or video', 'Take a set of 12 pictures or two and half minutes if video film describing an event or activity. It should be a mix of landscape, people and action shots', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Know your camera features', 'Discuss with the examiner the main features of the camera you used.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Discuss your results', 'Discuss with the examiner what you set out to do and whether the results are what you intended.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Your best shots', 'Discuss what shots you are really pleased with and how you would do things differently for any shots that were not very successful', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Display the photos', 'Display the photos to the Cub Pack and explain what they are about. You may use any of the following to display the photos: 
+1. A computer slide show with or without a projector. 
+2. A photograph album 
+3. A clear folder etc', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Scientist', '', 2, 2, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Make a model', 'Make a model (house, theatre, house, stage etc) and wire it up with bulbs, batteries and switches', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Test gliders', 'Make gliders from polystyrene sheets or cards. Devise tests to see which works best: 
+1. Stays up longest 
+2. Flies furtherest 
+3. Is easiest to control with turns and loops etc.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('White light', 'Demonstrate that white light is made up of several colours', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Make a periscope', 'Make a periscope or microscope and explain how it works', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Weather apparatus', 'Make a weather apparatus to record at the same time each day of the week the following: 
+1. Wind direction 
+2. Rainfall 
+3. Humidity 
+4. Clouds 
+5. Temperature ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Growing plants', 'Find out what happens when light and water are not used when growing plants. Discuss what you have discovered. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Grow crystals', 'Grow some crystals from a concentrated solution of any chemical', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Expanding metal', 'Devise an experiment, which proves that metal expands when heated', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Invisible ink', 'Prepare an invisible ink, show how to use it and describe how it works', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Sound travels', 'Demonstrate that sound travels', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Sports', '', 2, 6, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Explain the rules', 'Explain simply, the rules of two sports such as Rugby, Netball, Soccer, Cricket, Hockey, Archery, Volleyball, Baseball etc. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Take part', 'Take a regular active part and demonstrate reasonable proficiency in at least one sport. You may use a school sports team to pass this badge', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Caring for your gear', 'Demonstrate you know how to look after your sports equipment and clothing. Examples would be: Blow up a ball, cleaning your shoes or boots, cleaning your bat and pads etc.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Good spirits', 'Show that you are a good sports person by demonstrating a good spirit, keeping your temper and always doing your best when playing', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Sports hygene', 'Explain why it’s important to take a shower or bath after the game and change into fresh clean clothes', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Caring for your feet', 'Explain why it’s important to take good care of your feet and what can happen if you don’t.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Swimming Stage 1', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Swim 15 metres', 'Swim at least 15 metres using one type of stroke. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Float for 10 seconds', 'Float on your back for 10 seconds minimum. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Jump or dive', 'Jump or dive from the side of the pool. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('There and back again', 'Swim a few metres, turn around without swimming or touching anything and then swim back to your starting point. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Swimming Stage 2', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Swim on your back', 'Swim 15m on your back using your legs only.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Dive to the bottom', 'Swim in water at least 1.25 metres deep, dive and retrieve an object about the size of half a brick from the bottom of the pool.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Front and back stroke', 'Swim 15 metres, the first half using any front stoke other than a crawl, turn over and complete the rest of the distance using any back stroke.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Swim for 25 metres', 'With a plain header or running dive, swim 25 metres using a front crawl. Dive and glide as far as possible before starting to swim.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Swimming Stage 3', '', 2, 4, NULL, NULL, NULL, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+INSERT INTO Goals VALUES ('Swim 50 metres', 'With a plain header or a running dive, swim 50 metres front crawl without a pause.', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Swim in clothes', 'Swim clothed in a shirt and shorts, 25 metres sidestroke without pause. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Tread water', 'Tread water for between 30 seconds and one minute. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+INSERT INTO Goals VALUES ('Rescue breathing', 'Explain rescue breathing by a written test or demonstration using a manikin. ', 2, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+
+END
+
+DECLARE @hasCornerstone2 bit
+SET @hasCornerstone2 = (SELECT TOP 1 Id FROM Goals WHERE OrganisationId = 1 AND GoalType = 1 AND Title = 'New Experiences - Personal Interests')
+IF (@hasCornerstone2 IS NULL)
+BEGIN
+
+	INSERT INTO Goals VALUES ('New Experiences - Personal Interests', '', 1, NULL, 1, 2, 3, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+	INSERT INTO Goals VALUES ('Earn 1 personal badge', 'Earn at least 1 personal badge', 1, NULL, NULL, NULL, NULL, 1, @parentId, 1);
+	INSERT INTO Goals VALUES ('Earn 2 personal badges', 'Earn at least 2 personal badges', 1, NULL, NULL, NULL, NULL, 2, @parentId, 1);
+	INSERT INTO Goals VALUES ('Earn 3 personal badges', 'Earn 3 personal badges (1 badge per Bronze, Silver and Gold)', 1, NULL, NULL, NULL, NULL, 3, @parentId, 1);
+	INSERT INTO Goals VALUES ('New Experiences - National Programme', '', 1, NULL, 1, 2, 3, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+	INSERT INTO Goals VALUES ('National Programmes', 'Participate in 3 National Programme Events, eg. National Cub Daye, MudSlide Day, ANZAC Day, or attend a National Event or Group Activity based around the National Programme Theme for the period (1 activity per Bronze, Silver and Gold)', 1, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+	INSERT INTO Goals VALUES ('New Experiences - Group Event', '', 1, NULL, 1, 2, 3, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+	INSERT INTO Goals VALUES ('Group Events', 'Participate in 3 Group, Zone or Regional Events, eg. a Founders Day activity, visit a Gang Show, take part in a Zone Sports day or evening (1 activity per Bronze, Silver and Gold)', 1, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+	INSERT INTO Goals VALUES ('New Experiences - Challenges', '', 1, NULL, 1, 2, 3, NULL, NULL, 1); SET @parentId = SCOPE_IDENTITY; 
+	INSERT INTO Goals VALUES ('Cub challenges', 'Take part in a Cub Camp, visit a Scout Camp, visit another Cub Pack (1 activity per Bronze, Silver and Gold)', 1, NULL, NULL, NULL, NULL, NULL, @parentId, 1);
+
+END
