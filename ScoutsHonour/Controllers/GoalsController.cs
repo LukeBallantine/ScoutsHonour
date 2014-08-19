@@ -376,8 +376,8 @@ namespace ScoutsHonour.Controllers
 
             // If I was smarter, I'd write this in LINQ
             // Get goal links (indirect) from events, and goal links (direct) from member, then combine 
-            string query = 
-                        @"SELECT MemberId, GoalId, MAX(AchievedDate) AS AchievedDate, MIN(LinkType) AS GoalLinkType, CAST(MAX(Presented+0) AS bit) AS Presented 
+            string query =
+                        @"SELECT MemberId, GoalId, MAX(AchievedDate) AS AchievedDate, MIN(LinkType) AS GoalLinkType, CAST(MAX(Presented+0) AS bit) AS Presented, COUNT(MemberId) AS GoalCount  
                             FROM (SELECT DISTINCT M.Id 'MemberId', GE.Goal_Id 'GoalId', 1 'LinkType', NULL 'Presented', E.EventDate 'AchievedDate' 
                                 FROM Members M 
                                     INNER JOIN MemberEvents ME ON M.Id = ME.Member_Id 
@@ -392,13 +392,13 @@ namespace ScoutsHonour.Controllers
                             GROUP BY MemberId, GoalId 
                             ORDER BY MemberId, GoalId";
 
-            IEnumerable<MemberGoal> allMemberGoals = db.Database.SqlQuery<MemberGoal>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
+            IEnumerable<MemberGoalViewModel> allMemberGoals = db.Database.SqlQuery<MemberGoalViewModel>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
 
             int groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
             var members = db.Members.Where(m => m.GroupId == groupId).ToList();
 
             IEnumerable<int> subGoals;
-            MemberGoal memberGoalTemp;
+            MemberGoalViewModel memberGoalTemp;
             DateTime? goalCompleteDate;
             var memberGoalsList = new List<MemberGoalsSummaryViewModel>();
             foreach (var member in members)
@@ -409,7 +409,7 @@ namespace ScoutsHonour.Controllers
                 var personalBadge = new BadgeViewModel();
                 var badgeParts = new List<BadgePartViewModel>();
 
-                IEnumerable<MemberGoal> memberGoals = allMemberGoals.Where(g => g.MemberId == member.Id).ToList();
+                IEnumerable<MemberGoalViewModel> memberGoals = allMemberGoals.Where(g => g.MemberId == member.Id).ToList();
                 foreach (var goal in goals)
                 {
                     goalCompleteDate = null;

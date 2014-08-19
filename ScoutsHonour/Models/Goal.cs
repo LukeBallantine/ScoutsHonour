@@ -36,6 +36,9 @@ namespace ScoutsHonour.Models
         [Display(Name = "Requirement Level")]
         public RequirementLevel? RequirementLevel { get; set; }
 
+        //TODO: Add fields to allow double counting of goals (for New Experience)
+        // setup Personal Challenge as a simple goal (require it to be manually set)
+
         // Foriegn keys
         public int? GoalId { get; set; }
         public virtual ICollection<Goal> Goals { get; set; }

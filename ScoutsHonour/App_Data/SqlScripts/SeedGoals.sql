@@ -215,3 +215,12 @@ BEGIN
 	INSERT INTO Goals VALUES ('Finding books in a library', 'Explain to your examiner how the books in your library are set out and how you would find a specific book.', 2, NULL, NULL, NULL, NULL, NULL, 189, 1);
 
 END
+
+--DECLARE @hasPersonalGoals1 bit
+--SET @hasPersonalGoals1 = (SELECT TOP 1 Id FROM Goals WHERE OrganisationId = 1 AND GoalType = 2 AND Title = 'Artist')
+--IF (@hasPersonalGoals1 IS NULL)
+--BEGIN
+
+
+--DECLARE @lastId int 
+--SET @lastId = SCOPE_IDENTITY;

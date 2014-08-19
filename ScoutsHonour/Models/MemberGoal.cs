@@ -16,6 +16,16 @@ namespace ScoutsHonour.Models
         public GoalLinkType? GoalLinkType { get; set; }
     }
 
+    public class MemberGoalViewModel
+    {
+        public int MemberId { get; set; }
+        public int GoalId { get; set; }
+        public bool? Presented { get; set; }
+        public DateTime? AchievedDate { get; set; }
+        public GoalLinkType? GoalLinkType { get; set; }
+        public int GoalCount { get; set; }
+    }
+
     //public class MemberGoalsDetailViewModel
     //{
     //    public int UserId { get; set; }
@@ -62,8 +72,6 @@ namespace ScoutsHonour.Models
             set { _badgeSections = value; }
         }
 
-        //public int PersonalBadges { get; set; }
-        //public ICollection<BadgeViewModel> PersonalBadges { get; set; }
     }
 
     public class BadgeViewModel
