@@ -15,7 +15,7 @@ namespace ScoutsHonour.Models
         [StringLength(100)]
         public string Title { get; set; }
 
-        [StringLength(250)]
+        [StringLength(1000)]
         public string Description { get; set; }
 
         [Display(Name = "Goal Type")]
@@ -36,7 +36,10 @@ namespace ScoutsHonour.Models
         [Display(Name = "Requirement Level")]
         public RequirementLevel? RequirementLevel { get; set; }
 
-        //TODO: Add fields to allow double counting of goals (for New Experience)
+        // Allow multiple counting of goals (for New Experience)
+        [Display(Name = "Count Type")]
+        public GoalCountType? CountType { get; set; }
+
         // setup Personal Challenge as a simple goal (require it to be manually set)
 
         // Foriegn keys

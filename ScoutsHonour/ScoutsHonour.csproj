@@ -178,7 +178,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
-    <Compile Include="Enums\GoalLevel.cs" />
+    <Compile Include="Enums\GoalCountType.cs" />
+    <Compile Include="Enums\RequirementLevel.cs" />
     <Compile Include="Enums\GoalLinkType.cs" />
     <Compile Include="Enums\MemberStatus.cs" />
     <Compile Include="Enums\GoalType.cs" />
@@ -200,6 +201,10 @@
     <Compile Include="Migrations\201408152349233_AddEventOrganiser.cs" />
     <Compile Include="Migrations\201408152349233_AddEventOrganiser.Designer.cs">
       <DependentUpon>201408152349233_AddEventOrganiser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408191034059_AddGoalCountType.cs" />
+    <Compile Include="Migrations\201408191034059_AddGoalCountType.Designer.cs">
+      <DependentUpon>201408191034059_AddGoalCountType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -332,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408152349233_AddEventOrganiser.resx">
       <DependentUpon>201408152349233_AddEventOrganiser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408191034059_AddGoalCountType.resx">
+      <DependentUpon>201408191034059_AddGoalCountType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

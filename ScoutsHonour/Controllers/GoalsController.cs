@@ -378,7 +378,7 @@ namespace ScoutsHonour.Controllers
             // Get goal links (indirect) from events, and goal links (direct) from member, then combine 
             string query =
                         @"SELECT MemberId, GoalId, MAX(AchievedDate) AS AchievedDate, MIN(LinkType) AS GoalLinkType, CAST(MAX(Presented+0) AS bit) AS Presented, COUNT(MemberId) AS GoalCount  
-                            FROM (SELECT DISTINCT M.Id 'MemberId', GE.Goal_Id 'GoalId', 1 'LinkType', NULL 'Presented', E.EventDate 'AchievedDate' 
+                            FROM (SELECT M.Id 'MemberId', GE.Goal_Id 'GoalId', 1 'LinkType', NULL 'Presented', E.EventDate 'AchievedDate' 
                                 FROM Members M 
                                     INNER JOIN MemberEvents ME ON M.Id = ME.Member_Id 
                                     INNER JOIN [Events] E ON ME.Event_Id = E.Id 
@@ -401,6 +401,7 @@ namespace ScoutsHonour.Controllers
             MemberGoalViewModel memberGoalTemp;
             DateTime? goalCompleteDate;
             var memberGoalsList = new List<MemberGoalsSummaryViewModel>();
+            int currentAchieved = 0;
             foreach (var member in members)
             {
                 var bronzeBadge = new BadgeViewModel();
@@ -429,14 +430,21 @@ namespace ScoutsHonour.Controllers
                         // disable the check for requirement level as we allow any gold/silver to count toward bronze, 
                         // and any gold to count toward silver:
                         //     goals.Where(g => g.GoalId == goal.Id && (!g.RequirementLevel.HasValue || g.RequirementLevel == RequirementLevel.Bronze))
+
                         subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
+                        // If multiple counting is allowed, sum all the achieved, otherwise only count each once
+                        if (goal.CountType.HasValue && goal.CountType.Value == GoalCountType.Many)
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Select(mg => mg.GoalCount).FirstOrDefault();
+                        else
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count();                        
+                        
                         bronzeBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level1ChildRequirementCount.Value),
+                            Achieved = Math.Min(currentAchieved, goal.Level1ChildRequirementCount.Value),
                             Target = goal.Level1ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level1ChildRequirementCount.Value)
+                            Complete = (currentAchieved >= goal.Level1ChildRequirementCount.Value)
                         });
                     }
 
@@ -445,12 +453,18 @@ namespace ScoutsHonour.Controllers
                     {
                         subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
+                        // If multiple counting is allowed, sum all the achieved, otherwise only count each once
+                        if (goal.CountType.HasValue && goal.CountType.Value == GoalCountType.Many)
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Select(mg => mg.GoalCount).FirstOrDefault();
+                        else
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count();
+
                         silverBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level2ChildRequirementCount.Value),
+                            Achieved = Math.Min(currentAchieved, goal.Level2ChildRequirementCount.Value),
                             Target = goal.Level2ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level2ChildRequirementCount.Value)
+                            Complete = (currentAchieved >= goal.Level2ChildRequirementCount.Value)
                         });
                     }
 
@@ -459,12 +473,18 @@ namespace ScoutsHonour.Controllers
                     {
                         subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
+                        // If multiple counting is allowed, sum all the achieved, otherwise only count each once
+                        if (goal.CountType.HasValue && goal.CountType.Value == GoalCountType.Many)
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Select(mg => mg.GoalCount).FirstOrDefault();
+                        else
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count();
+
                         goldBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.Level3ChildRequirementCount.Value), 
+                            Achieved = Math.Min(currentAchieved, goal.Level3ChildRequirementCount.Value), 
                             Target = goal.Level3ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.Level3ChildRequirementCount.Value)
+                            Complete = (currentAchieved >= goal.Level3ChildRequirementCount.Value)
                         });
                     }
 
@@ -473,12 +493,18 @@ namespace ScoutsHonour.Controllers
                     {
                         subGoals = goals.Where(g => g.GoalId == goal.Id)
                                         .Select(g => g.Id);
+                        // Multiple counting not present on personal badges for cubs, but it could be in future
+                        if (goal.CountType.HasValue && goal.CountType.Value == GoalCountType.Many)
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Select(mg => mg.GoalCount).FirstOrDefault();
+                        else
+                            currentAchieved = memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count();
+
                         personalBadge.BadgeSections.Add(new BadgeSectionViewModel
                         {
                             GoalId = goal.Id,
-                            Achieved = Math.Min(memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count(), goal.ChildRequirementCount.Value),
+                            Achieved = Math.Min(currentAchieved, goal.ChildRequirementCount.Value),
                             Target = goal.ChildRequirementCount.Value,
-                            Complete = (memberGoals.Where(mg => subGoals.Contains(mg.GoalId)).Count() >= goal.ChildRequirementCount.Value)
+                            Complete = (currentAchieved >= goal.ChildRequirementCount.Value)
                         });
                     }
                 }

@@ -9,7 +9,7 @@ INSERT INTO [dbo].[Organisations] ([Title], [Description]) VALUES ('Cubs NZ', ''
 GO
 
 DECLARE @lastId int 
-SET @lastId = SCOPE_IDENTITY;
+SET @lastId = SCOPE_IDENTITY();
 
 INSERT INTO [dbo].[Groups] ([Title],[GroupCodeParent],[GroupCodeLeader],[Organisation_Id])
      VALUES ('Demo Cubs Tuesday', '111111', '222222', @lastId) 
