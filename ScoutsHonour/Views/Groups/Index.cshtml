@@ -1,35 +1,38 @@
-﻿@model IEnumerable<ScoutsHonour.Models.Group>
+﻿@using ScoutsHonour.Enums;
+@model IEnumerable<ScoutsHonour.Models.Group>
 @{
     ViewBag.Title = "Index";
 }
 
-    <h2>Groups</h2>
-    <p>
+<h2>Groups</h2>
+<p>
+    @if (!User.IsInRole(Role.Parent.ToString())) {
         <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Group</a>
-    </p>
-    
-    <table class="pure-table pure-table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th class="xsm-hidden">
-                    Address
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    }
+</p>
+
+        <table class="pure-table pure-table-striped">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.ActionLink(item.Title, "Details", new { id = item.Id }, new { @class = "title" })
-                    </td>
-                    <td class="xsm-hidden">
-                        @if (!string.IsNullOrWhiteSpace(item.StreetAddress) && !string.IsNullOrWhiteSpace(item.City))
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th class="xsm-hidden">
+                        Address
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.Title, "Details", new { id = item.Id }, new { @class = "title" })
+                        </td>
+                        <td class="xsm-hidden">
+                            @if (!string.IsNullOrWhiteSpace(item.StreetAddress) && !string.IsNullOrWhiteSpace(item.City))
                         {
-                            <text>@item.StreetAddress, @item.City</text>
+                                <text>@item.StreetAddress, @item.City</text>
                         }
                         else if (!string.IsNullOrWhiteSpace(item.StreetAddress))
                         {
@@ -39,8 +42,8 @@
                         {
                             <text>@item.City</text>
                         }
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>

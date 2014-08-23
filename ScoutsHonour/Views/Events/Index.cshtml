@@ -1,59 +1,61 @@
-﻿@model IEnumerable<ScoutsHonour.Models.Event>
-
+﻿@using ScoutsHonour.Enums;
+@model IEnumerable<ScoutsHonour.Models.Event>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Events</h2>
 <p>
-    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Event</a>
+    @if (!User.IsInRole(Role.Parent.ToString())) {
+        <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Event</a>
+    }
 </p>
 
-<table class="pure-table pure-table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrganisedBy)
-            </th>
-            <th class="xsm-hidden">
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th class="xsm-hidden sm-hidden">
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var item in Model)
-        {
+    <table class="pure-table pure-table-striped">
+        <thead>
             <tr>
-                <td>
-                    <a href="@Url.Action("Details", "Events", new { id = item.Id })">@Html.DisplayFor(modelItem => item.EventDate)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrganisedBy)
-                </td>
-                <td class="xsm-hidden">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td class="xsm-hidden sm-hidden">
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.EventDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrganisedBy)
+                </th>
+                <th class="xsm-hidden">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th class="xsm-hidden sm-hidden">
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
             </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details", "Events", new { id = item.Id })">@Html.DisplayFor(modelItem => item.EventDate)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrganisedBy)
+                    </td>
+                    <td class="xsm-hidden">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td class="xsm-hidden sm-hidden">
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>*@
+                </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>

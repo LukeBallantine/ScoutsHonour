@@ -1,58 +1,62 @@
-﻿@model IEnumerable<ScoutsHonour.Models.Member>
-
+﻿@using ScoutsHonour.Enums;
+@model IEnumerable<ScoutsHonour.Models.Member>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2 class="content-subhead">Members</h2>
 <p>
-    <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Member</a>
+    @if (!User.IsInRole(Role.Parent.ToString())) {
+        <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Member</a>
+    }
 </p>
 
-<table class="pure-table pure-table-striped">
-    <thead>
+    <table class="pure-table pure-table-striped">
+        <thead>
 
-        <tr>
-            <th></th>
-            <th>
-                Name
-            </th>
-            <th class="xsm-hidden">
-                @Html.DisplayNameFor(model => model.SixColour)
-            </th>
-            <th class="xsm-hidden">
-                @Html.DisplayNameFor(model => model.Rank)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var item in Model)
-        {
             <tr>
-                <th style="background-color: @item.SixColour;">&nbsp;</th>
-                <td>
-                    <a href="@Url.Action("Details", "Members", new { id = item.Id })">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
-                </td>
-                <td class ="xsm-hidden">
-                    @Html.DisplayFor(modelItem => item.SixColour)
-                </td>
-                <td class="xsm-hidden">
-                    @Html.DisplayFor(modelItem => item.Rank)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                <th></th>
+                <th>
+                    Name
+                </th>
+                <th class="xsm-hidden">
+                    @Html.DisplayNameFor(model => model.SixColour)
+                </th>
+                <th class="xsm-hidden">
+                    @Html.DisplayNameFor(model => model.Rank)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <th style="background-color: @item.SixColour;">&nbsp;</th>
+                    <td>
+                        <a href="@Url.Action("Details", "Members", new { id = item.Id })">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
+                    </td>
+                    <td class="xsm-hidden">
+                        @Html.DisplayFor(modelItem => item.SixColour)
+                    </td>
+                    <td class="xsm-hidden">
+                        @Html.DisplayFor(modelItem => item.Rank)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+@if (!User.IsInRole(Role.Parent.ToString())) {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <text>|</text>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+}
+                    </td>
+                </tr>
         }
-    </tbody>
-</table>
-<br />
+        </tbody>
+    </table>
+    <br />

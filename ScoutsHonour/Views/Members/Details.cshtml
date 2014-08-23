@@ -1,5 +1,5 @@
-﻿@model ScoutsHonour.Models.Member
-
+﻿@using ScoutsHonour.Enums;
+@model ScoutsHonour.Models.Member
 @{
     ViewBag.Title = "Details";
 }
@@ -105,7 +105,7 @@
         <dd>
             @Html.DisplayFor(model => model.PublicNotes)
         </dd>
-
+        @if (!User.IsInRole(Role.Parent.ToString())) {
         <dt>
             @Html.DisplayNameFor(model => model.PrivateNotes)
         </dt>
@@ -113,10 +113,13 @@
         <dd>
             @Html.DisplayFor(model => model.PrivateNotes)
         </dd>
+        }
 
     </dl>
 </div>
+@if (!User.IsInRole(Role.Parent.ToString())) {
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+}

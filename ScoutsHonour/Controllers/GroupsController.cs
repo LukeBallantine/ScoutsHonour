@@ -20,9 +20,10 @@ namespace ScoutsHonour.Controllers
         //private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Groups
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await Context.Groups.ToListAsync());
+            //CurrentUser.Groups.To
+            return View(CurrentUser.Groups.ToList());
         }
 
         // GET: Groups/Details/5
@@ -142,7 +143,7 @@ namespace ScoutsHonour.Controllers
                 if (user != null)
                 {
                     // finish registration process
-                    Group group = await Context.Groups.SingleAsync(g => g.GroupCodeParent == user.RegistrationCode
+                    Group group = await Context.Groups.FirstOrDefaultAsync(g => g.GroupCodeParent == user.RegistrationCode
                                                         || g.GroupCodeLeader == user.RegistrationCode);
                     if (group != null)
                     {

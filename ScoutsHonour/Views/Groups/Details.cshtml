@@ -1,4 +1,5 @@
-﻿@model ScoutsHonour.Models.Group
+﻿@using ScoutsHonour.Enums;
+@model ScoutsHonour.Models.Group
 @{
     ViewBag.Title = "Details";
 }
@@ -11,10 +12,12 @@
         <div class="box-1">
             <div class="box-head clearfix">
                 <h3 class="pull-left">@Html.DisplayFor(model => model.Title)</h3>
+@if (!User.IsInRole(Role.Parent.ToString())) {
                 <div class="pull-right">
                     <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                     <a href="@Url.Action("Delete", "Groups", new { id = Model.Id })" class="bg-error pure-button"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
                 </div>
+}
             </div>
             <table class="pure-table pure-table-striped">
                 <tr>
@@ -44,13 +47,15 @@
             @foreach (var item in ViewBag.Events)
             {
                 <div>
-                    @item.EventDate.ToString("dd MMM") <a href="@Url.Action("Details", "Events", new { Id = item.Id })">@item.Title</a> 
+                    @item.EventDate.ToString("dd MMM") <a href="@Url.Action("Details", "Events", new { Id = item.Id })">@item.Title</a>
                 </div>
             }
             <hr />
             <div>
                 <a href="@Url.Action("Index", "Events")" class="pure-button">View</a>
+@if (!User.IsInRole(Role.Parent.ToString())) {
                 <a href="@Url.Action("Create", "Events")" class="pure-button"><i class="fa fa-plus"></i> Add</a>
+}
             </div>
         </div>
     </div>
@@ -66,26 +71,28 @@
             <hr />
             <div>
                 <a href="@Url.Action("Index", "Members")" class="pure-button">View</a>
-                <a href="@Url.Action("Create", "Members")" class="pure-button"><i class="fa fa-plus"></i> Add</a>
+                @if (!User.IsInRole(Role.Parent.ToString())) {
+                    <a href="@Url.Action("Create", "Members")" class="pure-button"><i class="fa fa-plus"></i> Add</a>
+                }
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-2 pure-u-lg-1-3">
-        <div class="box-1">
-            <h4 class="clearfix">
-                <span class="box-icon bg-warning">
-                    <i class="fa fa-trophy"></i>
-                </span>
-                Badges
-            </h4>
-            <hr />
-            <div>
-                <a href="@Url.Action("Cornerstone", "Goals")" class="pure-button">Cornerstone</a>
-                <a href="@Url.Action("Personal", "Goals")" class="pure-button">Personal</a>
-            </div>
-        </div>
-    </div>
+                    <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-2 pure-u-lg-1-3">
+                        <div class="box-1">
+                            <h4 class="clearfix">
+                                <span class="box-icon bg-warning">
+                                    <i class="fa fa-trophy"></i>
+                                </span>
+                                Badges
+                            </h4>
+                            <hr />
+                            <div>
+                                <a href="@Url.Action("Cornerstone", "Goals")" class="pure-button">Cornerstone</a>
+                                <a href="@Url.Action("Personal", "Goals")" class="pure-button">Personal</a>
+                            </div>
+                        </div>
+                    </div>
 
-</div>
+                </div>
 

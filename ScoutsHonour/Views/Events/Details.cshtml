@@ -1,5 +1,5 @@
-﻿@model ScoutsHonour.Models.Event
-
+﻿@using ScoutsHonour.Enums;
+@model ScoutsHonour.Models.Event
 @{
     ViewBag.Title = "Details";
 }
@@ -12,10 +12,12 @@
         <div class="box-1">
             <div class="box-head clearfix">
                 <h3 class="pull-left">@Html.DisplayFor(model => model.Title)</h3>
+@if (!User.IsInRole(Role.Parent.ToString())) {
                 <div class="pull-right">
                     <a href="@Url.Action("Edit", "Events", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Edit</a>
                     <a href="@Url.Action("Delete", "Events", new { id = Model.Id })" class="bg-error pure-button"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
                 </div>
+}
             </div>
             <dl class="dl-horizontal">
                 <dt>

@@ -58,13 +58,20 @@
                         }
                         else
                         {
-                            <div class="onoffswitch clearfix">
-                                <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "checked" : "")>
-                                <label class="onoffswitch-label" for="goal-@item.Id">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
+                            if (User.IsInRole(Role.Parent.ToString()))
+                            {
+                                <div>@((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "Yes" : "")</div>
+                            }
+                            else
+                            {
+                                <div class="onoffswitch clearfix">
+                                    <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "checked" : "")>
+                                    <label class="onoffswitch-label" for="goal-@item.Id">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            }
                         }
                     </div>
                     <div class="badge-left-part"> <i class="fa-@(item.RequirementLevel.ToString().ToLower()) fa fa-question-circle" title="@item.Description"></i> @item.Title </div>
