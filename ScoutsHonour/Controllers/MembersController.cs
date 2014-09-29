@@ -55,11 +55,11 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes")] Member member)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,PublicNotes,PrivateNotes,GroupId")] Member member)
         {
             if (ModelState.IsValid)
             {
-                member.GroupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
+                //member.GroupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
                 db.Members.Add(member);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -105,7 +105,7 @@ namespace ScoutsHonour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,Notes,GroupId")] Member member)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Phone,Phone2,Email,Type,SixColour,Rank,DOB,DateJoined,Status,PublicNotes,PrivateNotes,GroupId")] Member member)
         {
             if (ModelState.IsValid)
             {

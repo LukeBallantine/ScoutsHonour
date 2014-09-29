@@ -16,7 +16,7 @@
             <fieldset>
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(model => model.Id)
-                @Html.HiddenFor(model => model.GroupId)
+                @*@Html.HiddenFor(model => model.GroupId)*@
 
                 <div class="pure-control-group">
                     @Html.LabelFor(model => model.FirstName)
@@ -96,14 +96,14 @@
                     @Html.ValidationMessageFor(model => model.PrivateNotes)
                 </div>
 
-                @*// TODO - enable this so we can move cubs between groups
-                        <div class="pure-control-group">
-                        @Html.LabelFor(model => model.Group)
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.GroupId, (List<SelectListItem>)ViewBag.UsersGroups)
-                            @Html.ValidationMessageFor(model => model.GroupId)
-                        </div>
-                    </div>*@
+                @*// TODO - enable this so we can move cubs between groups*@
+                <div class="pure-control-group">
+                    @Html.LabelFor(model => model.Group)
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.GroupId, (List<SelectListItem>)ViewBag.UsersGroups)
+                        @Html.ValidationMessageFor(model => model.GroupId)
+                    </div>
+                </div>
 
                 <div class="pure-control-group">
                     <button type="submit" class="pure-button-primary pure-button">Save</button>

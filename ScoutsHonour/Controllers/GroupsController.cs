@@ -17,13 +17,16 @@ namespace ScoutsHonour.Controllers
 {
     public class GroupsController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
-        //private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Groups
         public ActionResult Index()
         {
-            //CurrentUser.Groups.To
-            return View(CurrentUser.Groups.ToList());
+            var groupsList = CurrentUser.Groups.ToList();
+
+            if (groupsList.Count() == 1)
+                return RedirectToAction("Details", new { id = groupsList.FirstOrDefault().Id });
+            else
+                return View(CurrentUser.Groups.ToList());
         }
 
         // GET: Groups/Details/5
