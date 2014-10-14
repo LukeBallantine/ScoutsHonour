@@ -80,9 +80,11 @@
         }
         @Html.Raw("</div>")
     </div>
-    <div>
-        <button type="submit" class="pure-button pure-button-primary">Save</button>
-        <a href="@Url.Action("Cornerstone")" class="pure-button">Cancel</a>
-    </div>
+    if (!User.IsInRole(Role.Parent.ToString())) {
+        <div>
+            <button type="submit" class="pure-button pure-button-primary">Save</button>
+            <a href="@Url.Action("Cornerstone")" class="pure-button">Cancel</a>
+        </div>
+    }
     <br />
 }

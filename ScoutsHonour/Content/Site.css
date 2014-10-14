@@ -51,16 +51,6 @@ body {
 }
 
 /* media queries */
-@media (max-width: 30em) {
-
-    .content {
-        padding: 0.25em;
-    }
-
-    .xsm-hidden {
-        display: none;
-    }
-}
 
 @media (max-width: 48em) {
 
@@ -74,6 +64,37 @@ body {
 
     .sm-hidden {
         display: none;
+    }
+
+    .pure-form-aligned input[type=text],
+    .pure-form-aligned input[type=password],
+    .pure-form-aligned textarea,
+    .pure-form-aligned select
+    {
+        width: 14em;
+    }
+}
+
+@media (max-width: 30em) {
+
+    .content {
+        padding: 0.25em;
+    }
+
+    .xsm-hidden {
+        display: none;
+    }
+
+    .pure-form-aligned input[type=text],
+    .pure-form-aligned input[type=password],
+    .pure-form-aligned textarea,
+    .pure-form-aligned select
+    {
+        width: 100%;
+    }
+
+    .ui-accordion .ui-accordion-content {
+        padding: 0.5em;
     }
 }
 
@@ -239,15 +260,16 @@ body {
     font-weight: bold;
 }
 .badge-part {
-    height: 35px;
+    padding: 0.2em 0;
+    border-bottom: 1px solid #e0e0e0;
 }
 .badge-left-part {
     width: auto;
-    margin-right: 110px;
+    margin-right: 93px;
 }
 .badge-right-part {
     float: right;
-    width: 105px;
+    width: 90px;
 }
 
 

@@ -30,36 +30,6 @@ namespace ScoutsHonour.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<Event>()
-            //    .HasMany(m => m.Members)
-            //    .WithMany();
-            //    //.WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Member>()
-            //    .HasMany(e => e.Events)
-            //    .WithMany();
-            //    //.WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Event>()
-            //    .HasMany(e => e.Goals)
-            //    .WithRequired()
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Goal>()
-            //    .HasMany(g => g.Events)
-            //    .WithRequired()
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Member>()
-            //    .HasRequired(m => m.Group)
-            //    .WithRequiredDependent()
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Group>()
-            //    .HasMany(m => m.Members)
-            //    .WithRequired()
-            //    .WillCascadeOnDelete(false);
-
             // setup relationships for link table with additional data
             modelBuilder.Entity<MemberGoal>()
                 .HasKey(x => new { x.MemberId, x.GoalId });

@@ -4,6 +4,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using ScoutsHonour.Models;
+using SendGrid;
+using System.Net.Mail;
+using System.Collections.Generic;
+using System.Net;
+using System.Configuration;
 
 namespace ScoutsHonour
 {
@@ -61,7 +66,23 @@ namespace ScoutsHonour
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+            var myMessage = new SendGridMessage();
+            myMessage.From = new MailAddress("scoutshonourinfo@gmail.com", "ScoutsHonour");
+            myMessage.AddTo(message.Destination);
+            myMessage.Subject = message.Subject;
+            myMessage.Html = message.Body;
+            myMessage.Text = message.Body;
+
+            // Create credentials, specifying your user name and password.
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["SendGrid_Username"], 
+                                                    ConfigurationManager.AppSettings["SendGrid_Password"]);
+
+            // Create an Web transport for sending email.
+            var transportWeb = new Web(credentials);
+
+            // Send the email.
+            return transportWeb.DeliverAsync(myMessage);
         }
     }
 

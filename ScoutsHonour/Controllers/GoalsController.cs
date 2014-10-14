@@ -162,7 +162,8 @@ namespace ScoutsHonour.Controllers
                 Title = g.Title,
                 Description = g.Description,
                 TopLevel = (g.GoalId == null),
-                RequirementLevel = g.RequirementLevel ?? RequirementLevel.Any
+                RequirementLevel = g.RequirementLevel ?? RequirementLevel.Any,
+                CountType = (g.CountType ?? GoalCountType.Single)
             });
 
             var memberGoal = GetMemberGoalsDetail(goals).Where(mg => mg.MemberId == Id).FirstOrDefault();

@@ -10,6 +10,9 @@ using System.Web.Mvc;
 
 namespace ScoutsHonour.Controllers
 {
+#if (!DEBUG) 
+    [RequireHttps]
+#endif
     public abstract class BaseController<TApplicationUser, TIdentityRole, TIdentityDbContext> : Controller
         where TApplicationUser : ApplicationUser, new()
         where TIdentityRole : IdentityRole, new()

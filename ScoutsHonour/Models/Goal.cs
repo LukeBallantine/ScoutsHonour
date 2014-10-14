@@ -61,6 +61,7 @@ namespace ScoutsHonour.Models
         public string Description { get; set; }
         public bool TopLevel { get; set; }
         public RequirementLevel RequirementLevel { get; set; }
+        public GoalCountType CountType { get; set; }
     }
 
 }

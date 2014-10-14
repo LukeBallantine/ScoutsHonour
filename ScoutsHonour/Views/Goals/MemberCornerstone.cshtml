@@ -20,6 +20,7 @@
     </div>
     <div class="ui-accordion">
         @{int i = 0;}
+        @{bool parentCountMany = false;}
         @{BadgePartViewModel badgePart;}
         @{string[] badgePartTitle = new string[2];}
         @foreach (var item in ViewBag.Goals)
@@ -27,6 +28,7 @@
             i++;
             if (item.TopLevel)
             {
+                parentCountMany = (item.CountType == GoalCountType.Many);
                 if (i != 1)
                 {
                     @Html.Raw("</div>")
@@ -75,13 +77,19 @@
                             }
                             else
                             {
-                                <div class="onoffswitch clearfix">
-                                    <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "checked" : "")>
-                                    <label class="onoffswitch-label" for="goal-@item.Id">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
+                                if (parentCountMany) {
+                                    <span title="Attend events to complete this activity">...</span>
+                                }
+                                else
+                                {
+                                    <div class="onoffswitch clearfix">
+                                        <input type="checkbox" name="goals" class="onoffswitch-checkbox" id="goal-@item.Id" value="@item.Id" @((badgePart != null && badgePart.GoalLinkType == GoalLinkType.Member) ? "checked" : "")>
+                                        <label class="onoffswitch-label" for="goal-@item.Id">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                }
                             }
                         }
                     </div>
@@ -91,9 +99,11 @@
         }
         @Html.Raw("</div>")
     </div>
-    <div>
-        <button type="submit" class="pure-button pure-button-primary">Save</button>
-        <a href="@Url.Action("Cornerstone")" class="pure-button">Cancel</a>
-    </div>
+    if (!User.IsInRole(Role.Parent.ToString())) {
+        <div>
+            <button type="submit" class="pure-button pure-button-primary">Save</button>
+            <a href="@Url.Action("Cornerstone")" class="pure-button">Cancel</a>
+        </div>
+    }
     <br />
 }

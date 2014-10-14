@@ -16,7 +16,6 @@
             <fieldset>
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(model => model.Id)
-                @*@Html.HiddenFor(model => model.GroupId)*@
 
                 <div class="pure-control-group">
                     @Html.LabelFor(model => model.FirstName)
@@ -96,14 +95,17 @@
                     @Html.ValidationMessageFor(model => model.PrivateNotes)
                 </div>
 
-                @*// TODO - enable this so we can move cubs between groups*@
-                <div class="pure-control-group">
-                    @Html.LabelFor(model => model.Group)
-                    <div class="col-md-10">
+                @*// Only give the choice to move between groups if there is more than 1 option *@
+                @if (((List<SelectListItem>)ViewBag.UsersGroups).Count > 1)
+                {
+                    <div class="pure-control-group">
+                        @Html.LabelFor(model => model.Group)
                         @Html.DropDownListFor(model => model.GroupId, (List<SelectListItem>)ViewBag.UsersGroups)
                         @Html.ValidationMessageFor(model => model.GroupId)
                     </div>
-                </div>
+                } else {
+                    @Html.HiddenFor(model => model.GroupId)
+                }
 
                 <div class="pure-control-group">
                     <button type="submit" class="pure-button-primary pure-button">Save</button>
