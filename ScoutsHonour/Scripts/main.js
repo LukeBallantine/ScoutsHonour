@@ -54,4 +54,6 @@
 
     $(document).tooltip();
 
+    //FastClick.attach(document.body);
+
 });

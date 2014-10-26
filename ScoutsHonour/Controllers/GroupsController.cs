@@ -21,12 +21,16 @@ namespace ScoutsHonour.Controllers
         // GET: Groups
         public ActionResult Index()
         {
-            var groupsList = CurrentUser.Groups.ToList();
+            if (CurrentUser != null && CurrentUser.Groups != null)
+            { 
+                var groupsList = CurrentUser.Groups.ToList();
 
-            if (groupsList.Count() == 1)
-                return RedirectToAction("Details", new { id = groupsList.FirstOrDefault().Id });
-            else
-                return View(CurrentUser.Groups.ToList());
+                if (groupsList.Count() == 1)
+                    return RedirectToAction("Details", new { id = groupsList.FirstOrDefault().Id });
+            
+                    return View(CurrentUser.Groups.ToList());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Groups/Details/5
@@ -156,11 +160,11 @@ namespace ScoutsHonour.Controllers
                         var result = new RegisterSuccessViewModel
                         {
                             GroupTitle = group.Title,
-                            Role = role
+                            Role = role,
+                            GroupId = group.Id
                         };
 
                         return View(result);
-
                     }
                 }
             }

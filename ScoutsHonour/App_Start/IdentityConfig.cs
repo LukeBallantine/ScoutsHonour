@@ -68,14 +68,14 @@ namespace ScoutsHonour
             // Plug in your email service here to send an email.
 
             var myMessage = new SendGridMessage();
-            myMessage.From = new MailAddress("scoutshonourinfo@gmail.com", "ScoutsHonour");
+            myMessage.From = new MailAddress(ConfigurationManager.AppSettings["ScoutsHonour.AdminEmail"], "ScoutsHonour");
             myMessage.AddTo(message.Destination);
             myMessage.Subject = message.Subject;
             myMessage.Html = message.Body;
             myMessage.Text = message.Body;
 
             // Create credentials, specifying your user name and password.
-            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["SendGrid_Username"], 
+            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["SendGrid_Username"],
                                                     ConfigurationManager.AppSettings["SendGrid_Password"]);
 
             // Create an Web transport for sending email.

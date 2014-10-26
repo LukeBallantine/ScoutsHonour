@@ -259,7 +259,8 @@ namespace ScoutsHonour.Controllers
             }
 
             var groupMembers = db.Groups.Find(SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)
-                    .Members.OrderBy(m => m.SixColour);
+                    .Members.Where(m => m.Status == MemberStatus.Joined || m.Status == MemberStatus.Invested)
+                    .OrderBy(m => m.SixColour).ThenBy(m => m.FirstName);
             var possibleAttendees = (from m in groupMembers
                                      select new SelectListItem
                                      {

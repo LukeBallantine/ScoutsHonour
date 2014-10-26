@@ -6,7 +6,7 @@
 
 <h2>Groups</h2>
 <p>
-    @if (!User.IsInRole(Role.Parent.ToString())) {
+    @if (User.IsInRole(Role.Admin.ToString())) {
         <a class="button-small pure-button-primary pure-button" href="@Url.Action("Create")"><i class="fa fa-plus"></i> New Group</a>
     }
 </p>

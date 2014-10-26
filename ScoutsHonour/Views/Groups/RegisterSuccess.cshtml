@@ -10,21 +10,20 @@
         Thank you for registering with Scouts Honour.
     </p>
     <p>
-
-        You have been registered as a @Model.Role.ToString() in the @Model.GroupTitle cub pack!<br />
+        You have been registered as a <strong>@Model.Role.ToString()</strong> in the @Model.GroupTitle cub pack!<br />
 
         You have access to the following features:
         <ul>
 
             @if (Model.Role == Role.Parent)
             {
-                <li>Track the badge progress of cubs</li>
-                <li>Coming soon: Submit requests to have badges, or parts of the Bronze, Silver &amp; Golder cornerstone badges, signed off by a leader</li>
+                <li>View the badge progress of cubs</li>
+                <li>View upcoming events</li>
             }
             else if (Model.Role == Role.Leader)
             {
                 <li>Administer cub list</li>
-                <li>Track attendance</li>
+                <li>Add Events and track attendance</li>
                 <li>Mark off badges for cubs</li>
             }
             else if (Model.Role == Role.Admin)
@@ -32,5 +31,9 @@
                 <li>Everything. Hi Admin!</li>
             }
         </ul>
+
+        <br/>
+        Click here to goto the <a href="@Url.Action("Details", "Groups", new { Id = @Model.GroupId })">@Model.GroupTitle cub pack</a>
+
     </p>
 </div>

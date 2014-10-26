@@ -15,6 +15,7 @@ namespace ScoutsHonour
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/pure/ui.js",
                         "~/Scripts/respond.js",
+                        //"~/Scripts/fastclick.js",
                         "~/Scripts/main.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/pure").Include(

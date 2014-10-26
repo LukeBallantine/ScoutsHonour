@@ -115,6 +115,8 @@ namespace ScoutsHonour.Controllers
                 IdentityResult result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Add role before we login
+                    AssignUserRoles(user, codeType);
 
                     await SignInAsync(user, isPersistent: true);
 
@@ -124,7 +126,6 @@ namespace ScoutsHonour.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    AssignUserRoles(user, codeType);
                     return RedirectToAction("RegisterSuccess", "Groups", new { role = codeType });
                 }
                 else

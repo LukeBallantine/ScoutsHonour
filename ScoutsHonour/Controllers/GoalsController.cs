@@ -396,7 +396,9 @@ namespace ScoutsHonour.Controllers
             IEnumerable<MemberGoalViewModel> allMemberGoals = db.Database.SqlQuery<MemberGoalViewModel>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
 
             int groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
-            var members = db.Members.Where(m => m.GroupId == groupId).ToList();
+            var members = db.Members.Where(m => m.GroupId == groupId && 
+                                                (m.Status == MemberStatus.Joined || m.Status == MemberStatus.Invested)
+                                                ).ToList();
 
             IEnumerable<int> subGoals;
             MemberGoalViewModel memberGoalTemp;

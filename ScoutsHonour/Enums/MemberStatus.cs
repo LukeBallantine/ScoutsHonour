@@ -9,7 +9,7 @@ namespace ScoutsHonour.Enums
     {
         Waitlisted = 1,
         Joined = 2,
-        Inducted = 3,
+        Invested = 3,
         UnderReview = 4,
         Left = 5,
         Deleted = 6

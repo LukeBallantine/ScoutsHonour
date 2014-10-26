@@ -21,12 +21,37 @@ namespace ScoutsHonour.Controllers
         private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
 
         // GET: Members
-        public ActionResult Index()
+        public ActionResult Index(string view = null)
         {
             var groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId);
             //TODO: Security check for GroupId
 
-            return View(db.Members.Where(x => x.GroupId == groupId.Value).OrderBy(x => x.SixColour).ToList());
+            // setup MemberView enum for dropdown filter
+            MemberView defaultView = MemberView.Current;
+            if (!Enum.TryParse<MemberView>(view, out defaultView))
+                defaultView = MemberView.Current;   // Bug: out param from Enum.TryParse is zero?! 
+            var memberViews = from MemberView m in Enum.GetValues(typeof(MemberView))
+                                select new { ID = m, Name = m.ToString() };
+            ViewBag.MemberViews = new SelectList(memberViews, "ID", "Name", defaultView);
+
+            IQueryable<Member> members = null;
+            switch (defaultView) 
+            {
+                case MemberView.Current:
+                    members = db.Members.Where(x => x.GroupId == groupId.Value 
+                                                    && (x.Status == MemberStatus.Joined || x.Status == MemberStatus.Invested));
+                    break;
+                case MemberView.Waitlist:
+                    members = db.Members.Where(x => x.GroupId == groupId.Value 
+                                                    && (x.Status == MemberStatus.Waitlisted));
+                    break;
+                case MemberView.Left:
+                    members = db.Members.Where(x => x.GroupId == groupId.Value 
+                                                    && (x.Status == MemberStatus.Left));
+                    break;
+            }
+
+            return View(members.OrderBy(x => x.SixColour).ThenByDescending(x => x.Rank).ThenBy(x => x.FirstName).ToList());
         }
 
         // GET: Members/Details/5
@@ -131,6 +156,19 @@ namespace ScoutsHonour.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            // perform a soft delete
+            Member member = await db.Members.FindAsync(id);
+            member.Status = MemberStatus.Left;
+            db.Entry(member).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Members/Delete/5
+        [HttpPost, ActionName("Destroy")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DestroyConfirmed(int id)
         {
             Member member = await db.Members.FindAsync(id);
             db.Members.Remove(member);

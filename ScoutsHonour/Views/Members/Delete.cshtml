@@ -1,12 +1,12 @@
-﻿@model ScoutsHonour.Models.Member
-
+﻿@using ScoutsHonour.Enums;
+@model ScoutsHonour.Models.Member
 @{
     ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this member?</h3>
+<h3>Are you sure you want to delete this member? It might be safer to set their Status to "Left" until you are sure.</h3>
 <div>
     <h4>Member</h4>
     <hr />
@@ -87,10 +87,25 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Set Status to Left" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
+    @using (Html.BeginForm("Destroy", "Members", new { Id = Model.Id }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            OR <input type="submit" value="Permanently Delete" class="btn btn-default" />
+        </div>
+    }
 </div>
+@*<script>
+        // verify this here: http://stackoverflow.com/questions/21116999/posting-form-to-different-mvc-post-action-depending-on-the-clicked-submit-button
+        /* non-HTML5 browser support */
+        $(document).on('click', '[type="submit"][data-form-action]', function (event) {
+            var $this = $(this);
+            var formAction = $this.attr('data-form-action');
+            $this.closest('form').attr('action', formAction);
+        });
+    </script>*@

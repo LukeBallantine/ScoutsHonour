@@ -81,6 +81,7 @@ namespace ScoutsHonour.Models
     {
         public string GroupTitle { get; set; }
         public Role Role { get; set; }
+        public int GroupId { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -110,5 +111,20 @@ namespace ScoutsHonour.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class ContactEmailViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Your Email")]
+        [StringLength(100)]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Message")]
+        [DataType(DataType.MultilineText)]
+        [StringLength(500)]
+        public string Message { get; set; }
     }
 }

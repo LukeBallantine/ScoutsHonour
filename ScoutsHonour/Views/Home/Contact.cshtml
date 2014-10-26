@@ -1,7 +1,43 @@
-﻿@{
+﻿@using ScoutsHonour.Extensions;
+@model ScoutsHonour.Models.ContactEmailViewModel
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title</h2>
 
-<p>For access to this service please contact Luke: lukesinbox(at)gmaildotcom</p>
+<p>Please use the following form to send feedback or request for access.</p>
 
+@using (Html.BeginForm("MessageSent", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "pure-form pure-form-aligned", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.Message)
+            @Html.EditorFor(model => model.Message)
+            @Html.ValidationMessageFor(model => model.Message)
+        </div>
+
+        @*<div class="pure-control-group">
+            @Html.Label("Email", "Your Email")
+            @Html.TextBox("Email")
+        </div>
+
+        <div class="pure-control-group">
+            @Html.Label("Message", "Message")
+            @Html.TextArea("Message")
+        </div>*@
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button-primary pure-button">Send</button>
+        </div>
+    </fieldset>
+
+}
