@@ -10,32 +10,32 @@ namespace ScoutsHonour.Helpers
     {
         public static int? GetGroupId()
         {
-            return GetSessionIntValue(SessionIntKeys.GroupId);
+            return GetSessionIntValue(DataKeys.GroupId);
         }
 
         public static void SetGroupId(int? id)
         {
-            SetSessionIntValue(SessionIntKeys.GroupId, id);
+            SetSessionIntValue(DataKeys.GroupId, id);
         }
         
         public static int? GetOrganisationId()
         {
-            return GetSessionIntValue(SessionIntKeys.OrganisationId);
+            return GetSessionIntValue(DataKeys.OrganisationId);
         }
 
         public static void SetOrganisationId(int? id)
         {
-            SetSessionIntValue(SessionIntKeys.OrganisationId, id);
+            SetSessionIntValue(DataKeys.OrganisationId, id);
         }
 
 
-        public static int? GetSessionIntValue(SessionIntKeys key)
+        public static int? GetSessionIntValue(DataKeys key)
         {
             int? intVal = System.Web.HttpContext.Current.Session[key.ToString()] as int?;
             return intVal;
         }
 
-        public static void SetSessionIntValue(SessionIntKeys key, int? value)
+        public static void SetSessionIntValue(DataKeys key, int? value)
         {
             System.Web.HttpContext.Current.Session.Add(key.ToString(), value);
         }

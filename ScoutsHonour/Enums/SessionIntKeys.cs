@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ScoutsHonour.Enums
 {
-    public enum SessionIntKeys
+    public enum DataKeys
     {
         GroupId,
         OrganisationId,

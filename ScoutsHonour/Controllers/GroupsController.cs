@@ -46,8 +46,8 @@ namespace ScoutsHonour.Controllers
                 return HttpNotFound();
             }
 
-            SessionHelper.SetSessionIntValue(SessionIntKeys.GroupId, group.Id);
-            SessionHelper.SetSessionIntValue(SessionIntKeys.OrganisationId, group.OrganisationId);
+            CookieHelper.SetGroupId(group.Id);
+            CookieHelper.SetOrganisationId(group.OrganisationId);
 
             var pastDate = DateTime.Now.AddDays(-7);
             var events = Context.Events.Where(e => e.GroupId == group.Id && e.EventDate >= pastDate)

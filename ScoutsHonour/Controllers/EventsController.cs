@@ -16,7 +16,7 @@ using System.Diagnostics;
 
 namespace ScoutsHonour.Controllers
 {
-    [RequiresGroupIdInSession]
+    [RequiresGroupIdCookie]
     public class EventsController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
         private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
@@ -24,7 +24,7 @@ namespace ScoutsHonour.Controllers
         // GET: /Events/
         public async Task<ActionResult> Index()
         {
-            int groupId = SessionHelper.GetGroupId().Value;
+            int groupId = CookieHelper.GetGroupId().Value;
             return View(await db.Events.Where(e => e.GroupId == groupId).OrderByDescending(e => e.EventDate).ToListAsync());
         }
 
@@ -61,7 +61,7 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {                
-                @event.GroupId = SessionHelper.GetGroupId().Value;
+                @event.GroupId = CookieHelper.GetGroupId().Value;
                 db.Events.Add(@event);
              
                 // add attendees
@@ -212,10 +212,10 @@ namespace ScoutsHonour.Controllers
             return RedirectToAction("Index");
         }
 
-        [RequiresOrganisationIdInSession]
+        [RequiresOrganisationIdCookie]
         public ActionResult Autocomplete(string term)
         {
-            int organisationId = SessionHelper.GetOrganisationId().Value;
+            int organisationId = CookieHelper.GetOrganisationId().Value;
             var model = from g in db.Goals
                       join gp in db.Goals on g.GoalId equals gp.Id
                       where (
@@ -258,7 +258,7 @@ namespace ScoutsHonour.Controllers
                     currentAttendeeIds[i] = currentAttendees[i].Id;
             }
 
-            var groupMembers = db.Groups.Find(SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)
+            var groupMembers = db.Groups.Find(CookieHelper.GetGroupId().Value)
                     .Members.Where(m => m.Status == MemberStatus.Joined || m.Status == MemberStatus.Invested)
                     .OrderBy(m => m.SixColour).ThenBy(m => m.FirstName);
             var possibleAttendees = (from m in groupMembers

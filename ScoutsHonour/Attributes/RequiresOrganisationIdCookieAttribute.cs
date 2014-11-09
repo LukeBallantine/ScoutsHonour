@@ -9,13 +9,13 @@ using ScoutsHonour.Enums;
 
 namespace ScoutsHonour.Attributes
 {
-    public class RequiresOrganisationIdInSessionAttribute : ActionFilterAttribute
+    public class RequiresOrganisationIdCookieAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
 
-            if (!SessionHelper.GetSessionIntValue(SessionIntKeys.OrganisationId).HasValue)
+            if (!CookieHelper.GetOrganisationId().HasValue)
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {

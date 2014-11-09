@@ -15,7 +15,7 @@ using ScoutsHonour.Attributes;
 
 namespace ScoutsHonour.Controllers
 {
-    [RequiresOrganisationIdInSession]
+    [RequiresOrganisationIdCookie]
     public class GoalsController : Controller
     {
         private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
@@ -126,10 +126,10 @@ namespace ScoutsHonour.Controllers
             return RedirectToAction("Index");
         }
 
-        [RequiresGroupIdInSession]
+        [RequiresGroupIdCookie]
         public ActionResult Cornerstone()
         {
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var goals = db.Goals.Where(g => g.GoalType == GoalType.CubCornerstone
                 && g.OrganisationId == orgId).ToList();
 
@@ -137,11 +137,11 @@ namespace ScoutsHonour.Controllers
             return View(memberGoals);
         }
 
-        [RequiresOrganisationIdInSession]
-        [RequiresGroupIdInSession]
+        [RequiresOrganisationIdCookie]
+        [RequiresGroupIdCookie]
         public ActionResult Personal()
         {
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var goals = db.Goals.Where(g => g.GoalType == GoalType.CubPersonal
                 && g.OrganisationId == orgId).ToList();
 
@@ -149,11 +149,11 @@ namespace ScoutsHonour.Controllers
             return View(memberGoals);
         }
 
-        [RequiresOrganisationIdInSession]
-        [RequiresGroupIdInSession]
+        [RequiresOrganisationIdCookie]
+        [RequiresGroupIdCookie]
         public ActionResult MemberCornerstone([Bind(Include = "Id")] int Id)
         {
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var goals = db.Goals.Where(g => g.GoalType == GoalType.CubCornerstone 
                 && g.OrganisationId == orgId).ToList();
             ViewBag.Goals = goals.Select(g => new GoalViewModel
@@ -171,8 +171,8 @@ namespace ScoutsHonour.Controllers
         }
 
         [HttpPost]
-        [RequiresOrganisationIdInSession]
-        [RequiresGroupIdInSession]
+        [RequiresOrganisationIdCookie]
+        [RequiresGroupIdCookie]
         public ActionResult MemberCornerstone([Bind(Include = "Id")] int Id, FormCollection form)
         {
             // work out which goals were added, and which were removed
@@ -184,7 +184,7 @@ namespace ScoutsHonour.Controllers
             var member = db.Members.Where(m => m.Id == Id).Include(m => m.MemberGoals).FirstOrDefault();
 
             // limit oldGoals to cornerstone (so we don't delete all personal badge accomplishments)
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var cornerstoneGoals = db.Goals.Where(g => g.OrganisationId == orgId && g.GoalType == GoalType.CubCornerstone).Select(g => g.Id).ToList();            
             var oldGoals = member.MemberGoals.Where(mg => mg.GoalLinkType == GoalLinkType.Member && cornerstoneGoals.Contains(mg.GoalId)).Select(mg => mg.GoalId).ToList();
             var newGoals = db.Goals.Where(g => goals.Contains(g.Id.ToString()))
@@ -213,11 +213,11 @@ namespace ScoutsHonour.Controllers
             return RedirectToAction("Cornerstone");
         }
 
-        [RequiresOrganisationIdInSession]
-        [RequiresGroupIdInSession]
+        [RequiresOrganisationIdCookie]
+        [RequiresGroupIdCookie]
         public ActionResult MemberPersonal([Bind(Include = "Id")] int Id)
         {
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var goals = db.Goals.Where(g => g.GoalType == GoalType.CubPersonal
                 && g.OrganisationId == orgId).ToList();
             ViewBag.Goals = goals.Select(g => new GoalViewModel
@@ -234,8 +234,8 @@ namespace ScoutsHonour.Controllers
         }
 
         [HttpPost]
-        [RequiresOrganisationIdInSession]
-        [RequiresGroupIdInSession]
+        [RequiresOrganisationIdCookie]
+        [RequiresGroupIdCookie]
         public ActionResult MemberPersonal([Bind(Include = "Id")] int Id, FormCollection form)
         {
             // work out which goals were added, and which were removed
@@ -247,7 +247,7 @@ namespace ScoutsHonour.Controllers
             var member = db.Members.Where(m => m.Id == Id).Include(m => m.MemberGoals).FirstOrDefault();
 
             // limit oldGoals to personal (so we don't delete all cornerstone badge accomplishments)
-            var orgId = SessionHelper.GetOrganisationId().Value;
+            var orgId = CookieHelper.GetOrganisationId().Value;
             var personalGoals = db.Goals.Where(g => g.OrganisationId == orgId && g.GoalType == GoalType.CubPersonal).Select(g => g.Id).ToList();            
             var oldGoals = member.MemberGoals.Where(mg => mg.GoalLinkType == GoalLinkType.Member && personalGoals.Contains(mg.GoalId)).Select(mg => mg.GoalId).ToList();
             var newGoals = db.Goals.Where(g => goals.Contains(g.Id.ToString()))
@@ -291,9 +291,9 @@ namespace ScoutsHonour.Controllers
         //                        "INNER JOIN GoalEvents GE ON E.Id = GE.Event_Id " +
         //                    "WHERE M.GroupId = @GroupId " +
         //                    "ORDER BY M.Id";
-        //    IEnumerable<MemberGoal> allMemberGoals = db.Database.SqlQuery<MemberGoal>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
+        //    IEnumerable<MemberGoal> allMemberGoals = db.Database.SqlQuery<MemberGoal>(query, new SqlParameter("GroupId", CookieHelper.GetGroupId().Value)).ToList();
 
-        //    int groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
+        //    int groupId = CookieHelper.GetGroupId().Value;
         //    var members = db.Members.Where(m => m.GroupId == groupId).ToList();
 
         //    IEnumerable<int> subGoals;
@@ -393,9 +393,9 @@ namespace ScoutsHonour.Controllers
                             GROUP BY MemberId, GoalId 
                             ORDER BY MemberId, GoalId";
 
-            IEnumerable<MemberGoalViewModel> allMemberGoals = db.Database.SqlQuery<MemberGoalViewModel>(query, new SqlParameter("GroupId", SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value)).ToList();
+            IEnumerable<MemberGoalViewModel> allMemberGoals = db.Database.SqlQuery<MemberGoalViewModel>(query, new SqlParameter("GroupId", CookieHelper.GetGroupId().Value)).ToList();
 
-            int groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
+            int groupId = CookieHelper.GetGroupId().Value;
             var members = db.Members.Where(m => m.GroupId == groupId && 
                                                 (m.Status == MemberStatus.Joined || m.Status == MemberStatus.Invested)
                                                 ).ToList();

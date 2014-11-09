@@ -15,7 +15,7 @@ using ScoutsHonour.Helpers;
 
 namespace ScoutsHonour.Controllers
 {
-    [RequiresGroupIdInSession]
+    [RequiresGroupIdCookie]
     public class MembersController : BaseController<ApplicationUser, IdentityRole, ScoutsHonourDbContext>
     {
         private ScoutsHonourDbContext db = new ScoutsHonourDbContext();
@@ -23,7 +23,7 @@ namespace ScoutsHonour.Controllers
         // GET: Members
         public ActionResult Index(string view = null)
         {
-            var groupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId);
+            var groupId = CookieHelper.GetGroupId();
             //TODO: Security check for GroupId
 
             // setup MemberView enum for dropdown filter
@@ -84,7 +84,7 @@ namespace ScoutsHonour.Controllers
         {
             if (ModelState.IsValid)
             {
-                member.GroupId = SessionHelper.GetSessionIntValue(SessionIntKeys.GroupId).Value;
+                member.GroupId = CookieHelper.GetGroupId().Value;
                 db.Members.Add(member);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

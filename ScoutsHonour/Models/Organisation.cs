@@ -17,6 +17,8 @@ namespace ScoutsHonour.Models
         [StringLength(500)]
         public string Description { get; set; }
 
+        // TODO: Add settings for Org specific variables (eg. Member.Type = Cub, Group.Name = Pack)
+
         public virtual ICollection<Group> Groups { get; set; }
     }
 }

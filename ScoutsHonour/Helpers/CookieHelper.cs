@@ -8,47 +8,67 @@ namespace ScoutsHonour.Helpers
 {
     public static class CookieHelper
     {
-        //public static int? GetGroupId()
-        //{
-        //    return GetSessionIntValue(SessionIntKeys.GroupId);
-        //}
+        // strongly typed helper methods
 
-        //public static void SetGroupId(int? id)
-        //{
-        //    SetSessionIntValue(SessionIntKeys.GroupId, id);
-        //}
-        
-        //public static int? GetOrganisationId()
-        //{
-        //    return GetSessionIntValue(SessionIntKeys.OrganisationId);
-        //}
+        public static int? GetGroupId()
+        {
+            return GetCookieIntValue(DataKeys.GroupId);
+        }
 
-        //public static void SetOrganisationId(int? id)
-        //{
-        //    SetSessionIntValue(SessionIntKeys.OrganisationId, id);
-        //}
+        public static void SetGroupId(int? id)
+        {
+            SetCookieIntValue(DataKeys.GroupId, id);
+        }
 
+        public static int? GetOrganisationId()
+        {
+            return GetCookieIntValue(DataKeys.OrganisationId);
+        }
 
-        //public static int? GetCookieIntValue(SessionIntKeys key)
-        //{
-        //    var cookie = HttpContext.Current.Request.Cookies[key.ToString()];
-        //    cookie.
-        //    int? intVal = HttpContext.Current.Request.Cookies[key.ToString()] as int?;
-        //    return intVal;
-        //}
+        public static void SetOrganisationId(int? id)
+        {
+            SetCookieIntValue(DataKeys.OrganisationId, id);
+        }
 
-        //public static void SetCookieIntValue(SessionIntKeys key, int? value)
-        //{
-        //    //HttpContext.Current.Request.Cookies
-        //    if (HttpContext.Request.Cookies.AllKeys.Contains(key.ToString()))
-        //    {
-        //        HttpCookie cookie = HttpContext.Request.Cookies["Cookie"];
-        //        cookie.Expires = DateTime.Now.AddDays(-1);
-        //    }
-        //    var cookie = new HttpCookie(key.ToString());
-        //    cookie.Value = value.ToString();
-        //    HttpContext.Current.Response.Cookies.Add(cookie);
-        //}
+        #region General Cookie Methods
 
+        public static int? GetCookieIntValue(DataKeys key)
+        {
+            int intValue = 0;
+            if (Int32.TryParse(GetCookieStringValue(key), out intValue))
+                return intValue;
+            return null;
+        }
+
+        public static string GetCookieStringValue(DataKeys key)
+        {
+            string value = string.Empty;
+            var cookie = HttpContext.Current.Request.Cookies[key.ToString()];
+            if (cookie != null)
+                value = cookie.Value;
+            return value;
+        }
+
+        public static void SetCookieIntValue(DataKeys key, int? value)
+        {
+            var myCookie = new HttpCookie(key.ToString())
+            {
+                Expires = DateTime.Now.AddDays(365),
+                Value = value.ToString()
+            };
+            HttpContext.Current.Response.SetCookie(myCookie);
+        }
+
+        public static void SetCookieStringValue(DataKeys key, string value)
+        {
+            var myCookie = new HttpCookie(key.ToString())
+            {
+                Expires = DateTime.Now.AddDays(365),
+                Value = value
+            };
+            HttpContext.Current.Response.SetCookie(myCookie);
+        }
+
+        #endregion
     }
 }
