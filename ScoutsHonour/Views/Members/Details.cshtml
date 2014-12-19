@@ -4,123 +4,74 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SixColour)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SixColour)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rank)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rank)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateJoined)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateJoined)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublicNotes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublicNotes)
-        </dd>
-        @if (!User.IsInRole(Role.Parent.ToString())) {
-        <dt>
-            @Html.DisplayNameFor(model => model.PrivateNotes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PrivateNotes)
-        </dd>
+<div class="box-head clearfix">
+    <h2 class="pull-left">
+        Member: @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
+    </h2>
+    <div class="pull-right">
+        @if (!User.IsInRole(Role.Parent.ToString()))
+        {
+            <a href="@Url.Action("Edit", "Member", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+            <a href="@Url.Action("Delete", "Member", new { id = Model.Id })" class="bg-error pure-button"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+            <a href="@Url.Action("Index")">Back to List</a>
+            <br/><br/>
+            <a href="@Url.Action("MemberCornerstone", "Goals", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Cornerstone Badges</a>                        
+            <a href="@Url.Action("MemberPersonal", "Goals", new { id = Model.Id })" class="pure-button"><i class="fa fa-edit"></i>&nbsp; Personal Badges</a>                        
         }
-
-    </dl>
+    </div>
+    <br />
 </div>
-@if (!User.IsInRole(Role.Parent.ToString())) {
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) | 
-    @Html.ActionLink("Back to List", "Index")
-</p>
-}
+
+<table class="pure-table pure-table-striped">
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Phone)</td>
+            <td>@Html.DisplayFor(model => model.Phone)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Phone2)</td>
+            <td>@Html.DisplayFor(model => model.Phone2)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Email)</td>
+            <td>@Html.DisplayFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Type)</td>
+            <td>@Html.DisplayFor(model => model.Type)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SixColour)</td>
+            <td>@Html.DisplayFor(model => model.SixColour)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Rank)</td>
+            <td>@Html.DisplayFor(model => model.Rank)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DOB)</td>
+            <td>@Html.DisplayFor(model => model.DOB)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DateJoined)</td>
+            <td>@Html.DisplayFor(model => model.DateJoined)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Status)</td>
+            <td>@Html.DisplayFor(model => model.Status)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.PublicNotes)</td>
+            <td>@Html.DisplayFor(model => model.PublicNotes)</td>
+        </tr>
+
+        @if (!User.IsInRole(Role.Parent.ToString()))
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.PrivateNotes)</td>
+                <td>@Html.DisplayFor(model => model.PrivateNotes)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+            

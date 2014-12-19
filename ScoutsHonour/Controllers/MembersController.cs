@@ -24,7 +24,6 @@ namespace ScoutsHonour.Controllers
         public ActionResult Index(string view = null)
         {
             var groupId = CookieHelper.GetGroupId();
-            //TODO: Security check for GroupId
 
             // setup MemberView enum for dropdown filter
             MemberView defaultView = MemberView.Current;
@@ -47,7 +46,7 @@ namespace ScoutsHonour.Controllers
                     break;
                 case MemberView.Left:
                     members = db.Members.Where(x => x.GroupId == groupId.Value 
-                                                    && (x.Status == MemberStatus.Left));
+                                                    && (x.Status == MemberStatus.Left || x.Status == MemberStatus.UnderReview));
                     break;
             }
 
@@ -72,7 +71,12 @@ namespace ScoutsHonour.Controllers
         // GET: Members/Create
         public ActionResult Create()
         {
-            return View();
+
+            var model = new Member() { 
+                Status = MemberStatus.Joined,
+                DateJoined = DateTime.Now
+            };
+            return View(model);
         }
 
         // POST: Members/Create

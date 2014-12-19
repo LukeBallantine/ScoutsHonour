@@ -22,6 +22,8 @@ namespace ScoutsHonour.Attributes
                     controller = "Groups"
                 }));
             }
+
+            //TODO: Security check for GroupId
         }
     }
 }
