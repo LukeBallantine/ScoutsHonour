@@ -1,4 +1,5 @@
 ﻿@using ScoutsHonour.Enums;
+@using ScoutsHonour.Helpers;
 @model IEnumerable<ScoutsHonour.Models.Member>
 @{
     ViewBag.Title = "Index";
@@ -19,7 +20,6 @@
 
 <table class="pure-table pure-table-striped">
     <thead>
-
         <tr>
             <th></th>
             <th>
@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.SixColour)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rank)
+                @Html.DisplayNameFor(model => model.DOB)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -45,12 +45,16 @@
                 <th style="background-color: @item.SixColour;">&nbsp;</th>
                 <td>
                     <a href="@Url.Action("Details", "Members", new { id = item.Id })">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
+                    @Html.Raw(MemberHelper.GetRankIcon(item.Rank))
                 </td>
                 <td class="xsm-hidden">
                     @Html.DisplayFor(modelItem => item.SixColour)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rank)
+                    @Html.DisplayFor(modelItem => item.DOB) 
+                    @if (item.DOB.HasValue) {
+                        <text> (@Math.Round((decimal)((TimeSpan)(DateTime.Now - item.DOB.Value)).Days / 365, 1) yrs)</text>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)

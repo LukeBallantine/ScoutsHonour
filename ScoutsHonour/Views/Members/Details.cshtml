@@ -1,4 +1,5 @@
 ﻿@using ScoutsHonour.Enums;
+@using ScoutsHonour.Helpers;
 @model ScoutsHonour.Models.Member
 @{
     ViewBag.Title = "Details";
@@ -46,7 +47,10 @@
         </tr>
         <tr>
             <td>@Html.DisplayNameFor(model => model.Rank)</td>
-            <td>@Html.DisplayFor(model => model.Rank)</td>
+            <td>
+                @Html.DisplayFor(model => model.Rank)
+                @Html.Raw(MemberHelper.GetRankIcon(Model.Rank))
+            </td>
         </tr>
         <tr>
             <td>@Html.DisplayNameFor(model => model.DOB)</td>
