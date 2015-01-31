@@ -3,6 +3,12 @@ html, button, input, select, textarea, .pure-g [class *= "pure-u"] {
     font-family: 'Segoe UI', sans-serif;
 }
 
+html {
+    font-size: 80%; /* 1 */
+    -ms-text-size-adjust: 80%; /* 2 */
+    -webkit-text-size-adjust: 80%; /* 2 */
+}
+
 h1, h2, h3, h4 { 
     font-family: 'Segoe UI Light', sans-serif;
 }
